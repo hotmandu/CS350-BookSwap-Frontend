@@ -15,4 +15,8 @@ export const Theme = {
   },
 };
 
+export const FontTheme = {
+  
+}
+
 export default Theme;

@@ -1,0 +1,71 @@
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
+import { Button, Text, StyleSheet } from 'react-native';
+
+import Landing from "../screens/Landing";
+import LogIn from "../screens/LogIn";
+import SignUp from "../screens/SignUp";
+// I dont know how to connect it with the pages after user logged in so I just put this file
+import LoggedIn from "../screens/LoggedIn";
+
+// Import all colors defined in defaultColors.js
+import Theme from "../utils/Theme";
+const { colors } = Theme;
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: colors.PrimaryBlue,
+  },
+  button: {
+    marginLeft: 10,
+    padding: 10,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
+  pageHeader: {
+    fontSize: 32,
+    fontWeight: "700",
+    left: -5,
+    marginVertical: 15,
+    color: colors.White,
+  },
+  text: {
+    fontFamily: "Geist",
+  },
+});
+
+const screens = {
+  Welcome: {
+    screen: Landing,
+    navigationOptions: {
+      headerShown: false,
+      gestureEnabled: false,
+    }
+  },
+  LogIn: {
+    screen: LogIn,
+    navigationOptions: {
+      headerShown: false,
+      gestureEnabled: false,
+    }
+  },
+  SignUp: {
+    screen: SignUp,
+    navigationOptions: {
+      headerShown: false,
+      gestureEnabled: false,
+    }
+  },
+  LoggedIn: {
+    screen: LoggedIn,
+    navigationOptions: {
+      headerShown: false,
+      gestureEnabled: false,
+    }
+  }
+}
+
+
+const UserLoginStack = createStackNavigator(screens);
+
+export default createAppContainer(UserLoginStack);
