@@ -15,8 +15,8 @@ export const Theme = {
   },
 };
 
-export const FontTheme = {
-  
+export const Typeface = {
+  font: "Geist"
 }
 
 export default Theme;
