@@ -33,16 +33,16 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 20,
     elevation: 3,
     borderWidth: 1.5,
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "700",
     letterSpacing: 0.25,
   },
   container: {

@@ -1,16 +1,17 @@
 import {useState} from 'react';
-import { Text, SafeAreaView, StyleSheet, View, TextInput, Linking, TouchableOpacity, Image } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal } from 'react-native';
 
 import {Theme, Typeface} from "../utils/Theme";
 import GenreItem from '../components/GenreItem';
 import MyButton from '../components/MyButton';
+import ConfirmBox from './ConfirmBox';
 
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function BookDetails() {
     const DATA = {
-        cover: "../assets/no-book.png",
+        cover: "none",
         title: "Book Title",
         author: "Author",
         owner: "Owner",
@@ -23,16 +24,42 @@ export default function BookDetails() {
             "genre3",
             "genre4",
         ],
-        review: "this will be the owner review"
+        review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis aliquet maximus. Mauris rutrum, eros id consequat consequat, eros orci luctus turpis, vel porta nunc turpis sed velit. Quisque nibh tortor, placerat a dapibus porttitor, mattis in risus. Pellentesque tristique lacus vel libero pellentesque, dignissim ultrices sem dapibus. Fusce rhoncus ornare felis non vehicula. Sed posuere, lectus tristique sagittis tincidunt, risus tortor semper libero, ut mollis turpis odio eu est.",
     }
 
+    const getImageSource = (cover) => {
+      if (cover && cover !== "none") {
+        return { uri: cover };
+      } else {
+        return require('../assets/no-book.png');
+      }
+    };
+    
+
+    const TableData = ({ title, content }) => {
+      return (
+        <View style={styles.detailsItem}>
+          <Text style={[styles.text, styles.itemTitle]}>{title}</Text>
+          <Text style={[styles.text, styles.itemContent]}>{content}</Text>
+        </View>
+      );
+    };
+
+    // For Modal
+    const [modalVisible, setModalVisible] = useState(false);
+    const [overlayOpacity] = useState(new Animated.Value(0));
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+        console.log(modalVisible);
+    };
+    
 
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.topContainer}>
                 {/* Book Cover */}
                 <Image 
-                    source={require('../assets/no-book.png')}
+                    source={getImageSource(DATA.cover)}
                     style={styles.image}
                 />
 
@@ -49,22 +76,10 @@ export default function BookDetails() {
 
                 {/* Book Details */}
                 <View style={styles.detailsContainer}>
-                    <View style={styles.detailsItem}>
-                        <Text style={[styles.text, styles.itemTitle]}>Publisher</Text>
-                        <Text style={[styles.text, styles.itemContent]}>{DATA.publisher}</Text>
-                    </View>
-                    <View style={styles.detailsItem}>
-                        <Text style={[styles.text, styles.itemTitle]}>Year</Text>
-                        <Text style={[styles.text, styles.itemContent]}>{DATA.year}</Text>
-                    </View>
-                    <View style={styles.detailsItem}>
-                        <Text style={[styles.text, styles.itemTitle]}>ISBN</Text>
-                        <Text style={[styles.text, styles.itemContent]}>{DATA.ISBN}</Text>
-                    </View>
-                    <View style={styles.detailsItem}>
-                        <Text style={[styles.text, styles.itemTitle]}>Owned By</Text>
-                        <Text style={[styles.text, styles.itemContent]}>{DATA.owner}</Text>
-                    </View>
+                  <TableData title="Publisher" content={DATA.publisher} />
+                  <TableData title="Year" content={DATA.year} />
+                  <TableData title="ISBN" content={DATA.ISBN} />
+                  <TableData title="Owned By" content={DATA.owner} />
                 </View>
 
                 <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue }} />
@@ -72,16 +87,37 @@ export default function BookDetails() {
                 {/* Owner's Review */}
                 <View style={styles.synopsisContainer}>
                     <Text style={[styles.text, styles.sectionTitle]}>Owner's Synopsis</Text>
-                    <Text style={styles.text}>{DATA.review}</Text>
+                    <Text style={[styles.text, styles.reviewText]}>{DATA.review}</Text>
                 </View>
 
                 {/* Footer */}
                 <View style={styles.footerContainer}>
                     {/* <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue }} /> */}
-                    <MyButton title="Send Request"/>
+                    {/* Button */}
+                    <MyButton title="Send Request" onPress={toggleModal} />
                 </View>
+
+                {/* Modal */}
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={setModalVisible}
+                >
+
+                  {/* <ConfirmBox confirmMsg={"Send exchange request for " + DATA.title + "?"} toggleModal={toggleModal}/> */}
+                  <View style={styles.modalOverlay}>
+                    <ConfirmBox 
+                      confirmMsg={"Send exchange request for " + DATA.title + "?"} 
+                      toggleModal={toggleModal}
+                      nextPage="../screens/Test.js"
+                    />
+                  </View>
+                  {/* <Animated.View style={[styles.modalOverlay, { opacity: overlayOpacity }]}>
+                      <ConfirmBox confirmMsg={"Send exchange request for " + DATA.title + "?"} toggleModal={toggleModal}/>
+                  </Animated.View> */}
+                </Modal>
             </SafeAreaView>
-            
         </View>
     );
 }
@@ -126,7 +162,7 @@ const styles = StyleSheet.create({
       },
       detailsItem: {
         flexDirection: "row",
-        gap: 10,
+        gap: 15,
       },
       itemTitle: {
         flex: 2,
@@ -138,6 +174,8 @@ const styles = StyleSheet.create({
       itemContent: {
         flex: 3,
         fontSize: 14,
+        letterSpacing: 0.2,
+        fontWeight: "300",
       },
       sectionTitle: {
         color: colors.PrimaryBlue,
@@ -148,15 +186,24 @@ const styles = StyleSheet.create({
         marginTop: 20,
         gap: 5,
       },
+      reviewText: {
+        fontSize: 14,
+        fontWeight: "300",
+        lineHeight: "18",
+      },
       footerContainer: {
         position: "absolute",
         bottom: 0,
         flexDirection: "column",
-        // backgroundColor: "yellow",
         flex: 1,
         width: "100%",
         marginBottom: 32,
         alignItems: "center",
         gap: 20,
-      }
+      },
+      modalOverlay: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+      }      
 })
