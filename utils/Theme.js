@@ -12,6 +12,7 @@ export const Theme = {
     AccentPink: '#ff9898',
     White: '#f2f2f2',
     Black: '#1f1e1e',
+    Grey: "#c7c7cc"
   },
 };
 

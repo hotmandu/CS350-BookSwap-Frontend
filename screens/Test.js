@@ -3,7 +3,7 @@
 import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 
-import ConfirmBox from './ConfirmBox';
+import Error from './Error';
 
 import Theme from "../utils/Theme";
 // Import all colors defined in defaultColors.js
@@ -13,7 +13,7 @@ export default function Test() {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.topContainer}>
-        <Text>CONFIRMATION PAGE FOR CONFIRM EXCHANGE REQUEST</Text>
+        <Error />
       </SafeAreaView>
     </View>
   )
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topContainer: {
-    marginHorizontal: 32,
+    // marginHorizontal: 32,
     flex: 1,
     gap: 50,
     flexDirection: "column",
