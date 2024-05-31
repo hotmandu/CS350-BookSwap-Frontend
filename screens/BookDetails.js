@@ -104,8 +104,6 @@ export default function BookDetails() {
                   visible={modalVisible}
                   onRequestClose={setModalVisible}
                 >
-
-                  {/* <ConfirmBox confirmMsg={"Send exchange request for " + DATA.title + "?"} toggleModal={toggleModal}/> */}
                   <View style={styles.modalOverlay}>
                     <ConfirmBox 
                       confirmMsg={"Send exchange request for " + DATA.title + "?"} 
@@ -113,9 +111,6 @@ export default function BookDetails() {
                       nextPage="../screens/Test.js"
                     />
                   </View>
-                  {/* <Animated.View style={[styles.modalOverlay, { opacity: overlayOpacity }]}>
-                      <ConfirmBox confirmMsg={"Send exchange request for " + DATA.title + "?"} toggleModal={toggleModal}/>
-                  </Animated.View> */}
                 </Modal>
             </SafeAreaView>
         </View>

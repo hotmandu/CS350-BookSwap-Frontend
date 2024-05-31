@@ -122,6 +122,7 @@ export default function SignUp({ navigation }) {
               placeholder="> 8 characters"
               placeholderTextColor="rgba(31, 30, 30, 0.4)"
               secureTextEntry={true}
+              autoCapitalize="none"
             />
           </View>
         </View>

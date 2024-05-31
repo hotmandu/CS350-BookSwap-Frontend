@@ -6,6 +6,11 @@ import Test from './screens/Test';
 import Error from './screens/Error';
 import Chat from './screens/Chat';
 import msgData from './utils/msgData';
+import Profile from './screens/Profile';
+import AccountDetails from './screens/AccountDetails';
+import ProfilePages from './routes/profileStack';
+import ChangePasswords from './screens/ChangePassword';
+
 
 function App() {
   return (
@@ -17,11 +22,16 @@ function App() {
     // <Error />
     
     // Change input to messages history and book data from the database
-    <Chat msgData={msgData} bookData={{
-      owner: "John Doe",
-      title: "The Diary of A Young Girl",
-      author: "Anne Frank",
-    }}/>
+    // <Chat msgData={msgData} bookData={{
+    //   owner: "John Doe",
+    //   title: "The Diary of A Young Girl",
+    //   author: "Anne Frank",
+    // }}/>
+
+    // <Profile />
+    <ProfilePages />
+    // <AccountDetails />
+    // <ChangePasswords />
   );
 }
 

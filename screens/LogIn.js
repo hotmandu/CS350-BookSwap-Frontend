@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Text, SafeAreaView, StyleSheet, View, TextInput, Linking, TouchableOpacity } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 
 import MyButton from '../components/MyButton';
 
