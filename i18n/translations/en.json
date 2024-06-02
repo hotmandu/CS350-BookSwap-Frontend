@@ -1,0 +1,15 @@
+{
+    "language": "English",
+    "route": {
+        "profile": {
+            "accountDetails": "Account Details",
+            "changePassword": "Change Password",
+            "language": "Language"
+        }
+    },
+    "screen": {
+        "language": {
+            "selectLanguage": "Select Language"
+        }
+    }
+}

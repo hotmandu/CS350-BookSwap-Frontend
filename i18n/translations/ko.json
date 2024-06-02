@@ -1,0 +1,15 @@
+{
+    "language": "한국어",
+    "route": {
+        "profile": {
+            "accountDetails": "계정 정보",
+            "changePassword": "비밀번호 변경",
+            "language": "언어"
+        }
+    },
+    "screen": {
+        "language": {
+            "selectLanguage": "언어를 고르세요"
+        }
+    }
+}
