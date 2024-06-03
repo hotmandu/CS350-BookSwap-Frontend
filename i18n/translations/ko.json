@@ -3,8 +3,14 @@
     "route": {
         "profile": {
             "accountDetails": "계정 정보",
-            "changePassword": "비밀번호 변경",
+            "changePasswords": "비밀번호 변경",
             "language": "언어"
+        },
+        "tab": {
+            "discover": "발견",
+            "request": "요청",
+            "bookshelf": "책장",
+            "profile": "프로필"
         }
     },
     "screen": {

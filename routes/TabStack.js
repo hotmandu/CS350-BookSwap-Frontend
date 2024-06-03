@@ -10,6 +10,7 @@ import Discover from "../screens/Discover";
 import Search from "../screens/Search";
 import BookDetails from '../screens/BookDetails';
 import BookShelf from '../screens/BookShelf';
+import { useTranslation } from 'react-i18next';
 
 
 const Tab = createBottomTabNavigator();
@@ -51,6 +52,7 @@ function ProfileScreen() {
 }
 
 function TabBar() {
+  const { t } = useTranslation();
     return (
         <Tab.Navigator screenOptions={({route}) => ({
           tabBarIcon: ({ focused, color, size}) => {
@@ -85,15 +87,16 @@ function TabBar() {
             }
           }
         })}>
-          <Tab.Screen name="Discover" component={Discover} options={{headerShown: false}}/>
-          <Tab.Screen name="Request" component={RequestPages} options={{headerShown: false}}/>
-          <Tab.Screen name="Bookshelf" component={BookShelf} options={{headerShown: false}}/>
-          <Tab.Screen name="Profile" component={ProfilePages} options={{headerShown: false}}/>
+          <Tab.Screen name="Discover" component={Discover} options={{headerShown: false, title: t('route.tab.discover')}}/>
+          <Tab.Screen name="Request" component={RequestPages} options={{headerShown: false, title: t('route.tab.request')}}/>
+          <Tab.Screen name="Bookshelf" component={BookShelf} options={{headerShown: false, title: t('route.tab.bookshelf')}}/>
+          <Tab.Screen name="Profile" component={ProfilePages} options={{headerShown: false, title: t('route.tab.profile')}}/>
         </Tab.Navigator>
       )
 }
 
 function TabBar2() {
+  const { t } = useTranslation();
     return (
       <Tab.Navigator screenOptions={({route}) => ({
         tabBarIcon: ({ focused, color, size}) => {
@@ -128,10 +131,10 @@ function TabBar2() {
           }
         }
       })}>
-        <Tab.Screen name="Discover" component={Search} options={{headerShown: false}}/>
-        <Tab.Screen name="Request" component={RequestPages} options={{headerShown: false}}/>
-        <Tab.Screen name="Bookshelf" component={BookShelf} options={{headerShown: false}}/>
-        <Tab.Screen name="Profile" component={ProfilePages} options={{headerShown: false}}/>
+        <Tab.Screen name="Discover" component={Search} options={{headerShown: false, title: t('route.tab.discover')}}/>
+        <Tab.Screen name="Request" component={RequestPages} options={{headerShown: false, title: t('route.tab.request')}}/>
+        <Tab.Screen name="Bookshelf" component={BookShelf} options={{headerShown: false, title: t('route.tab.bookshelf')}}/>
+        <Tab.Screen name="Profile" component={ProfilePages} options={{headerShown: false, title: t('route.tab.profile')}}/>
       </Tab.Navigator>
     )
   }

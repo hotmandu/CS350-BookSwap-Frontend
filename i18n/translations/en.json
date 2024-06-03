@@ -3,8 +3,14 @@
     "route": {
         "profile": {
             "accountDetails": "Account Details",
-            "changePassword": "Change Password",
+            "changePasswords": "Change Password",
             "language": "Language"
+        },
+        "tab": {
+            "discover": "Discover",
+            "request": "Request",
+            "bookshelf": "Bookshelf",
+            "profile": "Profile"
         }
     },
     "screen": {
