@@ -14,9 +14,14 @@ import AccountDetails from './screens/AccountDetails';
 import ProfilePages from './routes/profileStack';
 import ChangePasswords from './screens/ChangePassword';
 import Stack from "./routes/Stack";
+import { useFonts } from 'expo-font';
 
 
 function App() {
+  const [fontsLoaded] = useFonts({
+    'Geist': require('./assets/fonts/Geist.ttf'),
+  });
+
   return (
     // <Navigator />
     <Stack />

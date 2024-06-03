@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 function TheStack() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
                 <Stack.Screen name="LoginPages" component={LoginPages}/>
                 <Stack.Screen name="TabPages" component={TabPages}/>
             </Stack.Navigator>

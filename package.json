@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@react-navigation/stack": "*",
     "expo": "^51.0.9",
+    "expo-font": "~12.0.6",
     "expo-status-bar": "~1.12.1",
     "i18next": "^23.11.5",
     "moment": "^2.30.1",

@@ -68,7 +68,7 @@ const screens = {
 
 function LoginStack() {
   return (
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Welcome" component={Landing} options={screens.Welcome.navigationOptions}/>
           <Stack.Screen name="LogIn" component={LogIn} options={screens.LogIn.navigationOptions}/>
           <Stack.Screen name="SignUp" component={SignUp} options={screens.SignUp.navigationOptions}/>
