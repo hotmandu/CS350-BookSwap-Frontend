@@ -85,7 +85,7 @@ function ProfileStack() {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Profile" component={Profile} options={screens.Profile.navigationOptions}/>
+            <Stack.Screen name="ProfileDetails" component={Profile} options={screens.Profile.navigationOptions}/>
             <Stack.Screen name="AccountDetails" component={AccountDetails} options={screens.AccountDetails.navigationOptions}/>
             <Stack.Screen name="ChangePasswords" component={ChangePasswords} options={screens.ChangePasswords.navigationOptions}/>
             <Stack.Screen name="Language" component={Language} options={{ ...screens.Language.navigationOptions, title: t('route.profile.language') }}/>
