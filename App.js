@@ -13,11 +13,13 @@ import Profile from './screens/Profile';
 import AccountDetails from './screens/AccountDetails';
 import ProfilePages from './routes/profileStack';
 import ChangePasswords from './screens/ChangePassword';
+import Stack from "./routes/Stack";
 
 
 function App() {
   return (
     // <Navigator />
+    <Stack />
     // <ReqNavi />
     // <BookDetails />
     // <Test />
@@ -32,7 +34,7 @@ function App() {
     // }}/>
 
     // <Profile />
-    <ProfilePages />
+    //<ProfilePages />
     // <AccountDetails />
     // <ChangePasswords />
   );

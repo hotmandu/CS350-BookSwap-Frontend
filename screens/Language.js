@@ -1,10 +1,9 @@
-import {useCallback, useMemo, useState} from 'react';
+import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View} from 'react-native';
 import SelectBox from 'react-native-multi-selectbox'
 
 import MyButton from '../components/MyButton';
 import { Typeface, Theme } from '../utils/Theme';
-import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 export default function Language({ navigation }) {
@@ -12,37 +11,21 @@ export default function Language({ navigation }) {
     // 1. Set the useState to become the last selected language
     // 1. Send the selected language to the database @ const onChange
 
-    const { t, i18n } = useTranslation();
+    const currentLanguage = "en";
+    const [selectedLanguage, setSelectedLanguage] = useState(currentLanguage);
 
-    const [selectedLanguage, setSelectedLanguage] = useState(i18n.languages[0]);
-
-    const onChange = useCallback((value) => {
-        // console.log(value);
-        // Actually change langauge and save
-        i18n.changeLanguage(value.id).then(() => {
-            setSelectedLanguage(value.id);
-        });
-    }, [i18n.changeLanguage, setSelectedLanguage]);
-
-    const languageOptions = useMemo(() => {
-        const langResources = i18n.options.resources;
-        if (langResources === undefined) {
-            return [{ id: "en", item: "English" }];
-        } else {
-            return Object.entries(langResources).map((v) => ({ id: v[0], item: v[1].translation['language'] }));
-        }
-    }, [i18n.options.resources]);
-
-    // console.log(languageOptions);
-    // console.log(selectedLanguage);
+    const onChange = (value) => {
+        console.log(value);
+        setSelectedLanguage(value);
+    }
 
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.topContainer}> 
                 <View style={{ marginVertical: 20,}}>
                     <SelectBox 
-                        label={t("screen.language.selectLanguage")}
-                        inputPlaceholder={t("language", {lng: selectedLanguage}) || t("screen.language.selectLanguage")}
+                        label= "Select Language"
+                        inputPlaceholder= {getItemById(selectedLanguage) || "Select Language"}
                         options={languageOptions}
                         value={selectedLanguage}
                         onChange={onChange}
@@ -64,6 +47,22 @@ export default function Language({ navigation }) {
         </View>
     );
 }
+
+const languageOptions = [
+    {
+        item: "English",
+        id: "en",
+    },
+    {
+        item: "Korean",
+        id: "ko",
+    }
+]
+
+const getItemById = (id) => {
+    const language = languageOptions.find(option => option.id === id);
+    return language ? language.item : null;
+};
 
 const styles = StyleSheet.create({
     topContainer: {

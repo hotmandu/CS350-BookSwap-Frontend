@@ -1,6 +1,6 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import { Text } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 import { Theme } from '../utils/Theme';
 const { colors } = Theme;
@@ -10,7 +10,6 @@ import Profile from '../screens/Profile';
 import AccountDetails from '../screens/AccountDetails';
 import ChangePasswords from '../screens/ChangePassword';
 import Language from "../screens/Language";
-import i18n from '../i18n/i18n';
 
 const screens = {
     Profile: {
@@ -64,7 +63,6 @@ const screens = {
             headerShown: true,
             gestureEnabled: false,
             title: "Language",
-            headerTitle: ({ style }) => <Text style={style}>{i18n.t("route.profile.language")}</Text>,
             headerStyle: {
                 backgroundColor: "#f9f9f9",
                 shadowColor: "#f9f9f9",
@@ -81,6 +79,18 @@ const screens = {
 
 }
 
-const ProfilePages = createStackNavigator(screens);
+function ProfileStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Profile" component={Profile} options={screens.Profile.navigationOptions}/>
+            <Stack.Screen name="AccountDetails" component={AccountDetails} options={screens.AccountDetails.navigationOptions}/>
+            <Stack.Screen name="ChangePasswords" component={ChangePasswords} options={screens.ChangePasswords.navigationOptions}/>
+            <Stack.Screen name="Language" component={Language} options={screens.Language.navigationOptions}/>
+        </Stack.Navigator>
+    )
+}
 
-export default createAppContainer(ProfilePages);
+//const ProfilePages = createStackNavigator(screens);
+
+//export default createAppContainer(ProfilePages);
+export default ProfileStack;

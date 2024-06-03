@@ -1,5 +1,6 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 //Get the pages
 import SentReqs from '../screens/SentReqs';
@@ -30,6 +31,17 @@ const screens = {
     }
 }
 
-const ExchangeRequestStack = createStackNavigator(screens);
+function RequestStack () {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Received" component={ReceivedReqs} options={screens.Received.navigationOptions}/>
+            <Stack.Screen name="Sent" component={SentReqs} options={screens.Sent.navigationOptions}/>
+            <Stack.Screen name="Matched" component={MatchedReqs} options={screens.Matched.navigationOptions}/>
+        </Stack.Navigator>
+    )
+}
 
-export default createAppContainer(ExchangeRequestStack);
+//const ExchangeRequestStack = createStackNavigator(screens);
+
+//export default createAppContainer(ExchangeRequestStack);
+export default RequestStack;

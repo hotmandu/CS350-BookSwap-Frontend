@@ -47,7 +47,7 @@ export default function SignUp({ navigation }) {
         "password": password,
       }
       console.log(formData)
-      navigation.navigate("LoggedIn")
+      navigation.navigate("LoginPages", {screen: "LoggedIn"})
     }
   }
 
@@ -132,7 +132,7 @@ export default function SignUp({ navigation }) {
           <MyButton title="Sign Up" onPress={handleSubmit} />
           <Text style={[styles.body, styles.text]}>
             Already have an account?{' '}
-            <TouchableOpacity onPress={() => navigation.navigate("LogIn")}>
+            <TouchableOpacity onPress={() => navigation.navigate("LoginPages", {screen: "LogIn"})}>
               <Text style={[styles.link, styles.text]}>Log In</Text>
             </TouchableOpacity>
           </Text>

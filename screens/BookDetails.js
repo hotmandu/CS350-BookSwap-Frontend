@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal, FlatList } from 'react-native';
 
 import {Theme, Typeface} from "../utils/Theme";
 import GenreItem from '../components/GenreItem';
@@ -55,7 +55,11 @@ export default function BookDetails() {
     
 
     return (
-        <View style={styles.container}>
+        <FlatList
+          data={[]}
+          renderItem={null}
+          ListEmptyComponent={
+        <View style={[styles.container, {padding:30}]}>
             <SafeAreaView style={styles.topContainer}>
                 {/* Book Cover */}
                 <Image 
@@ -114,6 +118,7 @@ export default function BookDetails() {
                 </Modal>
             </SafeAreaView>
         </View>
+      }/>
     );
 }
 
@@ -184,7 +189,6 @@ const styles = StyleSheet.create({
       reviewText: {
         fontSize: 14,
         fontWeight: "300",
-        lineHeight: "18",
       },
       footerContainer: {
         position: "absolute",

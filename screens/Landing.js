@@ -34,12 +34,12 @@ export default function Landing({ navigation }) {
           <MyButton 
             title="Log In"
             variant="dark2"
-            onPress={() => navigation.navigate("LogIn")}
+            onPress={() => navigation.navigate("LoginPages", {screen: "LogIn"})}
           />
           <MyButton 
             title="Sign Up" 
             variant="dark" 
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => navigation.navigate("LoginPages", {screen: "SignUp"})}
           />
         </View>
       </SafeAreaView>

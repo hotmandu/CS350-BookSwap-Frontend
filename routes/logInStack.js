@@ -1,6 +1,7 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
 import { Button, Text, StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 import Landing from "../screens/Landing";
 import LogIn from "../screens/LogIn";
@@ -65,7 +66,18 @@ const screens = {
   }
 }
 
+function LoginStack() {
+  return (
+      <Stack.Navigator>
+          <Stack.Screen name="Welcome" component={Landing} options={screens.Welcome.navigationOptions}/>
+          <Stack.Screen name="LogIn" component={LogIn} options={screens.LogIn.navigationOptions}/>
+          <Stack.Screen name="SignUp" component={SignUp} options={screens.SignUp.navigationOptions}/>
+          <Stack.Screen name="LoggedIn" component={LoggedIn} options={screens.LoggedIn.navigationOptions}/>
+      </Stack.Navigator>
+  )
+}
 
-const UserLoginStack = createStackNavigator(screens);
+//const UserLoginStack = createStackNavigator(screens);
 
-export default createAppContainer(UserLoginStack);
+//export default createAppContainer(UserLoginStack);
+export default LoginStack;
