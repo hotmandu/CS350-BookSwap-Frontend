@@ -1,4 +1,7 @@
+import 'react-native-gesture-handler';
 import React from 'react';
+import i18n from './i18n/i18n';
+
 import Navigator from "./routes/logInStack";
 import ReqNavi from "./routes/requestStack";
 import BookDetails from './screens/BookDetails';

@@ -1,5 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
+import { Text } from 'react-native';
 
 import { Theme } from '../utils/Theme';
 const { colors } = Theme;
@@ -9,6 +10,7 @@ import Profile from '../screens/Profile';
 import AccountDetails from '../screens/AccountDetails';
 import ChangePasswords from '../screens/ChangePassword';
 import Language from "../screens/Language";
+import i18n from '../i18n/i18n';
 
 const screens = {
     Profile: {
@@ -62,6 +64,7 @@ const screens = {
             headerShown: true,
             gestureEnabled: false,
             title: "Language",
+            headerTitle: ({ style }) => <Text style={style}>{i18n.t("route.profile.language")}</Text>,
             headerStyle: {
                 backgroundColor: "#f9f9f9",
                 shadowColor: "#f9f9f9",
