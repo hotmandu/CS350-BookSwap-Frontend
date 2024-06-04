@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Text, SafeAreaView, StyleSheet, View, TextInput, Linking, TouchableOpacity, Image } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TextInput, Linking, TouchableOpacity, Image, Pressable } from 'react-native';
 
 import MyButton from '../components/MyButton';
 import Filter from "../components/Filter";
@@ -20,7 +20,7 @@ export default function RequestItem(props) {
     // Styles for each variant
 
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={() => console.log({bookTitle})}>
             <View>
                 <Image source={require("../assets/no-book.png")} style={[styles.bookCover]}/>
             </View>
@@ -39,7 +39,7 @@ export default function RequestItem(props) {
 
 
             </View>
-        </View>
+        </Pressable>
     );
 }
 

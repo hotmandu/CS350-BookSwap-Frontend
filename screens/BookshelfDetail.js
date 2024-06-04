@@ -1,5 +1,8 @@
+// The BookshelfDetail screen displays the details of a book that is editable by the owner
+
 import {useState} from 'react';
-import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal, FlatList } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal, FlatList, Pressable } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import {Theme, Typeface} from "../utils/Theme";
 import GenreItem from '../components/GenreItem';
@@ -9,7 +12,8 @@ import ConfirmBox from './ConfirmBox';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
-export default function BookDetails() {
+
+export default function BookshelfDetail({ navigation }) {
     const DATA = {
         cover: "none",
         title: "Book Title",
@@ -46,13 +50,10 @@ export default function BookDetails() {
       );
     };
 
-    // For Modal
-    const [modalVisible, setModalVisible] = useState(false);
-    const [overlayOpacity] = useState(new Animated.Value(0));
-    const toggleModal = () => {
-        setModalVisible(!modalVisible);
-        console.log(modalVisible);
-    };
+    const handlePress = () => {
+      console.log(navigation);
+      navigation.navigate("EditBookshelfDetail");
+    }
     
 
     return (
@@ -62,11 +63,27 @@ export default function BookDetails() {
           ListEmptyComponent={
         <View style={[styles.container, {padding:30}]}>
             <SafeAreaView style={styles.topContainer}>
-                {/* Book Cover */}
-                <Image 
-                    source={getImageSource(DATA.cover)}
-                    style={styles.image}
-                />
+                <View style={styles.imageContainer}>
+                  <View style={{
+                    paddingVertical: 7,
+                    paddingHorizontal: 20,
+                  }}>
+                    <MaterialIcons name="edit" size={14} color={colors.White} />
+                    <Text style={styles.editText}>Edit</Text>
+                  </View>
+                  {/* Book Cover */}
+                  <Image 
+                      source={getImageSource(DATA.cover)}
+                      style={styles.image}
+                  />
+
+                  {/* Edit Button */}
+                  <Pressable style={[styles.edit]} onPress={handlePress}>
+                    <MaterialIcons name="edit" size={14} color={colors.White} />
+                    <Text style={styles.editText}>Edit</Text>
+                  </Pressable>
+                </View>
+
 
                 {/* Book Title, Author, and Owner */}
                 <View style={styles.titleContainer}>
@@ -85,6 +102,7 @@ export default function BookDetails() {
                   <TableData title="Year" content={DATA.year} />
                   <TableData title="ISBN" content={DATA.ISBN} />
                   <TableData title="Owned By" content={DATA.owner} />
+                  <TableData title="Visibility" content={DATA.visibility} />
                 </View>
 
                 {/* Divider */}
@@ -96,28 +114,6 @@ export default function BookDetails() {
                     <Text style={[styles.text, styles.reviewText]}>{DATA.review}</Text>
                 </View>
 
-                {/* Footer */}
-                <View style={styles.footerContainer}>
-                    {/* <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue }} /> */}
-                    {/* Button */}
-                    <MyButton title="Send Request" onPress={toggleModal} />
-                </View>
-
-                {/* Modal */}
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={modalVisible}
-                  onRequestClose={setModalVisible}
-                >
-                  <View style={styles.modalOverlay}>
-                    <ConfirmBox 
-                      confirmMsg={"Send exchange request for " + DATA.title + "?"} 
-                      toggleModal={toggleModal}
-                      nextPage="../screens/Test.js"
-                    />
-                  </View>
-                </Modal>
             </SafeAreaView>
         </View>
       }/>
@@ -206,5 +202,31 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-      }      
+      },
+      edit: {
+        alignSelf: "flex-start",
+        backgroundColor: colors.PrimaryBlue,
+        paddingVertical: 7,
+        paddingHorizontal: 15,
+        borderWidth: 0.1,
+        borderRadius: 20,
+        flexDirection: "row",
+        gap: 5,
+      },
+      editPosition: {
+        position: "absolute",
+        top: 0,
+        right: 0,
+      },
+      editText: {
+        fontFamily: Typeface.font,
+        color: colors.White,
+        fontSize: 12,
+        fontWeight: "700",
+      },
+      imageContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+      },
 })

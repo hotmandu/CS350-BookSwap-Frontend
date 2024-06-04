@@ -42,8 +42,8 @@ export default function SentReqs({ navigation }) {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <Filter title="Received" variant="inactive" onPress={() => handleClick("Received")}/>
                     <Filter title="Sent" variant="active" onPress={() => handleClick("Sent")}/>
+                    <Filter title="Received" variant="inactive" onPress={() => handleClick("Received")}/>
                     <Filter title="Matched" variant="inactive" onPress={() => handleClick("Matched")}/>
                 </View>
 

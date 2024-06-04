@@ -6,16 +6,18 @@ import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import ConfirmRequestStack from '../routes/confirmRequestStack';
 
 import Theme from "../utils/Theme";
+import BookDetails from './BookDetails';
+import EditBookDetails from './BookshelfDetail';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function Test() {
   return (
-    // <View style={styles.container}>
-    //   <SafeAreaView style={styles.topContainer}>
-    <ConfirmRequestStack />
-    //   </SafeAreaView>
-    // </View>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.topContainer}>
+        <EditBookDetails />
+      </SafeAreaView>
+    </View>
   )
 }
 
