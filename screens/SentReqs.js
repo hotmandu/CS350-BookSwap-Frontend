@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, ScrollView, FlatList} from 'react-native';
 
 import Filter from "../components/Filter";
@@ -7,25 +7,35 @@ import RequestItem from '../components/RequestItem';
 import { Typeface, Theme } from '../utils/Theme';
 const { colors } = Theme;
 
+import { AuthContext } from '../context/AuthContext';
+
 export default function SentReqs({ navigation }) {
     // Change receivedReqs to incoming requests for this user
-    const sentReqsData = [
-        {
-            "bookTitle": "The Catcher in the Rye",
-            "bookAuthor": "J.D. Salinger",
-            "owner": "Hank Lewis"
-        },
-        {
-            "bookTitle": "Pride and Prejudice",
-            "bookAuthor": "Jane Austen",
-            "owner": "David Evans"
-        },
-        {
-            "bookTitle": "Moby Dick",
-            "bookAuthor": "Herman Melville",
-            "owner": "Frank Thompson"
-        }
-    ];
+    const [sentReqsData, setSentReqsData] = useState()
+    const context = useContext(AuthContext)
+
+    const getSentBooksAPI = (token) => {
+        fetch("https://cs350-bookswap-backend-production.up.railway.app/book_request/sent/", {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": `Bearer ${token}`,
+          },
+        }).then((res) => {
+            if (res.status != 200) {
+              navigation.navigate("Error");
+            } else {
+              return res.json();
+            }
+          }).then((data) => {
+            setSentReqsData(data)
+            console.log(data)
+        });
+      }
+
+      useEffect(()=>{
+        getSentBooksAPI(context.token)
+      },[])
     
     const handleClick = (title) => {
         navigation.navigate(title);

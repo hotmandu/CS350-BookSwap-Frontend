@@ -1,42 +1,41 @@
-import {useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, ScrollView, FlatList} from 'react-native';
 
 import Filter from "../components/Filter";
 import RequestItem from '../components/RequestItem';
 
 import { Typeface, Theme } from '../utils/Theme';
+import { AuthContext } from '../context/AuthContext';
 const { colors } = Theme;
 
 export default function ReceivedReqs({ navigation }) {
     // Change receivedReqs to incoming requests for this user
-    const sentReqsData = [
-        {
-            "bookTitle": "One Piece, Volume 1: Romance Dawn",
-            "bookAuthor": "Eiichiro Oda",
-            "owner": "John Doe"
-        },
-        {
-            "bookTitle": "Harry Potter and the Sorcerer's Stone",
-            "bookAuthor": "J.K. Rowling",
-            "owner": "Jane Smith"
-        },
-        {
-            "bookTitle": "The Hobbit",
-            "bookAuthor": "J.R.R. Tolkien",
-            "owner": "Alice Johnson"
-        },
-        {
-            "bookTitle": "To Kill a Mockingbird",
-            "bookAuthor": "Harper Lee",
-            "owner": "Bob Brown"
-        },
-        {
-            "bookTitle": "1984",
-            "bookAuthor": "George Orwell",
-            "owner": "Charlie Davis"
-        }
-    ];
-    
+    const [sentReqsData, setSentReqsData] = useState()
+    const context = useContext(AuthContext)
+
+    const getReceivedBooksAPI = (token) => {
+        fetch("https://cs350-bookswap-backend-production.up.railway.app/book_request/received/", {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": `Bearer ${token}`,
+          },
+        }).then((res) => {
+            if (res.status != 200) {
+              navigation.navigate("Error");
+            } else {
+              return res.json();
+            }
+          }).then((data) => {
+            setSentReqsData(data)
+            console.log(data)
+        });
+      }
+
+      useEffect(()=>{
+        getReceivedBooksAPI(context.token)
+      },[])
+  
     const handleClick = (title) => {
         navigation.navigate(title);
     }

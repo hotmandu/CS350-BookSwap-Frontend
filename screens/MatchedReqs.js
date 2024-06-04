@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, ScrollView, FlatList} from 'react-native';
 
 import Filter from "../components/Filter";
@@ -7,21 +7,36 @@ import RequestItem from '../components/RequestItem';
 import { Typeface, Theme } from '../utils/Theme';
 const { colors } = Theme;
 
+import { AuthContext } from '../context/AuthContext';
+
 export default function MatchedReqs({ navigation }) {
     // Change receivedReqs to incoming requests for this user
-    const matchedReqsData = [
-        {
-            "bookTitle": "Detective Conan: Case Closed",
-            "bookAuthor": "Gosho Aoyama",
-            "owner": "Conan"
-        },
-        {
-            "bookTitle": "The Hunger Games",
-            "bookAuthor": "Suzanne Collins",
-            "owner": "Katniss Everdeen"
-        }
-    ];    
-    
+    const [matchedReqsData, setMatchedReqsData] = useState()
+    const context = useContext(AuthContext)
+
+    const getReceivedBooksAPI = (token) => {
+        fetch("https://cs350-bookswap-backend-production.up.railway.app/book_request/ongoing/", {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": `Bearer ${token}`,
+          },
+        }).then((res) => {
+            if (res.status != 200) {
+              navigation.navigate("Error");
+            } else {
+              return res.json();
+            }
+          }).then((data) => {
+            setMatchedReqsData(data)
+            console.log(data)
+        });
+      }
+
+      useEffect(()=>{
+        getReceivedBooksAPI(context.token)
+      },[])
+
     const handleClick = (title) => {
         navigation.navigate(title);
     }
