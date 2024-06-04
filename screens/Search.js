@@ -32,7 +32,6 @@ export default function Search({ navigation, route }) {
         const response = await fetch('https://cs350-bookswap-backend-production.up.railway.app/book/');
         const json = await response.json();
         setData(json)
-        //console.log(json[0].title)
       } catch (error) {
         console.error(error);
       }
@@ -60,7 +59,7 @@ export default function Search({ navigation, route }) {
               keyExtractor={({id}) => id}
               renderItem={({item}) => {if ((item.title.toUpperCase().includes(keyword.toUpperCase()) || (item.author.toUpperCase().includes(keyword.toUpperCase()))) && keyword.length > 0) {
               return (
-              <BookUnit name={item.title} author={item.author} genre={item.genre}/>
+              <BookUnit name={item.title} author={item.author} genre={item.genre} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`}/>
             )}}
           }
         />

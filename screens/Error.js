@@ -22,7 +22,7 @@ export default function Error({ navigation }) {
         </View>
 
         <View style={styles.buttonContainer}>
-          <MyButton title="Back"/>
+          <MyButton title="Back" onPress={navigation.goBack}/>
         </View>
 
       </SafeAreaView>

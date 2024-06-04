@@ -7,7 +7,6 @@ import Landing from "../screens/Landing";
 import LogIn from "../screens/LogIn";
 import SignUp from "../screens/SignUp";
 // I dont know how to connect it with the pages after user logged in so I just put this file
-import LoggedIn from "../screens/LoggedIn";
 
 // Import all colors defined in defaultColors.js
 import Theme from "../utils/Theme";
@@ -56,14 +55,7 @@ const screens = {
       headerShown: false,
       gestureEnabled: false,
     }
-  },
-  LoggedIn: {
-    screen: LoggedIn,
-    navigationOptions: {
-      headerShown: false,
-      gestureEnabled: false,
-    }
-  }
+  }  
 }
 
 function LoginStack() {
@@ -72,7 +64,6 @@ function LoginStack() {
           <Stack.Screen name="Welcome" component={Landing} options={screens.Welcome.navigationOptions}/>
           <Stack.Screen name="LogIn" component={LogIn} options={screens.LogIn.navigationOptions}/>
           <Stack.Screen name="SignUp" component={SignUp} options={screens.SignUp.navigationOptions}/>
-          <Stack.Screen name="LoggedIn" component={LoggedIn} options={screens.LoggedIn.navigationOptions}/>
       </Stack.Navigator>
   )
 }

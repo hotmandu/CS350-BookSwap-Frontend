@@ -1,23 +1,52 @@
-import {useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Pressable} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { Typeface, Theme } from '../utils/Theme';
+import { AuthContext } from '../context/AuthContext';
 const { colors } = Theme;
 
 export default function Profile({ navigation }) {
-    // TODO: 
-    // 1. Retrieve user data from the database @ const user
+    const context = useContext(AuthContext)
+    const [user, setUser] = useState({
+        "first_name": "Loading",
+        "last_name": "Loading",
+        "user_email": "Loading",
+      })
 
-    // Change this to fetch user data from the database
-    const user = {
-        "first_name": "John",
-        "last_name": "Doe",
-        "email": "john.doe@example.com",
-        "password": "your_password"
-      };
-    
+    const getUserAPI = (token) => {
+        fetch("https://cs350-bookswap-backend-production.up.railway.app/account_api/user/", {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": `Bearer ${token}`,
+          },
+        }).then((res) => {
+            context.setLoading(false);
+            if (res.status != 200) {
+              navigation.navigate("Error");
+            } else {
+              return res.json();
+            }
+          }).then((data) => {
+            context.setUser(data)
+            setUser(data)
+            console.log("userdata")
+            console.log(data)
+        });
+      }
+      
+
+    useEffect(()=>{
+        if(context.user){
+            console.log(context.user)
+            setUser(context.user)
+        }else{
+            getUserAPI(context.token)
+        }
+    },[])
+
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.topContainer}>
@@ -42,7 +71,7 @@ export default function Profile({ navigation }) {
 
                     <ProfileItem title="First Name" value={user.first_name} />
                     <ProfileItem title="Last Name" value={user.last_name} />
-                    <ProfileItem title="Email" value={user.email} />
+                    <ProfileItem title="Email" value={user.user_email} />
 
                 </View>
 

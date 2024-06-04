@@ -38,6 +38,32 @@ export default function SignUp({ navigation }) {
     return Object.keys(errors).length === 0;
   }
 
+  const registerAPI = ({
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    password: password,
+  }) => {
+    fetch("https://cs350-bookswap-backend-production.up.railway.app/account_api/register/", {
+      method: "POST",
+      body: JSON.stringify({
+        "first_name": firstName,
+        "last_name":lastName,
+        "email": email,
+        "password": password
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((res) => {
+      if (res.status == 200) {
+        navigation.navigate("LoginPages", {screen: "LogIn"})
+      } else {
+        navigation.navigate("Error")
+      }
+    });
+  };
+
   const handleSubmit = () => {
     if (validateForm()) {
       const formData = {
@@ -46,8 +72,7 @@ export default function SignUp({ navigation }) {
         "email": email,
         "password": password,
       }
-      console.log(formData)
-      navigation.navigate("LoginPages", {screen: "LoggedIn"})
+      registerAPI(formData)
     }
   }
 

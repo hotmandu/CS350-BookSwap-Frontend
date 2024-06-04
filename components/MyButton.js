@@ -5,24 +5,26 @@ import Theme from "../utils/Theme";
 const { colors } = Theme;
 
 export default function MyButton(props) {
-  const { onPress, title = 'Button Title', variant = 'light' } = props;
+  const { onPress, isActive=true, title = 'Button Title', variant = 'light' } = props;
 
   // Styles for each variant
   const buttonStyles = {
     light: styles.buttonLight,
     dark: styles.buttonDark,
     dark2: styles.buttonDark2,
+    grey: styles.buttonGrey
   };
 
   const textStyles = {
     light: styles.textWhite,
     dark: styles.textBlue,
     dark2: styles.textWhite,
+    grey: styles.textGrey
   }
 
   return (
     <View style={styles.container}>
-      <Pressable style={[styles.button, buttonStyles[variant]]} onPress={onPress}>
+      <Pressable style={[styles.button, buttonStyles[variant]]} onPress={isActive ? onPress : null}>
         <Text style={[styles.text, textStyles[variant]]}>{title}</Text>
       </Pressable>
     </View>
@@ -61,7 +63,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.PrimaryBlue,
     borderColor: colors.White,
   },
+  buttonGrey:{
+    backgroundColor: colors.Grey,
+    borderColor: colors.White,
+  },
   textWhite: {
+    color: colors.White,
+  },
+  textGrey: {
     color: colors.White,
   },
   textBlue: {

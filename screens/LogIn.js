@@ -1,44 +1,81 @@
-import {useState} from 'react';
-import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
+import { useContext, useState } from "react";
+import {
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
-import MyButton from '../components/MyButton';
+import MyButton from "../components/MyButton";
 
 import Theme from "../utils/Theme";
+import { AuthContext } from "../context/AuthContext";
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function LogIn({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const context = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [errors, setErrors] = useState('');
+  const [errors, setErrors] = useState("");
 
   const validateForm = () => {
-    let errors = {}
-    const errMsg = "This field is required."
+    let errors = {};
+    const errMsg = "This field is required.";
 
-    if (!email) errors.email = errMsg
-    if (!password) errors.password = errMsg
+    if (!email) errors.email = errMsg;
+    if (!password) errors.password = errMsg;
 
     if (password.length < 8) {
       errors.password = "The password should be more than 8 character length.";
     }
 
-    setErrors(errors)
+    setErrors(errors);
 
     return Object.keys(errors).length === 0;
-  }
+  };
+
+  const loginAPI = ({ email: email, password: password }) => {
+    context.setLoading(true);
+    fetch(
+      "https://cs350-bookswap-backend-production.up.railway.app/account_api/token/",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    )
+      .then((res) => {
+        context.setLoading(false);
+        if (res.status != 200) {
+          navigation.navigate("Error");
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        context.setToken(data.access);
+        navigation.navigate("TabPages", { screen: "Discover" });
+      });
+  };
 
   const handleSubmit = () => {
     if (validateForm()) {
       const formData = {
-        "email": email,
-        "password": password,
-      }
-      console.log(formData)
-      navigation.navigate("TabPages", {screen: "Discover"})
+        email: email,
+        password: password,
+      };
+      loginAPI(formData);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -48,51 +85,53 @@ export default function LogIn({ navigation }) {
           <Text style={[styles.pageHeader, styles.text]}> Log In </Text>
         </View>
 
-        {/* Form */ }
+        {/* Form */}
         <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>E-mail</Text>
-            {/* Input Validation */}
-            {
-              errors.email ? <Text style={[styles.formErr, styles.text]}>{errors.email}</Text> : null
-            }
-            <TextInput
-              style={styles.input}
-              onChangeText={setEmail}
-              value={email}
-              placeholder="john.doe@example.com"
-              placeholderTextColor="rgba(31, 30, 30, 0.4)"
-              inputMode="email"
-            />
-          </View>
-          
-            
-          <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>Password</Text>
-            {/* Input Validation */}
-            {
-              errors.password ? <Text style={[styles.formErr, styles.text]}>{errors.password}</Text> : null
-            }
-            <TextInput
-              style={styles.input}
-              onChangeText={(pass) => setPassword(pass)}
-              value={password}
-              placeholder="> 8 characters"
-              placeholderTextColor="rgba(31, 30, 30, 0.4)"
-              secureTextEntry={true}
-            />
-          </View>
+          <Text style={[styles.text, styles.formItemText]}>E-mail</Text>
+          {/* Input Validation */}
+          {errors.email ? (
+            <Text style={[styles.formErr, styles.text]}>{errors.email}</Text>
+          ) : null}
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="john.doe@example.com"
+            placeholderTextColor="rgba(31, 30, 30, 0.4)"
+            inputMode="email"
+          />
+        </View>
 
-        {/* Submit Button */ }
+        <View style={styles.formItem}>
+          <Text style={[styles.text, styles.formItemText]}>Password</Text>
+          {/* Input Validation */}
+          {errors.password ? (
+            <Text style={[styles.formErr, styles.text]}>{errors.password}</Text>
+          ) : null}
+          <TextInput
+            style={styles.input}
+            onChangeText={(pass) => setPassword(pass)}
+            value={password}
+            placeholder="> 8 characters"
+            placeholderTextColor="rgba(31, 30, 30, 0.4)"
+            secureTextEntry={true}
+          />
+        </View>
+
+        {/* Submit Button */}
         <View style={styles.submit}>
           <MyButton title="Log In" onPress={handleSubmit} />
           <Text style={[styles.body, styles.text]}>
-            Don't have an account?{' '}
-            <TouchableOpacity onPress={() => navigation.navigate("LoginPages", {screen: "SignUp"})}>
+            Don't have an account?{" "}
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("LoginPages", { screen: "SignUp" })
+              }
+            >
               <Text style={[styles.link, styles.text]}>Sign Up</Text>
             </TouchableOpacity>
           </Text>
         </View>
-        
       </SafeAreaView>
     </View>
   );
@@ -146,7 +185,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems: "center",
   },
-  link : {
+  link: {
     color: colors.PrimaryBlue,
     fontWeight: "700",
     bottom: -3,
