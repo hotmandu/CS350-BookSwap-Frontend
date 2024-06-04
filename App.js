@@ -11,7 +11,8 @@ import ProfilePages from './routes/profileStack';
 import Stack from "./routes/Stack";
 import BookshelfDetailStack from './routes/bookDetailsStack';
 
-import BookshelfDetail from './screens/BookshelfDetail';
+import RequestDetails from './screens/RequestDetails';
+import Bookshelf from './screens/BookShelf';
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -19,7 +20,7 @@ function App() {
   });
 
   return (
-    <BookshelfDetailStack />
+    <ReqNavi />
   );
 }
 

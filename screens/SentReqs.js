@@ -42,14 +42,14 @@ export default function SentReqs({ navigation }) {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <Filter title="Sent" variant="active" onPress={() => handleClick("Sent")}/>
                     <Filter title="Received" variant="inactive" onPress={() => handleClick("Received")}/>
+                    <Filter title="Sent" variant="active" onPress={() => handleClick("Sent")}/>
                     <Filter title="Matched" variant="inactive" onPress={() => handleClick("Matched")}/>
                 </View>
 
                 <FlatList
                     data={sentReqsData}
-                    renderItem={({ item }) => <RequestItem {...item} status="unmatched"/>}
+                    renderItem={({ item }) => <RequestItem {...item} status="sent" navigation={navigation}/>}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.itemContainer}
                 />

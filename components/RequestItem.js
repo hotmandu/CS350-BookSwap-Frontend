@@ -10,17 +10,31 @@ const { colors } = Theme;
 
 export default function RequestItem(props) {
 
-    const { bookTitle, bookAuthor, owner, status} = props;
+    const { bookTitle, bookAuthor, owner, status, navigation} = props;
     
     //Should be changed according to how to fetch the last chat
     if (status == "matched") {
         lastText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor purus sit amet tortor imperdiet, ut tristique neque ornare. Maecenas bibendum ex ac neque ullamcorper, a tincidunt eros aliquet."
     }
 
-    // Styles for each variant
+    const handleClick = () => {
+        const data = {
+            bookTitle: bookTitle,
+            bookAuthor: bookAuthor,
+            owner: owner,
+            status: status,
+        };
+        console.log(data);
+        
+        if (status === "sent") {
+            navigation.navigate("Sent Request", data);
+        } else if (status == "received") {
+            navigation.navigate("Received Request", data);
+        }
+    }
 
     return (
-        <Pressable style={styles.container} onPress={() => console.log({bookTitle})}>
+        <Pressable style={styles.container} onPress={handleClick}>
             <View>
                 <Image source={require("../assets/no-book.png")} style={[styles.bookCover]}/>
             </View>
@@ -88,7 +102,7 @@ const styles = StyleSheet.create({
     },
     bookInfo: {
         flexDirection: "row",
-        gap: 10,
+        gap: 8,
         alignItems: "center"
     },
     chat: {

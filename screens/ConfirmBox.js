@@ -9,12 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 const { colors } = Theme;
 
 export default function ConfirmBox(props) {
-    const { confirmMsg="Confirm action?", primaryButton="Confirm", secondaryButton="Cancel", toggleModal, nextPage } = props;
+    const { confirmMsg="Confirm action?", primaryButton="Confirm", secondaryButton="Cancel", toggleModal, handlePrimaryPress } = props;
     // const navigation = useNavigation();
-
-    const handlePrimaryPress = () => {
-        nextPage.navigate("ConfirmRequest");
-    }
 
     return (
         <View style={styles.container}>
