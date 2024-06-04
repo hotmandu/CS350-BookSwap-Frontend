@@ -88,31 +88,9 @@ function Bookshelf({ navigation }) {
               <View style={{ marginLeft: 100}}>
                 <Button
                   onPress={() => 
-                    navigation.navigate("Update_page")
+                    navigation.navigate("AddBook_page")
                   }
                   title="+"
-                  color="#2A4B87"
-                />
-              </View>
-              <View style={{ marginLeft: 10}}>
-                <Button
-                  onPress={() => 
-                    fetch('https://cs350-bookswap-backend-production.up.railway.app/book/3/', {
-                      method: "DELETE",
-                      headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                        // Sample authorization
-                        Authorization: `Bearer ${context.token}`,
-                      },
-                    })
-                    .then((responseData) => {
-                      console.log(JSON.stringify(responseData))
-                    }).catch(error => {console.error(error)})
-                    .then(Alert.alert('Done!'))
-                    .then(() => {getMovies()})
-                  }
-                  title="-"
                   color="#2A4B87"
                 />
               </View>
