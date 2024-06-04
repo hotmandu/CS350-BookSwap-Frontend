@@ -193,29 +193,7 @@ function Bookshelf({ navigation }) {
             <View style={{ marginLeft: 10 }}>
               <Button
                 onPress={() =>
-                  fetch(
-                    "https://cs350-bookswap-backend-production.up.railway.app/book/11/",
-                    {
-                      method: "DELETE",
-                      headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                        // Sample authorization
-                        Authorization:
-                          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5ODg3OTM1LCJpYXQiOjE3MTcyOTU5MzUsImp0aSI6IjViYzY1ZTNmODk2ZTQ1NjI4MGU0NGEwMTM5ZWZmY2U3IiwidXNlcl9pZCI6Nn0.2cuZvUsB38UjyvYSHQGLjerPge5EdZSmOEcwgt88ht0",
-                      },
-                    }
-                  )
-                    .then((responseData) => {
-                      console.log(JSON.stringify(responseData));
-                    })
-                    .catch((error) => {
-                      console.error(error);
-                    })
-                    .then(Alert.alert("Done!"))
-                    .then(() => {
-                      getMovies();
-                    })
+                  console.log("do something here")
                 }
                 title="-"
                 color="#2A4B87"
@@ -229,11 +207,7 @@ function Bookshelf({ navigation }) {
             renderItem={({ item }) => {
               if (select != "Private") {
                 return (
-                  <BookUnit
-                    name={item.title}
-                    author={item.author}
-                    genre={item.genre}
-                  />
+                  <BookUnit name={item.title} author={item.author} publisher={item.publisher} year={item.publication_date} owner={item.current_owner} isbn={item.isbn} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`} genre={item.genre} />
                 );
               }
             }}
