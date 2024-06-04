@@ -10,6 +10,7 @@ import Discover from "../screens/Discover";
 import Search from "../screens/Search";
 import BookDetails from '../screens/BookDetails';
 import BookShelf from '../screens/BookShelf';
+import Update from '../screens/UpdateBook';
 import { useTranslation } from 'react-i18next';
 
 
@@ -145,6 +146,7 @@ function TabStack() {
             <Stack.Screen name="Discover_page" component={TabBar} options={{headerShown: false}}/>
             <Stack.Screen name="Search_page" component={TabBar2} options={{headerShown: false}}/>
             <Stack.Screen name="Book_page" component={BookDetails} options={{headerShown: false}}/>
+            <Stack.Screen name="Update_page" component={Update} options={{headerShown: false}}/>
         </Stack.Navigator>
       )
 }

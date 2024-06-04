@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext, useFocusEffect} from 'react';
 import {FlatList, SafeAreaView, View, Text, Button, Alert, TouchableOpacity, StyleSheet} from 'react-native';
 import BookUnit from '../BookUnit';
+import { AuthContext } from '../context/AuthContext';
 
 const styles = StyleSheet.create({
-    safeAreaView: {flex: 1, flexWrap:"wrap", flexDirection: "row", padding: 10},
+    safeAreaView: {flex: 1, flexWrap:"wrap", flexDirection: "row", padding: 10, marginVertical: 20},
     boldtext_24: {fontSize: 24, color: "#2A4B87", fontWeight: "bold"},
     button: {paddingHorizontal: 10, paddingVertical: 5, borderRadius: 24},
     button_text: {fontSize: 12}
@@ -12,6 +13,8 @@ const styles = StyleSheet.create({
 function Bookshelf({ navigation }) {
     const [data, setData] = useState([]);
     const [select, setSelect] = useState("All Books");
+
+    const context = useContext(AuthContext)
   
     const handleSelect = select => {
       setSelect(select);
@@ -29,7 +32,10 @@ function Bookshelf({ navigation }) {
     };
   
     useEffect(() => {
-      getMovies();
+      navigation.addListener('focus', () => getMovies())
+    }, []);
+    useEffect(() => {
+      navigation.addListener('blur', () => getMovies())
     }, []);
   
     function active (route, rev) {
@@ -82,8 +88,7 @@ function Bookshelf({ navigation }) {
               <View style={{ marginLeft: 100}}>
                 <Button
                   onPress={() => 
-                    //navigation.navigate("Add_Book_page")
-                    alert("Pressed!")
+                    navigation.navigate("Update_page")
                   }
                   title="+"
                   color="#2A4B87"
@@ -92,13 +97,13 @@ function Bookshelf({ navigation }) {
               <View style={{ marginLeft: 10}}>
                 <Button
                   onPress={() => 
-                    fetch('https://cs350-bookswap-backend-production.up.railway.app/book/11/', {
+                    fetch('https://cs350-bookswap-backend-production.up.railway.app/book/3/', {
                       method: "DELETE",
                       headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
                         // Sample authorization
-                        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5ODg3OTM1LCJpYXQiOjE3MTcyOTU5MzUsImp0aSI6IjViYzY1ZTNmODk2ZTQ1NjI4MGU0NGEwMTM5ZWZmY2U3IiwidXNlcl9pZCI6Nn0.2cuZvUsB38UjyvYSHQGLjerPge5EdZSmOEcwgt88ht0"
+                        Authorization: `Bearer ${context.token}`,
                       },
                     })
                     .then((responseData) => {
@@ -117,7 +122,7 @@ function Bookshelf({ navigation }) {
               keyExtractor={({id}) => id}
               renderItem={({item}) => { if (select != "Private") {
                 return (
-                  <BookUnit name={item.title} author={item.author} genre={item.genre}/>
+                  <BookUnit name={item.title} author={item.author} publisher={item.publisher} year={item.publication_date} owner={item.current_owner} isbn={item.isbn} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`} genre="comedy"/>
                 )
               }}}/>
           </SafeAreaView>

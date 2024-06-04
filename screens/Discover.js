@@ -69,7 +69,10 @@ export default function Discover({ navigation }) {
   };
 
   useEffect(() => {
-    getBooks();
+    navigation.addListener('focus', () => getBooks())
+  }, []);
+  useEffect(() => {
+    navigation.addListener('blur', () => getBooks())
   }, []);
 
   if (search.length > 0) {
