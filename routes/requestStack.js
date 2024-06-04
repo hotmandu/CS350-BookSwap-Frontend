@@ -9,6 +9,7 @@ import ReceivedReqs from '../screens/ReceivedReqs';
 import MatchedReqs from '../screens/MatchedReqs';
 import RequestDetails from '../screens/RequestDetails';
 import RequestStatus from '../screens/RequestStatus';
+import Bookshelf from '../screens/BookShelf';
 import Test from '../screens/Test'; //--PLACEHOLDER
 import CancelRequest from '../screens/CancelRequest';
 
@@ -48,6 +49,13 @@ const screens = {
             gestureEnabled: true,
         }
     },
+    Bookshelf: {
+        screen: Bookshelf,
+        navigationOptions: {
+            headerShown: false,
+            gestureEnabled: false,
+        }
+    },
     Test: {
         screen: Test,
         navigationOptions: {
@@ -66,7 +74,7 @@ function RequestStack () {
                 <Stack.Screen name="Matched" component={MatchedReqs} options={screens.Matched.navigationOptions}/>
                 <Stack.Screen name="Received Request" component={RequestDetails} options={screens.RequestDetails.navigationOptions}/>
                 <Stack.Screen name="Sent Request" component={CancelRequest} options={screens.CancelRequest.navigationOptions}/>
-
+                <Stack.Screen name="Bookshelf" component={Bookshelf} options={screens.Bookshelf.navigationOptions}/>
                 {/* --PLACEHOLDER-- */}
                 <Stack.Screen name="Test" component={Test} options={screens.Test.navigationOptions}/>
             </Stack.Navigator>

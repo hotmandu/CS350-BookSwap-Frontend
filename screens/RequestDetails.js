@@ -33,7 +33,8 @@ export default function RequestDetails({ route, navigation }) {
     
     const handleSeeBookshelf = () => {
         // TODO: redirect to the bookshelf page
-        navigation.navigate("Test");  //--PLACEHOLDER--
+        // navigation.navigate("Test");  //--PLACEHOLDER--
+        navigation.navigate("Bookshelf", {book: requestedBook});
 
         // TODO: pass the chosen book data here
         // ---PLACEHOLDER---
