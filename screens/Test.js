@@ -3,9 +3,11 @@
 import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 
-import Error from './Error';
+import ConfirmRequestStack from '../routes/confirmRequestStack';
 
 import Theme from "../utils/Theme";
+import BookDetails from './BookDetails';
+import EditBookDetails from './BookshelfDetail';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
@@ -13,7 +15,7 @@ export default function Test() {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.topContainer}>
-        <Error />
+        <EditBookDetails />
       </SafeAreaView>
     </View>
   )

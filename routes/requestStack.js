@@ -41,7 +41,7 @@ function RequestStack () {
     )
 }
 
-//const ExchangeRequestStack = createStackNavigator(screens);
+//const RequestStack = createStackNavigator(screens);
 
 //export default createAppContainer(ExchangeRequestStack);
 export default RequestStack;

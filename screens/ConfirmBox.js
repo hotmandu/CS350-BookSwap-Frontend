@@ -13,8 +13,7 @@ export default function ConfirmBox(props) {
     // const navigation = useNavigation();
 
     const handlePrimaryPress = () => {
-        // navigation.navigate(nextPage);
-        console.log("should redirect to confirmation page here");
+        nextPage.navigate("ConfirmRequest");
     }
 
     return (
