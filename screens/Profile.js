@@ -83,8 +83,11 @@ export default function Profile({ navigation }) {
 
                     <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue}} />
 
-                    <Pressable onPress={() => navigation.navigate("ChangePasswords")}>
-                        <ProfileItem title="Change Password" />
+                    <Pressable onPress={() => {
+                        context.logout
+                        navigation.navigate("Welcome")
+                        }}>
+                        <ProfileItem title="Logout" />
                     </Pressable>
                 </View>
 
@@ -99,9 +102,6 @@ export default function Profile({ navigation }) {
                         <ProfileItem title="Language" value="English" />
                     </Pressable>
                 </View>
-                
-
-
             </SafeAreaView>
         </View>
     );

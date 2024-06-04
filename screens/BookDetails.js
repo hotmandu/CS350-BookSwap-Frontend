@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   SafeAreaView,
@@ -20,9 +20,7 @@ import { AuthContext } from "../context/AuthContext";
 const { colors } = Theme;
 
 export default function BookDetails({ route }) {
-  console.log(route.params);
   const context = useContext(AuthContext)
-  console.log(context.user)
 
   const DATA = {
     cover: route.params.image,
@@ -32,7 +30,7 @@ export default function BookDetails({ route }) {
     publisher: route.params.publisher,
     year: route.params.year,
     ISBN: route.params.isbn,
-    genres: ["genre1", "genre2", "genre3", "genre4"],
+    genres: [route.params.genre],
   };
 
   const TableData = ({ title, content }) => {
@@ -46,9 +44,39 @@ export default function BookDetails({ route }) {
 
   // For Modal
   const [modalVisible, setModalVisible] = useState(false);
+  const [owner, setOwner] = useState(DATA.owner)
+
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
+
+  const getUser = (user_id, token) =>{
+    fetch(
+      `https://cs350-bookswap-backend-production.up.railway.app/account_api/get_user/${user_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${token}`,
+        }
+      }
+    )
+      .then((res) => {
+        if (res.status != 200) {
+          navigation.navigate("Error");
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        console.log(data)
+        setOwner(`${data.first_name} ${data.last_name}`)
+      });
+  }
+
+  useEffect(()=>{
+    getUser(DATA.owner,context.token)
+  },[])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -74,7 +102,7 @@ export default function BookDetails({ route }) {
         <TableData title="Publisher" content={DATA.publisher} />
         <TableData title="Year" content={DATA.year} />
         <TableData title="ISBN" content={DATA.ISBN} />
-        <TableData title="Owned By" content={DATA.owner} />
+        <TableData title="Owned By" content={owner} />
       </View>
 
       {/* Footer */}

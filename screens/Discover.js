@@ -198,8 +198,8 @@ export default function Discover({ navigation }) {
               />
             </View>
             <SafeAreaView style={[styles.safeAreaView]}>
-                {data.map((item)=>(
-                  <BookUnit name={item.title} author={item.author} publisher={item.publisher} year={item.publication_date} owner={item.current_owner} isbn={item.isbn} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`} genre="comedy" />
+                {data.map((item, index)=>(
+                  <BookUnit key={index} name={item.title} author={item.author} publisher={item.publisher} year={item.publication_date} owner={item.current_owner} isbn={item.isbn} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`} genre={item.genre} />
                 ))}
             </SafeAreaView>
           </View>

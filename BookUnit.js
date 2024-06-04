@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 });
 
 function BookUnit({ name, author, publisher, year, owner, isbn, genre, image }) {
+  console.log("here")
   const navigation = useNavigation();
   return (
     <TouchableOpacity
