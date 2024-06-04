@@ -32,7 +32,7 @@ export default function ConfirmRequest({ navigation }) {
                 <MyButton 
                     title="Back to Home"
                     variant="dark2"
-                    onPress={() => navigation.navigate("Home", {screen: "Home"})}
+                    onPress={() => navigation.navigate("TabPages", {screen: "Discover_page"})}
                 />
                 <MyButton 
                     title="Check Request" 

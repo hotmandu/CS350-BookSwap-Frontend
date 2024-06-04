@@ -19,10 +19,11 @@ import { AuthContext } from "../context/AuthContext";
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
-export default function BookDetails({ route }) {
+export default function BookDetails({ navigation, route }) {
   const context = useContext(AuthContext)
 
   const DATA = {
+    id: route.params.id,
     cover: route.params.image,
     title: route.params.name,
     author: route.params.author,
@@ -115,13 +116,14 @@ export default function BookDetails({ route }) {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
+        onRequestClose={() => navigation.navigate("ConfirmRequest")}
       >
         <View style={styles.modalOverlay}>
           <ConfirmBox
             confirmMsg={"Send exchange request for " + DATA.title + "?"}
             toggleModal={toggleModal}
-            nextPage="../screens/Test.js"
+            nextPage={()=>{navigation.navigate("ConfirmRequestStack", {screen: "ConfirmRequest"})}
+            }
           />
         </View>
       </Modal>

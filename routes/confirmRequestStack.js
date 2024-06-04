@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
-import ConfirmRequest from '../screens/ConfirmRequest';
-import SentReqs from '../screens/SentReqs';
+import ConfirmRequest from "../screens/ConfirmRequest";
+import SentReqs from "../screens/SentReqs";
 
 // Import all colors defined in defaultColors.js
 import Theme from "../utils/Theme";
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: 10,
     padding: 10,
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     borderRadius: 5,
   },
   pageHeader: {
@@ -35,20 +35,18 @@ const styles = StyleSheet.create({
 
 function ConfirmRequestStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="ConfirmRequest"
-          component={ConfirmRequest}
-          options={{ headerShown: false, gestureEnabled: false }}
-        />
-        <Stack.Screen
-          name="SentReqs"
-          component={SentReqs}
-          options={{ headerShown: false, gestureEnabled: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ConfirmRequest"
+        component={ConfirmRequest}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="SentReqs"
+        component={SentReqs}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+    </Stack.Navigator>
   );
 }
 

@@ -10,6 +10,7 @@ import TabPages from "./TabStack";
 import Theme from "../utils/Theme";
 import { NavigationContainer } from '@react-navigation/native';
 import Error from '../screens/Error';
+import ConfirmRequestStack from './confirmRequestStack';
 const { colors } = Theme;
 
 const styles = StyleSheet.create({
@@ -40,6 +41,7 @@ function TheStack() {
             <Stack.Navigator screenOptions={{headerShown: false}}>
                 <Stack.Screen name="LoginPages" component={LoginPages}/>
                 <Stack.Screen name="TabPages" component={TabPages}/>
+                <Stack.Screen name="ConfirmRequestStack" component={ConfirmRequestStack}/>
                 <Stack.Screen name="Error" component={Error}/>
             </Stack.Navigator>
         </NavigationContainer>

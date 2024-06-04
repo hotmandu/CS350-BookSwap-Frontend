@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   box: { width: 150, height: 300, marginBottom: 10, marginHorizontal: 10 },
 });
 
-function BookUnit({ name, author, publisher, year, owner, isbn, genre, image }) {
+function BookUnit({ id, name, author, publisher, year, owner, isbn, genre, image }) {
   console.log("here")
   const navigation = useNavigation();
   return (
@@ -39,7 +39,7 @@ function BookUnit({ name, author, publisher, year, owner, isbn, genre, image }) 
       onPress={() => {
         navigation.navigate("TabPages", {
           screen: "Book_page",
-          params: { name, author, genre, image, publisher, year, owner, isbn,  },
+          params: { id, name, author, genre, image, publisher, year, owner, isbn,  },
         });
       }}
     >
