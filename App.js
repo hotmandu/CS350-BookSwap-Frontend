@@ -15,6 +15,8 @@ import ProfilePages from './routes/profileStack';
 import ChangePasswords from './screens/ChangePassword';
 import Stack from "./routes/Stack";
 import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import ConfirmRequestStack from './routes/confirmRequestStack';
 
 
 function App() {
@@ -23,25 +25,7 @@ function App() {
   });
 
   return (
-    // <Navigator />
-    <Stack />
-    // <ReqNavi />
-    // <BookDetails />
-    // <Test />
-    // <Confirm />
-    // <Error />
-    
-    // Change input to messages history and book data from the database
-    // <Chat msgData={msgData} bookData={{
-    //   owner: "John Doe",
-    //   title: "The Diary of A Young Girl",
-    //   author: "Anne Frank",
-    // }}/>
-
-    // <Profile />
-    //<ProfilePages />
-    // <AccountDetails />
-    // <ChangePasswords />
+    <ConfirmRequestStack />
   );
 }
 

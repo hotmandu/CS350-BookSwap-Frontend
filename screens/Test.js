@@ -3,7 +3,7 @@
 import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 
-import Error from './Error';
+import ConfirmRequestStack from '../routes/confirmRequestStack';
 
 import Theme from "../utils/Theme";
 // Import all colors defined in defaultColors.js
@@ -11,11 +11,11 @@ const { colors } = Theme;
 
 export default function Test() {
   return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.topContainer}>
-        <Error />
-      </SafeAreaView>
-    </View>
+    // <View style={styles.container}>
+    //   <SafeAreaView style={styles.topContainer}>
+    <ConfirmRequestStack />
+    //   </SafeAreaView>
+    // </View>
   )
 }
 
