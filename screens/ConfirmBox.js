@@ -10,7 +10,6 @@ const { colors } = Theme;
 
 export default function ConfirmBox(props) {
     const { confirmMsg="Confirm action?", primaryButton="Confirm", secondaryButton="Cancel", toggleModal, nextPage } = props;
-    // const navigation = useNavigation();
 
     const handlePrimaryPress = () => {
         nextPage()

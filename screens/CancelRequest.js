@@ -9,7 +9,8 @@ import ConfirmBox from './ConfirmBox';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
-export default function CancelRequest() {
+export default function CancelRequest({ route, navigation }) {
+  console.log(route.params);
   // TODO: Replace DATA with requested book data from the database
     const DATA = {
         cover: "none",
@@ -27,6 +28,10 @@ export default function CancelRequest() {
         ],
         review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis aliquet maximus. Mauris rutrum, eros id consequat consequat, eros orci luctus turpis, vel porta nunc turpis sed velit. Quisque nibh tortor, placerat a dapibus porttitor, mattis in risus. Pellentesque tristique lacus vel libero pellentesque, dignissim ultrices sem dapibus. Fusce rhoncus ornare felis non vehicula. Sed posuere, lectus tristique sagittis tincidunt, risus tortor semper libero, ut mollis turpis odio eu est.",
     }
+
+    DATA.author = route.params.bookAuthor;
+    DATA.title = route.params.bookTitle;
+    DATA.owner = route.params.owner;
 
     const getImageSource = (cover) => {
       if (cover && cover !== "none") {
@@ -54,6 +59,11 @@ export default function CancelRequest() {
         console.log(modalVisible);
     };
     
+    const handleCancelRequest = () => {
+      // TODO: set request to be cancelled
+      console.log("Request Cancelled"); // ---PLACEHOLDER---
+      navigation.navigate("Sent");
+    }
 
     return (
         <View style={styles.container}>
@@ -109,7 +119,7 @@ export default function CancelRequest() {
                     <ConfirmBox 
                       confirmMsg={"Cancel exchange request for " + DATA.title + "?"} 
                       toggleModal={toggleModal}
-                      nextPage="../screens/Test.js"
+                      handlePrimaryPress = {handleCancelRequest}
                     />
                   </View>
                 </Modal>
@@ -129,6 +139,7 @@ const styles = StyleSheet.create({
       },
       image: {
         alignSelf: "center",
+        marginTop: 20,
       },
       text: {
         fontFamily: Typeface.font,

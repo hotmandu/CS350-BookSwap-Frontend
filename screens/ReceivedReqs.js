@@ -58,7 +58,7 @@ export default function ReceivedReqs({ navigation }) {
 
                 <FlatList
                     data={sentReqsData}
-                    renderItem={({ item }) => <RequestItem {...item} status="unmatched"/>}
+                    renderItem={({ item }) => <RequestItem {...item} status="received" navigation={navigation}/>}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.itemContainer}
                 />

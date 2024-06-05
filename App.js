@@ -11,7 +11,8 @@ import ProfilePages from './routes/profileStack';
 import Stack from "./routes/Stack";
 import AuthProvider from './context/AuthContext';
 
-import BookshelfDetail from './screens/BookshelfDetail';
+import RequestDetails from './screens/RequestDetails';
+import Bookshelf from './screens/BookShelf';
 
 function App() {
   const [fontsLoaded] = useFonts({

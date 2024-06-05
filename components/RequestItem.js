@@ -18,99 +18,107 @@ import { Typeface, Theme } from "../utils/Theme";
 const { colors } = Theme;
 
 export default function RequestItem(props) {
-  const { title, author, current_owner, status, image } = props;
 
-  //Should be changed according to how to fetch the last chat
-  if (status == "matched") {
-    lastText = "Open Chat";
-  }
+    const { bookTitle, bookAuthor, owner, status, navigation} = props;
+    
+    //Should be changed according to how to fetch the last chat
+    if (status == "matched") {
+        lastText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor purus sit amet tortor imperdiet, ut tristique neque ornare. Maecenas bibendum ex ac neque ullamcorper, a tincidunt eros aliquet."
+    }
 
-  // Styles for each variant
+    const handleClick = () => {
+        const data = {
+            bookTitle: bookTitle,
+            bookAuthor: bookAuthor,
+            owner: owner,
+            status: status,
+        };
+        console.log(data);
+        
+        if (status === "sent") {
+            navigation.navigate("Sent Request", data);
+        } else if (status == "received") {
+            navigation.navigate("Received Request", data);
+        }
+    }
 
-  return (
-    <View style={styles.container}>
-      <View>
-        <Image
-          source={{
-            uri: `https://cs350-bookswap-backend-production.up.railway.app${image}`,
-          }}
-          style={[styles.bookCover]}
-        />
-      </View>
-      <View style={styles.infoContainer}>
-        <View style={styles.bookInfo}>
-          <Text style={[styles.text, styles.bookTitle]} numberOfLines={1}>
-            {title}
-          </Text>
-          <Text style={[styles.text, styles.bookTitle]}>·</Text>
-          <Text style={[styles.text, styles.bookAuthor]} numberOfLines={1}>
-            {author}
-          </Text>
-        </View>
-        <Text style={[styles.text, styles.owner]}>{current_owner}</Text>
-        {status === "matched" && (
-          <Text style={[styles.text, styles.chat]} numberOfLines={1}>
-            {lastText}
-          </Text>
-        )}
-      </View>
-    </View>
-  );
+    return (
+        <Pressable style={styles.container} onPress={handleClick}>
+            <View>
+                <Image source={require("../assets/no-book.png")} style={[styles.bookCover]}/>
+            </View>
+            <View style={styles.infoContainer} >
+                <View style={styles.bookInfo}>
+                    <Text style={[styles.text, styles.bookTitle]} numberOfLines={1}>{ bookTitle }</Text>
+                    <Text style={[styles.text, styles.bookTitle]}>·</Text>
+                    <Text style={[styles.text, styles.bookAuthor]} numberOfLines={1}>{ bookAuthor }</Text>
+                </View>
+                <Text style={[styles.text, styles.owner]}>{ owner }</Text>
+                {
+                    status === "matched" && (
+                        <Text style={[styles.text, styles.chat]} numberOfLines={1}>{ lastText }</Text>
+                    )
+                }
+
+
+            </View>
+        </Pressable>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    gap: 10,
-    marginLeft: -15,
-  },
-  bookCover: {
-    width: 80,
-    height: 80,
-    resizeMode: "contain",
-  },
-  text: {
-    fontFamily: Typeface.font,
-  },
-  infoContainer: {
-    paddingVertical: 5,
-    flexDirection: "column",
-    rowGap: 3,
-    flex: 1,
-  },
-  bookTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    textTransform: "capitalize",
-    color: colors.PrimaryBlue,
-    overflow: "hidden",
-    maxWidth: "60%",
-  },
-  bookAuthor: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: colors.PrimaryBlue,
-    textAlign: "left",
-    overflow: "hidden",
-  },
-  owner: {
-    color: colors.Black,
-    fontSize: 12,
-    fontWeight: "300",
-    textAlign: "left",
-    overflow: "hidden",
-    width: "90%",
-  },
-  bookInfo: {
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-  },
-  chat: {
-    textAlign: "left",
-    color: colors.Black,
-    fontSize: 14,
-    marginTop: 5,
-    fontWeight: "300",
-  },
-});
+    container: {
+        flexDirection: "row",
+        gap: 10,
+        marginLeft: -15,
+    },
+    bookCover: {
+        width: 80,
+        height: 80,
+        resizeMode: "contain",
+    },
+    text: {
+        fontFamily: Typeface.font,
+    },
+    infoContainer: {
+        paddingVertical: 5,
+        flexDirection: "column",
+        rowGap: 3,
+        flex: 1,
+    },
+    bookTitle: {
+        fontSize: 16,
+        fontWeight: "700",
+        textTransform: "capitalize",
+        color: colors.PrimaryBlue,
+        overflow: "hidden",
+        maxWidth: "60%",
+    },
+    bookAuthor: {
+        fontSize: 14,
+        fontWeight: "500",
+        color: colors.PrimaryBlue,
+        textAlign: "left",
+        overflow: "hidden",
+    },
+    owner: {
+        color: colors.Black,
+        fontSize: 12,
+        fontWeight: "300",
+        textAlign: "left",
+        overflow: "hidden",
+        width: "90%",
+    },
+    bookInfo: {
+        flexDirection: "row",
+        gap: 8,
+        alignItems: "center"
+    },
+    chat: {
+        textAlign: "left",
+        color: colors.Black,
+        fontSize: 14,
+        marginTop: 5,
+        fontWeight: "300",
+    }
+})
