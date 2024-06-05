@@ -55,6 +55,7 @@ export default function LogIn({ navigation }) {
     )
       .then((res) => {
         context.setLoading(false);
+        console.log(res)
         if (res.status != 200) {
           navigation.navigate("Error");
         } else {

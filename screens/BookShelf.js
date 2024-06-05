@@ -1,16 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  FlatList,
-  SafeAreaView,
-  View,
-  Text,
-  Button,
-  Alert,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import BookUnit from "../BookUnit";
-import { AuthContext } from "../context/AuthContext";
+import React, {useEffect, useState, useContext, useFocusEffect} from 'react';
+import {FlatList, SafeAreaView, View, Text, Button, Alert, TouchableOpacity, StyleSheet} from 'react-native';
+import BookUnit from '../BookUnit';
+import { AuthContext } from '../context/AuthContext';
 
 const styles = StyleSheet.create({
   safeAreaView: {
