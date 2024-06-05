@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import BookUnit from "../BookUnit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from "react-i18next";
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -31,6 +32,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Discover({ navigation }) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -86,7 +88,7 @@ export default function Discover({ navigation }) {
               <TextInput
                 style={styles.Searchbar}
                 type="search"
-                placeholder="Search title, genre, author..."
+                placeholder={t('screen.discover.phSearch')}
                 onChangeText={updateSearch}
                 onSubmitEditing={({ nativeEvent }) => {
                   console.log("ehre")
@@ -105,10 +107,10 @@ export default function Discover({ navigation }) {
               />
             </View>
             <View style={{ padding: 12 }}>
-              <Text style={styles.boldtext_24}>Hot Searches</Text>
+              <Text style={styles.boldtext_24}>{t('screen.discover.hot')}</Text>
             </View>
             <View style={{ padding: 12 }}>
-              <Text style={styles.boldtext_24}>Recently Searched</Text>
+              <Text style={styles.boldtext_24}>{t('screen.discover.recent')}</Text>
             </View>
             <View
               style={{
@@ -184,7 +186,7 @@ export default function Discover({ navigation }) {
               <TextInput
                 style={styles.Searchbar}
                 type="search"
-                placeholder="Search title or author"
+                placeholder={t('screen.discover.phSearch')}
                 onChangeText={updateSearch}
                 onSubmitEditing={({ nativeEvent }) => {
                   if(search.trim().length > 0){

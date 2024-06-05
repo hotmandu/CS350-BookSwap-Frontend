@@ -100,7 +100,7 @@ export default function CancelRequest({ route, navigation }) {
 
                 {/* Owner's Review */}
                 <View style={styles.synopsisContainer}>
-                    <Text style={[styles.text, styles.sectionTitle]}>{t('screen.bookshelfDetails.ownerSynopsis')}</Text>
+                    <Text style={[styles.text, styles.sectionTitle]}>{t('screen.bookDetails.review')}</Text>
                     <Text style={[styles.text, styles.reviewText]}>{DATA.review}</Text>
                 </View>
 

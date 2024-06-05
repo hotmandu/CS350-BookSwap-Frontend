@@ -1,22 +1,24 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Alert, TextInput, Linking, TouchableOpacity, Image, Modal } from 'react-native';
 
 import {Theme, Typeface} from "../utils/Theme";
 import MyButton from '../components/MyButton';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function DeleteConfirmBox(props) {
+    const { t } = useTranslation();
     const { confirmMsg="Confirm action?", primaryButton="Confirm", secondaryButton="Cancel", toggleModal, nextPage } = props;
     // const navigation = useNavigation();
 
-    const handlePrimaryPress = () => {
-        Alert.alert("You have deleted this item.");
+    const handlePrimaryPress = useCallback(() => {
+        Alert.alert(t('screen.deleteConfirmBox.alert'));
         // TODO: should redirect to the page that's calling the book details
         console.log("redirecting back....");
-    }
+    }, [t]);
 
     return (
         <View style={styles.container}>

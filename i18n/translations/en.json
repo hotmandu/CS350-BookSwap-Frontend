@@ -44,13 +44,16 @@
             "submit": "Submit"
         },
         "bookDetails": {
-            "publisher": "출판사",
-            "year": "출판 연도",
+            "publisher": "Publisher",
+            "year": "Year",
             "isbn": "ISBN",
-            "ownedby": "소유자",
-            "btnSendRequest": "요청 보내기",
-            "reqConfirmMsg": "{{title}}에 대한 교환 요청을 보내시겠습니까?",
-            "review": "소유자 리뷰"
+            "ownedby": "Owner",
+            "btnSendRequest": "Send Request",
+            "reqConfirmMsg": "Send exchange request for {{title}}?",
+            "review": "Owner's Review",
+            "title": "Book title",
+            "author": "Book author",
+            "pubdate": "Publication date"
         },        
         "bookshelf": {
             "yourBookshelf": "Your Bookshelf",
@@ -65,7 +68,6 @@
             "delboxCancel": "Cancel",
             "delete": "Delete",
             "edit": "Edit",
-            "ownerSynopsis": "Owner's Synopsis",
             "delConfirm": "Are you sure you want to delete {{title}}?"
         },
         "cancelRequest": {
@@ -88,11 +90,41 @@
             "phConfirmPassword": "Confirm your new password",
             "btnChange": "Change Password"
         },
+        "chat": {
+            "today": "Today",
+            "msg": "Message..."
+        },
+        "confirmRequest": {
+            "title": "Request Sent!",
+            "msg": "An exchange request for {{title}}. You can check your request status on Request tab.",
+            "back": "Back to Home",
+            "checkReq": "Check Requests"
+        },
+        "deleteConfirmBox": {
+            "alert": "You have deleted this item."
+        },
+        "discover": {
+            "phSearch": "Search title, genre, author...",
+            "hot": "Hot Searches",
+            "recent": "Recently Searched"
+        },
+        "editBookshelfDetail": {
+            "errorPhotoPerm": "You've refused to allow this app to access your photos!",
+            "phSelImg": "Select Image",
+            "alertTitle": "Changes Saved.",
+            "alertMsg": "Your changes have been saved successfully."
+        },
+        "error": {
+            "oops": "Oops!",
+            "msg": "Something went wrong...",
+            "back": "Back"
+        },
         "landing": {
             "logIn": "Log In",
             "signUp": "Sign Up"
         },
         "logIn": {
+            "title": "Log In",
             "logIn": "Log In",
             "email": "E-mail",
             "password": "Password",
@@ -139,9 +171,6 @@
             "email": "Email",
             "password": "Password",
             "haveAccount": "Already have an account?"
-        }, 
-        "logIn": {
-            "title": "Log In"
         },
         "requestDetails": {
             "accept": "Accept",

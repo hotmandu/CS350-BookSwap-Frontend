@@ -4,10 +4,12 @@ import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import MyButton from '../components/MyButton';
 
 import { Theme, Typeface } from "../utils/Theme";
+import { useTranslation } from 'react-i18next';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function Error({ navigation }) {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.topContainer}>
@@ -17,12 +19,12 @@ export default function Error({ navigation }) {
         />
 
         <View style={styles.textContainer}>
-          <Text style={[styles.text, styles.pageTitle]}>Oops!</Text>
-          <Text style={[styles.text, styles.body]}>Something went wrong...</Text>
+          <Text style={[styles.text, styles.pageTitle]}>{t('screen.error.oops')}</Text>
+          <Text style={[styles.text, styles.body]}>{t('screen.error.msg')}</Text>
         </View>
 
         <View style={styles.buttonContainer}>
-          <MyButton title="Back" onPress={navigation.goBack}/>
+          <MyButton title={t('screen.error.back.')} onPress={navigation.goBack}/>
         </View>
 
       </SafeAreaView>

@@ -1,6 +1,6 @@
 // Edit the book details in the user's bookshelf.
 
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TextInput, Alert, Pressable} from 'react-native';
 import SelectBox from 'react-native-multi-selectbox'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -8,9 +8,11 @@ import * as ImagePicker from 'expo-image-picker';
 
 import MyButton from '../components/MyButton';
 import { Typeface, Theme } from '../utils/Theme';
+import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 export default function EditBookshelfDetail({ navigation }) {
+    const { t } = useTranslation();
     // TODO:
     // 1. Retrieve book data from the database @ const book
     // 2. Add logic for adding updated fields to the database @ const handleSave
@@ -36,12 +38,12 @@ export default function EditBookshelfDetail({ navigation }) {
     const [imageName, setImageName] = useState(book.image.split('/').pop());
     const [errors, seterrors] = useState({});
 
-    const pickImage = async () => {
+    const pickImage = useCallback(async () => {
         console.log("Attempting to pick image...");
         // Ask for permission to access the media library
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (permissionResult.granted === false) {
-            alert("You've refused to allow this app to access your photos!");
+            alert(t('screen.editBookshelfDetail.errorPhotoPerm'));
             return;
         }
     
@@ -62,10 +64,10 @@ export default function EditBookshelfDetail({ navigation }) {
         } else {
             console.log("Image selection cancelled");
         }
-    };
+    }, [t]);
     
 
-    const handleSave = () => {
+    const handleSave = useCallback(() => {
         const newData = {
             "title": title || book.title,
             "author":  author || book.author,
@@ -76,9 +78,9 @@ export default function EditBookshelfDetail({ navigation }) {
             "visibility": visibility || book.visibility,
         }
         console.log(newData); //Change to logic to save data to the database
-        Alert.alert("Changes Saved.", "Your changes have been saved successfully.");
+        Alert.alert(t('screen.editBookshelfDetail.alertTitle'), t('screen.editBookshelfDetail.alertMsg'));
         navigation.navigate("Book Details");
-    };
+    }, [t]);
 
     const visibilityOptions = [
         { item: "Public", id: "Public" },
@@ -94,16 +96,16 @@ export default function EditBookshelfDetail({ navigation }) {
                     {/* Upload or remove the current image */}
                     <Text style={[styles.text, styles.formItemText]}>Cover</Text>
                     <Pressable style={[styles.edit]} onPress={pickImage}>
-                        <Text style={styles.editText}>{imageName || 'Select Image'}</Text>
+                        <Text style={styles.editText}>{imageName || t('screen.editBookshelfDetail.phSelImg')}</Text>
                     </Pressable>
 
-                    <FormItem label="Book Title" value={title} onChangeText={setTitle} placeholder={book.title} error={errors.title} />
-                    <FormItem label="Author" value={author} onChangeText={setAuthor} placeholder={book.author} error={errors.author} />
-                    <FormItem label="ISBN" value={isbn} onChangeText={setIsbn} placeholder={book.isbn} error={errors.isbn} />
-                    <FormItem label="Publication Date" value={publicationDate} onChangeText={setPublicationDate} placeholder={book.publication_date} error={errors.publicationDate} />
-                    <FormItem label="Publisher" value={publisher} onChangeText={setPublisher} placeholder={book.publisher} error={errors.publisher} />
+                    <FormItem label={t('screen.bookDetails.title')} value={title} onChangeText={setTitle} placeholder={book.title} error={errors.title} />
+                    <FormItem label={t('screen.bookDetails.author')} value={author} onChangeText={setAuthor} placeholder={book.author} error={errors.author} />
+                    <FormItem label={t('screen.bookDetails.isbn')} value={isbn} onChangeText={setIsbn} placeholder={book.isbn} error={errors.isbn} />
+                    <FormItem label={t('screen.bookDetails.pubdate')} value={publicationDate} onChangeText={setPublicationDate} placeholder={book.publication_date} error={errors.publicationDate} />
+                    <FormItem label={t('screen.bookDetails.publisher')} value={publisher} onChangeText={setPublisher} placeholder={book.publisher} error={errors.publisher} />
                     <SelectBox 
-                        label="Visibility"
+                        label={t('term.bookVisibility')}
                         inputPlaceholder={book.visibility}
                         options={visibilityOptions}
                         value={visibility}
@@ -123,7 +125,7 @@ export default function EditBookshelfDetail({ navigation }) {
                     />
                 </View>
 
-                <MyButton title="Save Changes" onPress={handleSave} />
+                <MyButton title={t('screen.accountDetails.btnSave')} onPress={handleSave} />
             </SafeAreaView>
         </View>
     );
