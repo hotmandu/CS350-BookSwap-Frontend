@@ -15,11 +15,14 @@ import GenreItem from "../components/GenreItem";
 import MyButton from "../components/MyButton";
 import ConfirmBox from "./ConfirmBox";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function BookDetails({ navigation, route }) {
+  const { t } = useTranslation();
+
   const context = useContext(AuthContext)
 
   const DATA = {
@@ -100,15 +103,15 @@ export default function BookDetails({ navigation, route }) {
 
       {/* Book Details */}
       <View style={styles.detailsContainer}>
-        <TableData title="Publisher" content={DATA.publisher} />
-        <TableData title="Year" content={DATA.year} />
-        <TableData title="ISBN" content={DATA.ISBN} />
-        <TableData title="Owned By" content={owner} />
+        <TableData title={t("screen.bookDetails.publisher")} content={DATA.publisher} />
+        <TableData title={t("screen.bookDetails.year")} content={DATA.year} />
+        <TableData title={t("screen.bookDetails.isbn")} content={DATA.ISBN} />
+        <TableData title={t("screen.bookDetails.ownedby")} content={owner} />
       </View>
 
       {/* Footer */}
       <View style={styles.footerContainer}>
-        <MyButton title="Send Request" onPress={toggleModal} isActive={context.user?.user_id === DATA.owner ? false : true} variant={context.user?.user_id === DATA.owner ? 'grey' : 'light'}/>
+        <MyButton title={t("screen.bookDetails.btnSendRequest")} onPress={toggleModal} isActive={context.user?.user_id === DATA.owner ? false : true} variant={context.user?.user_id === DATA.owner ? 'grey' : 'light'}/>
       </View>
 
       {/* Modal */}
@@ -120,7 +123,7 @@ export default function BookDetails({ navigation, route }) {
       >
         <View style={styles.modalOverlay}>
           <ConfirmBox
-            confirmMsg={"Send exchange request for " + DATA.title + "?"}
+            confirmMsg={t("screen.bookDetails.reqConfirmMsg", { title: DATA.title })}
             toggleModal={toggleModal}
             nextPage={()=>{navigation.navigate("ConfirmRequestStack", {screen: "ConfirmRequest"})}
             }

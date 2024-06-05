@@ -18,7 +18,7 @@ export default function GenreItem(props) {
     return (
         <View style={styles.container}>
             {displayedGenres.map((genre, index) => (
-                <View style={styles.itemContainer}>
+                <View key={genre} style={styles.itemContainer}>
                     <Text key={index} style={styles.itemText}>{genre}</Text>
                 </View>
             ))}

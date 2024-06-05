@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View, Text, Button, Alert, Dimensions, Image, TextInput, ScrollView, TouchableOpacity} from 'react-native';
 import { AuthContext } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
     safeAreaView: {flex: 1, flexWrap:"wrap", flexDirection: "row", padding: 10},
@@ -19,6 +20,8 @@ const styles = StyleSheet.create({
   });
 
 function AddBookScreen({ navigation }) {
+  const { t } = useTranslation();
+
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [genre, setGenre] = useState("");
@@ -36,41 +39,41 @@ function AddBookScreen({ navigation }) {
       <SafeAreaView style={[styles.safeAreaView]}>
         <View style={{padding:15, marginTop:30}}>
         <Text style={styles.boldtext_24}>
-          Add books
+          {t('screen.addBook.addBooks')}
         </Text>
         <TextInput
           style={[styles.Searchbar_rect]}
-          placeholder="Book title"
+          placeholder={t('screen.addBook.phTitle')}
           onChangeText={(title) => setTitle(title)}
           value={title}
         />
         <TextInput
           style={[styles.Searchbar_rect]}
-          placeholder="Book author"
+          placeholder={t('screen.addBook.phAuthor')}
           onChangeText={(author) => setAuthor(author)}
           value={author}
         />
         <TextInput
           style={[styles.Searchbar_rect]}
-          placeholder="Book genre"
+          placeholder={t('screen.addBook.phGenre')}
           onChangeText={(genre) => setGenre(genre)}
           value={genre}
         />
         <TextInput
           style={[styles.Searchbar_rect]}
-          placeholder="ISBN"
+          placeholder={t('screen.addBook.phIsbn')}
           onChangeText={(isbn) => setIsbn(isbn)}
           value={isbn}
         />
         <TextInput
           style={[styles.Searchbar_rect]}
-          placeholder="Publication_date (Optional, XXXX-YY-ZZ)"
+          placeholder={t('screen.addBook.phPubdate')}
           onChangeText={(pubdate) => setPubdate(pubdate)}
           value={pubdate}
         />
         <TextInput
           style={[styles.Searchbar_rect]}
-          placeholder="Publisher (Optional)"
+          placeholder={t('screen.addBook.phPublisher')}
           onChangeText={(publisher) => setPublisher(publisher)}
           value={publisher}
         />
@@ -82,7 +85,7 @@ function AddBookScreen({ navigation }) {
         }
         >
           <Text style={{fontSize: 24, color: "#2A4B87", alignItems: "center"}}>
-            Back
+            {t('screen.addBook.back')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -116,7 +119,7 @@ function AddBookScreen({ navigation }) {
         }
         >
           <Text style={{fontSize: 24, color: "white", alignItems: "center"}}>
-            Submit
+          {t('screen.addBook.submit')}
           </Text>
         </TouchableOpacity>
         </View>

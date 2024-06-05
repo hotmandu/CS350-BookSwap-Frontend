@@ -3,12 +3,14 @@ import { Text, SafeAreaView, StyleSheet, View, TextInput, Alert} from 'react-nat
 
 import MyButton from '../components/MyButton';
 import { Typeface, Theme } from '../utils/Theme';
+import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 export default function AccountDetails({ navigation }) {
     // TODO:
     // 1. Retrieve user data from the database @ const user
     // 2. Add logic for adding updated fields to the database @ const handleSave
+    const { t } = useTranslation();
 
     // Retrieve user data from the database here
     const user = {
@@ -23,20 +25,20 @@ export default function AccountDetails({ navigation }) {
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState('');
 
-    const validateForm = () => {
+    const validateForm = useCallback(() => {
         let errors = {}
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email && !emailRegex.test(email)) {
-          errors.email = "This should be an email adress.";
+          errors.email = t("screen.accountDetails.errorsEmail");
         }
     
         setErrors(errors)
     
         return Object.keys(errors).length === 0;
-    }
+    }, [t]);
 
-    const handleSave = () => {
+    const handleSave = useCallback(() => {
         if (validateForm()) {
             const newData = {
                 "first_name": firstName || user.first_name,
@@ -45,9 +47,9 @@ export default function AccountDetails({ navigation }) {
                 "password": user.password
             }
             console.log(newData); //Change to logic to save data to the database
-            Alert.alert("Changes Saved.", "Your changes have been saved successfully.");
+            Alert.alert(t("screen.accountDetails.saveAlertTitle"), t("screen.accountDetails.saveAlert"));
         }
-    }
+    }, [t, validateForm]);
     
 
     return (
@@ -55,12 +57,12 @@ export default function AccountDetails({ navigation }) {
             <SafeAreaView style={styles.topContainer}>
                 {/* Profile Section */}
                 <View style={styles.sectionContainer}>
-                    <FormItem label="First Name" value={firstName} onChangeText={setFirstName} placeholder={user.first_name} error={errors.firstName} />
-                    <FormItem label="Last Name" value={lastName} onChangeText={setLastName} placeholder={user.last_name} error={errors.lastName} />
-                    <FormItem label="Email" value={email} onChangeText={setEmail} placeholder={user.email} error={errors.email} />
+                    <FormItem label={t("screen.accountDetails.formFirstName")} value={firstName} onChangeText={setFirstName} placeholder={user.first_name} error={errors.firstName} />
+                    <FormItem label={t("screen.accountDetails.formLastName")} value={lastName} onChangeText={setLastName} placeholder={user.last_name} error={errors.lastName} />
+                    <FormItem label={t("screen.accountDetails.formEmail")} value={email} onChangeText={setEmail} placeholder={user.email} error={errors.email} />
                 </View>
 
-                <MyButton title="Save Changes" onPress={handleSave} />
+                <MyButton title={t("screen.accountDetails.btnSave")} onPress={handleSave} />
             </SafeAreaView>
         </View>
     );
