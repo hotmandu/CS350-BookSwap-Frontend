@@ -4,6 +4,7 @@ import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import MyButton from '../components/MyButton';
 
 import Theme from "../utils/Theme";
+import { useTranslation } from 'react-i18next';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
@@ -14,6 +15,8 @@ export default function Landing({ navigation }) {
   const pressHandler = () => {
     navigation.push('LogIn');
   }
+
+  const { t } = useTranslation();
   
   return (
     <View style={styles.container}>
@@ -32,12 +35,12 @@ export default function Landing({ navigation }) {
         {/* Buttons */}
         <View style={styles.buttonContainer}>
           <MyButton 
-            title="Log In"
+            title={t("screen.landing.logIn")}
             variant="dark2"
             onPress={() => navigation.navigate("LoginPages", {screen: "LogIn"})}
           />
           <MyButton 
-            title="Sign Up" 
+            title={t("screen.landing.signUp")} 
             variant="dark" 
             onPress={() => navigation.navigate("LoginPages", {screen: "SignUp"})}
           />

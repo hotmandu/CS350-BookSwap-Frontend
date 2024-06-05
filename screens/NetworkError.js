@@ -3,10 +3,13 @@ import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import MyButton from '../components/MyButton';
 
 import { Theme, Typeface } from "../utils/Theme";
+import { useTranslation } from 'react-i18next';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function NetworkError({ navigation }) {
+  const { t } = useTranslation();
+  
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.topContainer}>
@@ -16,12 +19,12 @@ export default function NetworkError({ navigation }) {
         />
 
         <View style={styles.textContainer}>
-          <Text style={[styles.text, styles.pageTitle]}>No Internet Connection.</Text>
-          <Text style={[styles.text, styles.body]}>Please check your internet connection and try again.</Text>
+          <Text style={[styles.text, styles.pageTitle]}>{t('screen.networkError.noInternet')}</Text>
+          <Text style={[styles.text, styles.body]}>{t('screen.networkError.tryAgain')}</Text>
         </View>
 
         <View style={styles.buttonContainer}>
-          <MyButton title="Retry"/>
+          <MyButton title={t('screen.networkError.retry')}/>
         </View>
 
       </SafeAreaView>

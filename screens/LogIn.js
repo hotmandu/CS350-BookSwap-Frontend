@@ -12,6 +12,7 @@ import MyButton from "../components/MyButton";
 
 import Theme from "../utils/Theme";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
@@ -21,16 +22,17 @@ export default function LogIn({ navigation }) {
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState("");
+  const { t } = useTranslation();
 
   const validateForm = () => {
     let errors = {};
-    const errMsg = "This field is required.";
+    const errMsg = t('screen.logIn.emailError');
 
     if (!email) errors.email = errMsg;
     if (!password) errors.password = errMsg;
 
     if (password.length < 8) {
-      errors.password = "The password should be more than 8 character length.";
+      errors.password = t('screen.logIn.passwordError');
     }
 
     setErrors(errors);
@@ -83,15 +85,15 @@ export default function LogIn({ navigation }) {
       <SafeAreaView style={styles.topContainer}>
         {/* Page Title */}
         <View>
-          <Text style={[styles.pageHeader, styles.text]}> Log In </Text>
+          <Text style={[styles.pageHeader, styles.text]}> {t('screen.logIn.logIn')} </Text>
         </View>
 
         {/* Form */}
         <View style={styles.formItem}>
-          <Text style={[styles.text, styles.formItemText]}>E-mail</Text>
+          <Text style={[styles.text, styles.formItemText, {height: 30}]}>{t('screen.logIn.email')}</Text>
           {/* Input Validation */}
           {errors.email ? (
-            <Text style={[styles.formErr, styles.text]}>{errors.email}</Text>
+            <Text style={[styles.formErr, styles.text, {height: 20}]}>{errors.email}</Text>
           ) : null}
           <TextInput
             style={styles.input}
@@ -104,16 +106,16 @@ export default function LogIn({ navigation }) {
         </View>
 
         <View style={styles.formItem}>
-          <Text style={[styles.text, styles.formItemText]}>Password</Text>
+          <Text style={[styles.text, styles.formItemText, {height: 30}]}>{t('screen.logIn.password')}</Text>
           {/* Input Validation */}
           {errors.password ? (
-            <Text style={[styles.formErr, styles.text]}>{errors.password}</Text>
+            <Text style={[styles.formErr, styles.text, {height: 20}]}>{errors.password}</Text>
           ) : null}
           <TextInput
             style={styles.input}
             onChangeText={(pass) => setPassword(pass)}
             value={password}
-            placeholder="> 8 characters"
+            placeholder={t('screen.logIn.passwordPlaceholder')}
             placeholderTextColor="rgba(31, 30, 30, 0.4)"
             secureTextEntry={true}
           />
@@ -121,15 +123,15 @@ export default function LogIn({ navigation }) {
 
         {/* Submit Button */}
         <View style={styles.submit}>
-          <MyButton title="Log In" onPress={handleSubmit} />
+          <MyButton title={t('screen.logIn.logIn')} onPress={handleSubmit} />
           <Text style={[styles.body, styles.text]}>
-            Don't have an account?{" "}
+            {t('screen.logIn.accountAsk')}{" "}
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("LoginPages", { screen: "SignUp" })
               }
             >
-              <Text style={[styles.link, styles.text]}>Sign Up</Text>
+              <Text style={[styles.link, styles.text]}>{t('screen.logIn.signUp')}</Text>
             </TouchableOpacity>
           </Text>
         </View>

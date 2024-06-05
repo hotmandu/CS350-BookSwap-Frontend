@@ -6,6 +6,7 @@ import Filter from "../components/Filter";
 import RequestItem from '../components/RequestItem';
 
 import { Typeface, Theme } from '../utils/Theme';
+import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 import { AuthContext } from '../context/AuthContext';
@@ -16,6 +17,8 @@ export default function MatchedReqs({ navigation }) {
     // Change receivedReqs to incoming requests for this user
     const [matchedReqsData, setMatchedReqsData] = useState()
     const context = useContext(AuthContext)
+
+    const { t } = useTranslation();
 
     const getReceivedBooksAPI = (token) => {
         fetch("https://cs350-bookswap-backend-production.up.railway.app/book_request/ongoing/", {
@@ -50,14 +53,24 @@ export default function MatchedReqs({ navigation }) {
                 { /* Title */ }
                 <View style={styles.pageTitleContainer}>
                     <Text style={styles.pageHeader}>
+<<<<<<< HEAD
                         {t('screen.requestPage.title')}
+=======
+                        {t('screen.matchedReqs.requests')}
+>>>>>>> origin/joonhee
                     </Text>
                 </View>
 
                 <View style={styles.buttonContainer}>
+<<<<<<< HEAD
                     <Filter title={t('screen.requestPage.received')} variant="inactive" onPress={() => handleClick("Received")}/>
                     <Filter title={t('screen.requestPage.sent')} variant="inactive" onPress={() => handleClick("Sent")}/>
                     <Filter title={t('screen.requestPage.matched')} variant="active" onPress={() => handleClick("Matched")}/>
+=======
+                    <Filter title={t('screen.matchedReqs.received')} variant="inactive" onPress={() => handleClick("Received")}/>
+                    <Filter title={t('screen.matchedReqs.sent')} variant="inactive" onPress={() => handleClick("Sent")}/>
+                    <Filter title={t('screen.matchedReqs.matched')} variant="active" onPress={() => handleClick("Matched")}/>
+>>>>>>> origin/joonhee
                 </View>
 
                 <FlatList
