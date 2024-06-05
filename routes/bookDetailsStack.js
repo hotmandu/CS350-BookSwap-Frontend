@@ -12,6 +12,7 @@ import EditBookshelfDetail from '../screens/EditBookshelfDetail';
 // Import all colors defined in defaultColors.js
 import Theme from "../utils/Theme";
 import AddBookScreen from '../screens/AddBook';
+import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 const styles = StyleSheet.create({
@@ -36,6 +37,8 @@ const styles = StyleSheet.create({
 });
 
 function BookshelfDetailStack() {
+  const { t } = useTranslation();
+
   return (
       <Stack.Navigator>
         <Stack.Screen
@@ -55,7 +58,7 @@ function BookshelfDetailStack() {
             headerShown: true, 
             gestureEnabled: true,
             headerStyle: styles.header,
-            headerTitle: "Edit Book Details",
+            headerTitle: t("route.bookDetails.editBookshelfDetail"),
             headerTitleStyle: styles.pageHeader,
             
         }}

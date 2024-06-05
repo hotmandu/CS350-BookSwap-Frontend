@@ -13,14 +13,17 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { Theme, Typeface } from "../utils/Theme";
-import GenreItem from "../components/GenreItem";
-import CustomConfirmBox from "./DeleteConfirmBox";
-import { AuthContext } from "../context/AuthContext";
+import GenreItem from '../components/GenreItem';
+import CustomConfirmBox from './DeleteConfirmBox';
+import { useTranslation } from 'react-i18next';
 
+import { AuthContext } from "../context/AuthContext";
+// Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function BookshelfDetail({ navigation, route }) {
   const context = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const DATA = {
     id: route.params.id,
@@ -71,23 +74,25 @@ export default function BookshelfDetail({ navigation, route }) {
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
+    console.log("Delete button pressed");
     ConfirmBox(
-      "Delete Book",
-      "Are you sure you want to delete this book?",
-      "Delete",
-      "Cancel",
+      t('screen.bookshelfDetails.delboxTitle'),
+      t('screen.bookshelfDetails.delboxContent'),
+      t('screen.bookshelfDetails.delboxDelete'),
+      t('screen.bookshelfDetails.delboxCancel'),
       () => {
         console.log("Book deleted");
       }
     );
-  };
+  }, [t]);
 
   // For Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [overlayOpacity] = useState(new Animated.Value(0));
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+    console.log(modalVisible);
   };
 
   return (
@@ -112,10 +117,11 @@ export default function BookshelfDetail({ navigation, route }) {
             </View>
 
             <View style={styles.detailsContainer}>
-              <TableData title="Publisher" content={DATA.publisher} />
-              <TableData title="Year" content={DATA.year} />
-              <TableData title="ISBN" content={DATA.ISBN} />
-              <TableData title="Visibility" content={DATA.visibility} />
+              <TableData title={t('screen.bookDetails.publisher')} content={DATA.publisher} />
+              <TableData title={t('screen.bookDetails.year')} content={DATA.year} />
+              <TableData title={t('screen.bookDetails.isbn')} content={DATA.ISBN} />
+              <TableData title={t('screen.bookDetails.ownedby')} content={DATA.owner} />
+              <TableData title={t('term.bookVisibility')} content={DATA.visibility} />
             </View>
 
             <View style={styles.buttonContainer}>
@@ -278,4 +284,4 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginLeft: 5,
   },
-});
+})

@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TextInput, Alert} from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import MyButton from '../components/MyButton';
 import { Typeface, Theme } from '../utils/Theme';
@@ -9,6 +10,8 @@ export default function ChangePasswords({ navigation }) {
     // TODO: 
     // 1. Retrieve user data from the database @ const user
     // 2. Add logic to add updated password to the database @ const handleSubmit
+
+    const { t } = useTranslation();
 
     // TODO 1. Change this to fetch user data from the database
     const user = {
@@ -23,38 +26,38 @@ export default function ChangePasswords({ navigation }) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState('');
 
-    const validateForm = () => {
+    const validateForm = useCallback(() => {
         let errors = {}
     
         if (!currentPassword) {
-            errors.currentPassword = "This field is required."
+            errors.currentPassword = t('screen.changePassword.errorRequired')
         } else if (currentPassword !== user.password) {
-            errors.currentPassword = "Incorrect password."
+            errors.currentPassword = t('screen.changePassword.errorIncorrect')
         }
     
         if (!newPassword) {
-            errors.newPassword = "This field is required."
+            errors.newPassword = t('screen.changePassword.errorRequired')
         } else {
             if (newPassword.length < 8) {
-                errors.newPassword = "The password should be more than 8 character length."
+                errors.newPassword = t('screen.changePassword.errorShort')
             } else if (newPassword === currentPassword) {
-                errors.newPassword = "New password should be different from the current password."
+                errors.newPassword = t('screen.changePassword.errorMustDiffer')
             }
         }
     
         if (!confirmPassword) {
-            errors.confirmPassword = "This field is required."
+            errors.confirmPassword = t('screen.changePassword.errorRequired')
         } else if (newPassword !== confirmPassword) {
-            errors.confirmPassword = "Passwords do not match."
+            errors.confirmPassword = t('screen.changePassword.errorMustMatch')
         }
     
         setErrors(errors)
     
         return Object.keys(errors).length === 0;
-    };
+    }, [t]);
     
 
-    const handleSubmit = () => {
+    const handleSubmit = useCallback(() => {
         if (validateForm()) {
             const newData = {
                 "first_name": user.first_name,
@@ -62,41 +65,41 @@ export default function ChangePasswords({ navigation }) {
                 "email": user.email,
                 "password": confirmPassword
             }
-            Alert.alert("Changes Saved.", "Your password have been changed successfully.");
+            Alert.alert(t('screen.changePassword.alertTitle'), t('screen.changePassword.alertContent'));
             navigation.navigate("Profile");
         }
-    }
+    }, [t]);
 
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.topContainer}>
                 <View style={styles.sectionContainer}>
                     <FormItem 
-                        label="Current Password"
+                        label={t('screen.changePassword.labelCurrentPassword')}
                         value={currentPassword}
                         onChangeText={setCurrentPassword}
-                        placeholder={"Enter your current password"}
+                        placeholder={t('screen.changePassword.phCurrentPassword')}
                         error={errors.currentPassword}
                     />
 
                     <FormItem 
-                        label="New Password"
+                        label={t('screen.changePassword.labelNewPassword')}
                         value={newPassword}
                         onChangeText={setNewPassword}
-                        placeholder={"Enter your new password"}
+                        placeholder={t('screen.changePassword.phNewPassword')}
                         error={errors.newPassword}
                     />
 
                     <FormItem 
-                        label="Confirm Password"
+                        label={t('screen.changePassword.labelConfirmPassword')}
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
-                        placeholder={"Confirm your new password"}
+                        placeholder={t('screen.changePassword.phConfirmPassword')}
                         error={errors.confirmPassword}
                     />
                 </View>
 
-                <MyButton title="Change Password" onPress={handleSubmit} />
+                <MyButton title={t('screen.changePassword.btnChange')} onPress={handleSubmit} />
             </SafeAreaView>
         </View>
     );

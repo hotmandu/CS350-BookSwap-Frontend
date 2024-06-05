@@ -3,6 +3,7 @@ import {FlatList, SafeAreaView, View, Text, Button, Alert, TouchableOpacity, Sty
 import BookUnit from '../BookUnit';
 import { AuthContext } from '../context/AuthContext';
 import { useFocusEffect } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -17,6 +18,8 @@ const styles = StyleSheet.create({
 });
 
 function Bookshelf({ navigation }) {
+  const { t } = useTranslation();
+
   const [data, setData] = useState([]);
   const [select, setSelect] = useState("All Books");
   const context = useContext(AuthContext);
@@ -119,7 +122,7 @@ function Bookshelf({ navigation }) {
       renderItem={null}
       ListEmptyComponent={
         <SafeAreaView style={{ padding: 18 }}>
-          <Text style={[styles.boldtext_24]}>Your Bookshelf</Text>
+          <Text style={[styles.boldtext_24]}>{t('screen.bookshelf.yourBookshelf')}</Text>
           <View style={{ flexDirection: "row", marginRight: 8, marginTop: 8 }}>
             <View style={{ marginRight: 8 }}>
               <TouchableOpacity
@@ -135,7 +138,7 @@ function Bookshelf({ navigation }) {
                     { color: active("All Books", true) },
                   ]}
                 >
-                  All Books
+                  {t('screen.bookshelf.allBooks')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -153,7 +156,7 @@ function Bookshelf({ navigation }) {
                     { color: active("Private", true) },
                   ]}
                 >
-                  Private
+                  {t('screen.bookshelf.private')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -171,7 +174,7 @@ function Bookshelf({ navigation }) {
                     { color: active("Public", true) },
                   ]}
                 >
-                  Public
+                  {t('screen.bookshelf.public')}
                 </Text>
               </TouchableOpacity>
             </View>
