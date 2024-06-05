@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TextInput, Alert} from 'react-native';
 
 import MyButton from '../components/MyButton';
@@ -100,7 +100,7 @@ const ProfileItem = ({title, value, onChangeText, errors}) => {
 const FormItem = ({ label, value, onChangeText, placeholder, error }) => {
     return (
         <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>{label}</Text>
+            <Text style={[styles.text, styles.formItemText, {height: 30}]}>{label}</Text>
             {/* Input Validation */}
             {
             error ? <Text style={[styles.formErr, styles.text]}>{error}</Text> : null

@@ -35,7 +35,7 @@
             "phAuthor": "작가",
             "phGenre": "Book genre",
             "phIsbn": "ISBN",
-            "phPubdate": "Publication date (Optional, XXXX-YY-ZZ)",
+            "phPubdate": "Publication date (Optional, YYYY-MM-DD)",
             "phPublisher": "Publisher (Optional)",
             "back": "Back",
             "submit": "Submit"
@@ -83,6 +83,44 @@
             "labelConfirmPassword": "비밀번호 확인",
             "phConfirmPassword": "새 비밀번호를 다시 입력하세요.",
             "btnChange": "비밀번호 변경"
+        },
+        "landing": {
+            "logIn": "로그인",
+            "signUp": "회원 가입"
+        },
+        "logIn": {
+            "logIn": "로그인",
+            "email": "이메일",
+            "password": "비밀번호",
+            "passwordPlaceholder": "8 글자 이상",
+            "emailError": "이 항목은 필수 사항입니다.",
+            "passwordError": "비밀번호는 8글자 이상이어야 합니다.",
+            "accountAsk": "계정이 없으신가요?",
+            "signUp": "회원 가입"
+        },
+        "profile": {
+            "profile": "프로필",
+            "firstName": "이름",
+            "lastName": "성",
+            "email": "이메일",
+            "accountDetails": "계정 정보",
+            "accountSettings": "설정",
+            "applicationSettings": "어플리케이션 설정",
+            "language": "언어",
+            "logOut": "로그아웃",
+            "edit": "편집",
+            "languageValue": "한국어"
+        },
+        "networkError": {
+            "noInternet": "인터넷 연결 없음.",
+            "tryAgain": "연결 확인 후 재시도해주세요.",
+            "retry": "재시도"
+        },
+        "matchedReqs": {
+            "requests": "요청",
+            "received": "받은 요청",
+            "sent": "보낸 요청",
+            "matched": "수락된 요청"
         }
     }
 }

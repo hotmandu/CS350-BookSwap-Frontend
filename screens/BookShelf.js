@@ -186,19 +186,9 @@ function Bookshelf({ navigation }) {
             <View style={{ marginLeft: 100 }}>
               <Button
                 onPress={() =>
-                  //navigation.navigate("Add_Book_page")
-                  alert("Pressed!")
+                  navigation.navigate("AddBook_page")
                 }
                 title="+"
-                color="#2A4B87"
-              />
-            </View>
-            <View style={{ marginLeft: 10 }}>
-              <Button
-                onPress={() =>
-                  console.log("do something here")
-                }
-                title="-"
                 color="#2A4B87"
               />
             </View>

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Typeface, Theme } from '../utils/Theme';
 import { AuthContext } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 export default function Profile({ navigation }) {
@@ -14,6 +15,8 @@ export default function Profile({ navigation }) {
         "last_name": "Loading",
         "user_email": "Loading",
       })
+
+    const { t } = useTranslation();
 
     const getUserAPI = (token) => {
         fetch("https://cs350-bookswap-backend-production.up.railway.app/account_api/user/", {
@@ -53,7 +56,7 @@ export default function Profile({ navigation }) {
                 { /* Title */ }
                 <View style={styles.pageTitleContainer}>
                     <Text style={styles.pageHeader}>
-                        Profile
+                        {t('screen.profile.profile')}
                     </Text>
                     <Ionicons name="person-circle" size={50} color={colors.PrimaryBlue} />
                 </View>
@@ -61,24 +64,24 @@ export default function Profile({ navigation }) {
                 {/* Profile Section */}
                 <View style={styles.sectionContainer}>
                     <View style={styles.sectionHeader}>
-                        <Text style={[styles.text, styles.sectionHeaderText]}>Account Details</Text>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.profile.accountDetails')}</Text>
                         <Pressable onPress={() => navigation.navigate("AccountDetails")}>
-                            <Text style={{fontFamily: Typeface.font, color: colors.PrimaryBlue, fontWeight: "500"}}>Edit</Text>
+                            <Text style={{fontFamily: Typeface.font, color: colors.PrimaryBlue, fontWeight: "500", height: 20}}>{t('screen.profile.edit')}</Text>
                         </Pressable>
                     </View>
 
                     <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue}} />
 
-                    <ProfileItem title="First Name" value={user.first_name} />
-                    <ProfileItem title="Last Name" value={user.last_name} />
-                    <ProfileItem title="Email" value={user.user_email} />
+                    <ProfileItem title={t('screen.profile.firstName')} value={user.first_name} />
+                    <ProfileItem title={t('screen.profile.lastName')} value={user.last_name} />
+                    <ProfileItem title={t('screen.profile.email')} value={user.user_email} />
 
                 </View>
 
                 {/* Account Settings Section */}
                 <View style={styles.sectionContainer}>
                     <View style={styles.sectionHeader}>
-                        <Text style={[styles.text, styles.sectionHeaderText]}>Account Settings</Text>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.profile.accountSettings')}</Text>
                     </View>
 
                     <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue}} />
@@ -87,19 +90,19 @@ export default function Profile({ navigation }) {
                         context.logout
                         navigation.navigate("Welcome")
                         }}>
-                        <ProfileItem title="Logout" />
+                        <ProfileItem title={t('screen.profile.logOut')} />
                     </Pressable>
                 </View>
 
                 {/* Application Settings Section */}
                 <View style={styles.sectionContainer}>
                     <View style={styles.sectionHeader}>
-                        <Text style={[styles.text, styles.sectionHeaderText]}>Application Settings</Text>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.profile.applicationSettings')}</Text>
                     </View>
 
                     <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue}} />
                     <Pressable onPress={() => navigation.navigate("Language")}>
-                        <ProfileItem title="Language" value="English" />
+                        <ProfileItem title={t('screen.profile.language')} value={t('screen.profile.languageValue')} />
                     </Pressable>
                 </View>
             </SafeAreaView>
@@ -115,10 +118,10 @@ const ProfileItem = ({title, value}) => {
                 justifyContent: "space-between",
             }}
         >
-            <Text style={[styles.text, styles.sectionItemTitle]}>
+            <Text style={[styles.text, styles.sectionItemTitle, {height: 30}]}>
                 {title}
             </Text>
-            <Text style={[styles.text, styles.sectionItemText]}>
+            <Text style={[styles.text, styles.sectionItemText, {height: 30}]}>
                 {value}
             </Text>
         </View>
