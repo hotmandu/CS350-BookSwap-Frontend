@@ -1,17 +1,8 @@
-# Front End Implementation for BookSwap by Bookworms
+# CS350-BookSwap
 
-## Code Structure
-1. Screens
-Contain all the screens for the applications
+Expo environment installation guide: https://reactnative.dev/docs/set-up-your-environment
 
-2. Routes
-Contain the logic of navigation
+Clone this repository and run the following command on the root folder
 
-3. Assets
-Contain all static assets (figures)
+`npx expo start`
 
-4. Components
-Reusable components (e.g. Buttons, Page Header, etc.)
-
-5. Utils
-Contain general styling of the system
