@@ -50,7 +50,6 @@ export default function SendRequest() {
     const [overlayOpacity] = useState(new Animated.Value(0));
     const toggleModal = () => {
         setModalVisible(!modalVisible);
-        console.log(modalVisible);
     };
     
 
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
       reviewText: {
         fontSize: 14,
         fontWeight: "300",
-        lineHeight: "18",
+        lineHeight: 18,
       },
       footerContainer: {
         position: "absolute",

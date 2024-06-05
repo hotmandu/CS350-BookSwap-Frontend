@@ -1,7 +1,8 @@
-import React, {useEffect, useState, useContext, useFocusEffect} from 'react';
+import React, {useEffect, useState, useContext, useCallback} from 'react';
 import {FlatList, SafeAreaView, View, Text, Button, Alert, TouchableOpacity, StyleSheet} from 'react-native';
 import BookUnit from '../BookUnit';
 import { AuthContext } from '../context/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -96,9 +97,12 @@ function Bookshelf({ navigation }) {
     }
   };
 
-  useEffect(() => {
-    getBooks("All Books", context.token);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      console.log("bookshelf page")
+      return getBooks("All Books", context.token);
+    }, [select])
+  );
 
   function active(route, rev) {
     let same = route == select;
@@ -174,19 +178,9 @@ function Bookshelf({ navigation }) {
             <View style={{ marginLeft: 100 }}>
               <Button
                 onPress={() =>
-                  //navigation.navigate("Add_Book_page")
-                  alert("Pressed!")
+                  navigation.navigate("BookshelfDetailStack", {screen: "AddBookPage"})
                 }
                 title="+"
-                color="#2A4B87"
-              />
-            </View>
-            <View style={{ marginLeft: 10 }}>
-              <Button
-                onPress={() =>
-                  console.log("do something here")
-                }
-                title="-"
                 color="#2A4B87"
               />
             </View>
@@ -198,7 +192,7 @@ function Bookshelf({ navigation }) {
             renderItem={({ item }) => {
               if (select != "Private") {
                 return (
-                  <BookUnit name={item.title} author={item.author} publisher={item.publisher} year={item.publication_date} owner={item.current_owner} isbn={item.isbn} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`} genre={item.genre} />
+                  <BookUnit id={item.id} visibility={select} name={item.title} author={item.author} publisher={item.publisher} year={item.publication_date} owner={item.current_owner} isbn={item.isbn} image={`https://cs350-bookswap-backend-production.up.railway.app${item.image}`} genre={item.genre} />
                 );
               }
             }}

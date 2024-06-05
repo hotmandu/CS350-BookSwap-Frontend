@@ -8,6 +8,7 @@ import { Typeface, Theme } from '../utils/Theme';
 const { colors } = Theme;
 
 import { AuthContext } from '../context/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function SentReqs({ navigation }) {
     // Change receivedReqs to incoming requests for this user
@@ -59,7 +60,7 @@ export default function SentReqs({ navigation }) {
 
                 <FlatList
                     data={sentReqsData}
-                    renderItem={({ item }) => <RequestItem {...item} status="sent" navigation={navigation}/>}
+                    renderItem={({ item }) => <RequestItem key={item.id} id={item.id} requester={item.requester} image={item.image} bookTitle={item.title} bookAuthor={item.author} owner={item.current_owner}  status="sent" navigation={navigation}/>}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.itemContainer}
                 />

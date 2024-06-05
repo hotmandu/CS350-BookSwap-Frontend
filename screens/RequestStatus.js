@@ -63,7 +63,6 @@ export default function RequestStatus({ route, navigation }) {
                 <Dialog.Button label="Cancel" onPress={hideAcceptDialog} />
                 <Dialog.Button label="Confirm" onPress={() => {
                     //TODO: mark this request as accepted
-                    console.log("Accept"); // ---PLACEHOLDER---
                     hideAcceptDialog();
                     navigation.navigate("Matched");
                 }} />
@@ -83,7 +82,6 @@ export default function RequestStatus({ route, navigation }) {
                 <Dialog.Button label="Confirm" onPress={() => {
                     //TODO: mark this request as REJECTED
                     // ---PLACEHOLDER---
-                    console.log("Reject");
                     hideRejectDialog();
                     navigation.navigate("Received");
                 }} />

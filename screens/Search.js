@@ -56,7 +56,6 @@ export default function Search({ navigation, route }) {
         })
         .then((data) => {
           setData(data);
-          console.log(data);
         });
     } catch (error) { 
       console.error(error);
@@ -92,6 +91,7 @@ export default function Search({ navigation, route }) {
                 ) {
                   return (
                     <BookUnit
+                    id={item.id}
                       name={item.title}
                       author={item.author}
                       genre={item.genre}

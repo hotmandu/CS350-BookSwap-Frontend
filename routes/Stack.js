@@ -12,6 +12,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Error from '../screens/Error';
 import ConfirmRequestStack from './confirmRequestStack';
 import RequestStack from './requestStack';
+import BookshelfDetailStack from './bookDetailsStack'
+
 const { colors } = Theme;
 
 const styles = StyleSheet.create({
@@ -44,6 +46,7 @@ function TheStack() {
                 <Stack.Screen name="TabPages" component={TabPages}/>
                 <Stack.Screen name="RequestStack" component={RequestStack}/>
                 <Stack.Screen name="ConfirmRequestStack" component={ConfirmRequestStack}/>
+                <Stack.Screen name="BookshelfDetailStack" component={BookshelfDetailStack}/>
                 <Stack.Screen name="Error" component={Error}/>
             </Stack.Navigator>
         </NavigationContainer>

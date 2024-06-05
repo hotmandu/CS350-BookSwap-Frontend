@@ -6,6 +6,7 @@ import RequestItem from '../components/RequestItem';
 
 import { Typeface, Theme } from '../utils/Theme';
 import { AuthContext } from '../context/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
 const { colors } = Theme;
 
 export default function ReceivedReqs({ navigation }) {
@@ -28,7 +29,6 @@ export default function ReceivedReqs({ navigation }) {
             }
           }).then((data) => {
             setSentReqsData(data)
-            console.log(data)
         });
       }
 
@@ -58,7 +58,7 @@ export default function ReceivedReqs({ navigation }) {
 
                 <FlatList
                     data={sentReqsData}
-                    renderItem={({ item }) => <RequestItem {...item} status="received" navigation={navigation}/>}
+                    renderItem={({ item }) => <RequestItem key={item.id} requester={item.requester} id={item.id} image={item.image} bookTitle={item.title} bookAuthor={item.author} owner={item.current_owner} status="received" navigation={navigation}/>}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.itemContainer}
                 />

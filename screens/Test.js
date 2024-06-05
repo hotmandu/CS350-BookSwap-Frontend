@@ -91,7 +91,6 @@ function Test({ navigation }) {
         "image": "../assets/images/no-book.png",
       }
 
-      console.log(requestedBook);
       navigation.navigate("RequestDetails");
     }
     
@@ -171,7 +170,7 @@ function Test({ navigation }) {
               keyExtractor={({id}) => id}
               renderItem={({item}) => { if (select != "Private") {
                 return (
-                  <BookUnit name={item.title} author={item.author} genre={item.genre}/>
+                  <BookUnit id={item.id} name={item.title} author={item.author} genre={item.genre}/>
                 )
               }}}/>
 

@@ -62,7 +62,6 @@ export default function ChangePasswords({ navigation }) {
                 "email": user.email,
                 "password": confirmPassword
             }
-            console.log(newData); //Change to logic to save data to the database
             Alert.alert("Changes Saved.", "Your password have been changed successfully.");
             navigation.navigate("Profile");
         }

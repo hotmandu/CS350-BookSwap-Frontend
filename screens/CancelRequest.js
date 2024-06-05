@@ -1,17 +1,17 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal } from 'react-native';
 
 import {Theme, Typeface} from "../utils/Theme";
 import GenreItem from '../components/GenreItem';
 import MyButton from '../components/MyButton';
 import ConfirmBox from './ConfirmBox';
+import { AuthContext } from '../context/AuthContext';
 
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function CancelRequest({ route, navigation }) {
-  console.log(route.params);
-  // TODO: Replace DATA with requested book data from the database
+  const context = useContext(AuthContext)
     const DATA = {
         cover: "none",
         title: "Book Title",
@@ -28,14 +28,14 @@ export default function CancelRequest({ route, navigation }) {
         ],
         review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis aliquet maximus. Mauris rutrum, eros id consequat consequat, eros orci luctus turpis, vel porta nunc turpis sed velit. Quisque nibh tortor, placerat a dapibus porttitor, mattis in risus. Pellentesque tristique lacus vel libero pellentesque, dignissim ultrices sem dapibus. Fusce rhoncus ornare felis non vehicula. Sed posuere, lectus tristique sagittis tincidunt, risus tortor semper libero, ut mollis turpis odio eu est.",
     }
-
     DATA.author = route.params.bookAuthor;
     DATA.title = route.params.bookTitle;
     DATA.owner = route.params.owner;
+    DATA.cover = route.params.image
 
     const getImageSource = (cover) => {
       if (cover && cover !== "none") {
-        return { uri: cover };
+        return { uri: `https://cs350-bookswap-backend-production.up.railway.app${cover}` };
       } else {
         return require('../assets/no-book.png');
       }
@@ -56,13 +56,23 @@ export default function CancelRequest({ route, navigation }) {
     const [overlayOpacity] = useState(new Animated.Value(0));
     const toggleModal = () => {
         setModalVisible(!modalVisible);
-        console.log(modalVisible);
     };
     
     const handleCancelRequest = () => {
-      // TODO: set request to be cancelled
-      console.log("Request Cancelled"); // ---PLACEHOLDER---
-      navigation.navigate("Sent");
+      const id = route.params.id
+      fetch(`https://cs350-bookswap-backend-production.up.railway.app/book_request/reject_book/${id}/`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": `Bearer ${context.token}`,
+          },
+        }).then((res) => {
+            if (res.status != 200) {
+              navigation.navigate("Error");
+            } else {
+              navigation.navigate("Sent");
+            }
+          })
     }
 
     return (
@@ -82,7 +92,7 @@ export default function CancelRequest({ route, navigation }) {
 
                 {/* Genres */}
                 <View style={styles.genreContainer}>
-                    <GenreItem genres={DATA.genres}/>
+                    {/* <GenreItem genres={DATA.genres}/> */}
                 </View>
 
                 {/* Book Details */}
@@ -94,12 +104,6 @@ export default function CancelRequest({ route, navigation }) {
                 </View>
 
                 <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue }} />
-
-                {/* Owner's Review */}
-                <View style={styles.synopsisContainer}>
-                    <Text style={[styles.text, styles.sectionTitle]}>Owner's Synopsis</Text>
-                    <Text style={[styles.text, styles.reviewText]}>{DATA.review}</Text>
-                </View>
 
                 {/* Footer */}
                 <View style={styles.footerContainer}>
@@ -119,7 +123,7 @@ export default function CancelRequest({ route, navigation }) {
                     <ConfirmBox 
                       confirmMsg={"Cancel exchange request for " + DATA.title + "?"} 
                       toggleModal={toggleModal}
-                      handlePrimaryPress = {handleCancelRequest}
+                      nextPage = {handleCancelRequest}
                     />
                   </View>
                 </Modal>
@@ -138,6 +142,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.White,
       },
       image: {
+        height: "50%",
+        aspectRatio:1,
+        objectFit: "cover",
         alignSelf: "center",
         marginTop: 20,
       },
@@ -196,7 +203,7 @@ const styles = StyleSheet.create({
       reviewText: {
         fontSize: 14,
         fontWeight: "300",
-        lineHeight: "18",
+        lineHeight: 18,
       },
       footerContainer: {
         position: "absolute",

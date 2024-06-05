@@ -11,6 +11,7 @@ import EditBookshelfDetail from '../screens/EditBookshelfDetail';
 
 // Import all colors defined in defaultColors.js
 import Theme from "../utils/Theme";
+import AddBookScreen from '../screens/AddBook';
 const { colors } = Theme;
 
 const styles = StyleSheet.create({
@@ -36,11 +37,15 @@ const styles = StyleSheet.create({
 
 function BookshelfDetailStack() {
   return (
-    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Book Details"
           component={BookshelfDetail}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="AddBookPage"
+          component={AddBookScreen}
           options={{ headerShown: false, gestureEnabled: false }}
         />
         <Stack.Screen
@@ -56,7 +61,6 @@ function BookshelfDetailStack() {
         }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 

@@ -12,6 +12,7 @@ import RequestStatus from '../screens/RequestStatus';
 import Bookshelf from '../screens/BookShelf';
 import Test from '../screens/Test'; //--PLACEHOLDER
 import CancelRequest from '../screens/CancelRequest';
+import Discover from '../screens/Discover';
 
 const screens = {
     Received: {
@@ -56,6 +57,13 @@ const screens = {
             gestureEnabled: false,
         }
     },
+    Discover: {
+        screen: Discover,
+        navigationOptions: {
+            headerShown: false,
+            gestureEnabled: false,
+        }
+    },
     Test: {
         screen: Test,
         navigationOptions: {
@@ -74,6 +82,7 @@ function RequestStack () {
                 <Stack.Screen name="Received Request" component={RequestDetails} options={screens.RequestDetails.navigationOptions}/>
                 <Stack.Screen name="Sent Request" component={CancelRequest} options={screens.CancelRequest.navigationOptions}/>
                 <Stack.Screen name="Bookshelf" component={Bookshelf} options={screens.Bookshelf.navigationOptions}/>
+                <Stack.Screen name="checkBooks" component={Discover} options={screens.Discover.navigationOptions}/>
                 {/* --PLACEHOLDER-- */}
                 <Stack.Screen name="Test" component={Test} options={screens.Test.navigationOptions}/>
             </Stack.Navigator>

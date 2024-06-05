@@ -56,7 +56,6 @@ export default function SignUp({ navigation }) {
         "Content-type": "application/json; charset=UTF-8",
       },
     }).then((res) => {
-      console.log(res)
       if (res.status == 200) {
         navigation.navigate("LoginPages", {screen: "LogIn"})
       } else {

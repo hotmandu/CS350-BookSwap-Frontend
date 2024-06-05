@@ -32,15 +32,12 @@ export default function Profile({ navigation }) {
           }).then((data) => {
             context.setUser(data)
             setUser(data)
-            console.log("userdata")
-            console.log(data)
         });
       }
       
 
     useEffect(()=>{
         if(context.user){
-            console.log(context.user)
             setUser(context.user)
         }else{
             getUserAPI(context.token)

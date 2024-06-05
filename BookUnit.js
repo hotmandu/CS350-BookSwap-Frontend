@@ -30,17 +30,23 @@ const styles = StyleSheet.create({
   box: { width: 150, height: 300, marginBottom: 10, marginHorizontal: 10 },
 });
 
-function BookUnit({ id, name, author, publisher, year, owner, isbn, genre, image }) {
-  console.log("here")
+function BookUnit({ id, visibility, name, author, publisher, year, owner, isbn, genre, image }) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={[styles.box]}
       onPress={() => {
-        navigation.navigate("TabPages", {
-          screen: "Book_page",
-          params: { id, name, author, genre, image, publisher, year, owner, isbn,  },
-        });
+        if(visibility){
+          navigation.navigate("BookshelfDetailStack", {
+            screen: "Book Details",
+            params: { id, visibility, name, author, genre, image, publisher, year, owner, isbn  },
+          });
+        }else{
+          navigation.navigate("TabPages", {
+            screen: "Book_page",
+            params: { id, name, author, genre, image, publisher, year, owner, isbn  },
+          });
+        }
       }}
     >
       {image ? (

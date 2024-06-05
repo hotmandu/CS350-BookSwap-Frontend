@@ -15,12 +15,13 @@ import GenreItem from "../components/GenreItem";
 import MyButton from "../components/MyButton";
 import ConfirmBox from "./ConfirmBox";
 import { AuthContext } from "../context/AuthContext";
+import { useFocusEffect } from "@react-navigation/native";
 
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
 
 export default function BookDetails({ navigation, route }) {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
 
   const DATA = {
     id: route.params.id,
@@ -45,13 +46,13 @@ export default function BookDetails({ navigation, route }) {
 
   // For Modal
   const [modalVisible, setModalVisible] = useState(false);
-  const [owner, setOwner] = useState(DATA.owner)
+  const [owner, setOwner] = useState(DATA.owner);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
 
-  const getUser = (user_id, token) =>{
+  const getUser = (user_id, token) => {
     fetch(
       `https://cs350-bookswap-backend-production.up.railway.app/account_api/get_user/${user_id}`,
       {
@@ -59,7 +60,7 @@ export default function BookDetails({ navigation, route }) {
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${token}`,
-        }
+        },
       }
     )
       .then((res) => {
@@ -70,20 +71,23 @@ export default function BookDetails({ navigation, route }) {
         }
       })
       .then((data) => {
-        console.log(data)
-        setOwner(`${data.first_name} ${data.last_name}`)
+        setOwner(`${data.first_name} ${data.last_name}`);
       });
-  }
+  };
 
-  useEffect(()=>{
-    getUser(DATA.owner,context.token)
-  },[])
+  useEffect(() => {
+    getUser(DATA.owner, context.token);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Book Cover */}
       <Image
-        source={route.params.image ? { uri: route.params.image } : require("../assets/no-book.png")}
+        source={
+          route.params.image
+            ? { uri: route.params.image }
+            : require("../assets/no-book.png")
+        }
         style={styles.image}
       />
 
@@ -100,15 +104,20 @@ export default function BookDetails({ navigation, route }) {
 
       {/* Book Details */}
       <View style={styles.detailsContainer}>
-        <TableData title="Publisher" content={DATA.publisher} />
-        <TableData title="Year" content={DATA.year} />
-        <TableData title="ISBN" content={DATA.ISBN} />
-        <TableData title="Owned By" content={owner} />
+        <TableData title="Publisher" content={` ${DATA.publisher}`} />
+        <TableData title="Year" content={` ${DATA.year}`} />
+        <TableData title="ISBN" content={` ${DATA.ISBN}`} />
+        <TableData title="Owned By" content={` ${owner}`} />
       </View>
 
       {/* Footer */}
       <View style={styles.footerContainer}>
-        <MyButton title="Send Request" onPress={toggleModal} isActive={context.user?.user_id === DATA.owner ? false : true} variant={context.user?.user_id === DATA.owner ? 'grey' : 'light'}/>
+        <MyButton
+          title="Send Request"
+          onPress={toggleModal}
+          isActive={context.user?.user_id === DATA.owner ? false : true}
+          variant={context.user?.user_id === DATA.owner ? "grey" : "light"}
+        />
       </View>
 
       {/* Modal */}
@@ -116,14 +125,35 @@ export default function BookDetails({ navigation, route }) {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => navigation.navigate("ConfirmRequest")}
+        onRequestClose={() => {
+          navigation.navigate("ConfirmRequest");
+        }}
       >
         <View style={styles.modalOverlay}>
           <ConfirmBox
             confirmMsg={"Send exchange request for " + DATA.title + "?"}
             toggleModal={toggleModal}
-            nextPage={()=>{navigation.navigate("ConfirmRequestStack", {screen: "ConfirmRequest"})}
-            }
+            nextPage={() => {
+              fetch(
+                `https://cs350-bookswap-backend-production.up.railway.app/book_request/request_book/${DATA.id}/`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    Authorization: `Bearer ${context.token}`,
+                  },
+                }
+              ).then((res) => {
+                if (res.status != 200) {
+                  navigation.navigate("Error");
+                } else {
+                  navigation.navigate("ConfirmRequestStack", {
+                    screen: "ConfirmRequest",
+                  });
+                }
+              });
+              
+            }}
           />
         </View>
       </Modal>
@@ -142,7 +172,7 @@ const styles = StyleSheet.create({
     width: "auto",
     aspectRatio: 1,
     alignSelf: "center",
-    marginTop: 20
+    marginTop: 20,
   },
   text: {
     fontFamily: Typeface.font,

@@ -13,9 +13,8 @@ export default function DeleteConfirmBox(props) {
     // const navigation = useNavigation();
 
     const handlePrimaryPress = () => {
-        Alert.alert("You have deleted this item.");
-        // TODO: should redirect to the page that's calling the book details
-        console.log("redirecting back....");
+        nextPage()
+        toggleModal()
     }
 
     return (

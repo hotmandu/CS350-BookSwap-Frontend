@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import BookUnit from "../BookUnit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../context/AuthContext";
+import { useFocusEffect } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -30,7 +32,8 @@ const styles = StyleSheet.create({
   text_black: { fontSize: 16, color: "#1F1E1E" },
 });
 
-export default function Discover({ navigation }) {
+export default function Discover({ navigation, route }) {
+  const context = useContext(AuthContext)
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -48,32 +51,60 @@ export default function Discover({ navigation }) {
     getBooks();
   };
 
-  const getBooks = async () => {
-    fetch("https://cs350-bookswap-backend-production.up.railway.app/book/", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => {
-        if (res.status != 200) {
-          navigation.navigate("Error");
-        } else {
-          return res.json();
-        }
+  const getBooks = () => {
+    if(route.params?.checkUserBookShelf){
+      fetch(`https://cs350-bookswap-backend-production.up.railway.app/book/user/${route.params.requesterID}/`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${context.token}`,
+        },
       })
-      .then((data) => {
-        setData(data);
-        console.log(data)
-      });
+        .then((res) => {
+          if (res.status != 200) {
+            navigation.navigate("Error");
+          } else {
+            return res.json();
+          }
+        })
+        .then((data) => {
+          if(data){
+            setData(data);
+          }else{
+            setData([])
+          }
+        });
+    }else{
+      fetch("https://cs350-bookswap-backend-production.up.railway.app/book/", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => {
+          if (res.status != 200) {
+            navigation.navigate("Error");
+          } else {
+            return res.json();
+          }
+        })
+        .then((data) => {
+          if(data){
+            setData(data);
+          }else{
+            setData([])
+          }
+        });
+    }
   };
 
-  useEffect(() => {
-    navigation.addListener('focus', () => getBooks())
-  }, []);
-  useEffect(() => {
-    navigation.addListener('blur', () => getBooks())
-  }, []);
+  
+  useFocusEffect(
+    useCallback(() => {
+      console.log("discovery page")
+      return getBooks();
+    }, [route.params])
+  );
 
   if (search.length > 0) {
     return (
@@ -89,10 +120,7 @@ export default function Discover({ navigation }) {
                 placeholder="Search title, genre, author..."
                 onChangeText={updateSearch}
                 onSubmitEditing={({ nativeEvent }) => {
-                  console.log("ehre")
-                  console.log(search.trim().length)
                   if (search.trim().length > 0){
-                    console.log(nativeEvent.text);
                     handleSubmit();
                     navigation.navigate("Search_page", {
                       screen: "Discover",
@@ -188,7 +216,6 @@ export default function Discover({ navigation }) {
                 onChangeText={updateSearch}
                 onSubmitEditing={({ nativeEvent }) => {
                   if(search.trim().length > 0){
-                    console.log(nativeEvent.text);
                     handleSubmit();
                     navigation.navigate("Search_page", {
                       screen: "Discover",

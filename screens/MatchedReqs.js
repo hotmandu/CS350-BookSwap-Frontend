@@ -8,6 +8,7 @@ import { Typeface, Theme } from '../utils/Theme';
 const { colors } = Theme;
 
 import { AuthContext } from '../context/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function MatchedReqs({ navigation }) {
     // Change receivedReqs to incoming requests for this user
@@ -29,7 +30,6 @@ export default function MatchedReqs({ navigation }) {
             }
           }).then((data) => {
             setMatchedReqsData(data)
-            console.log(data)
         });
       }
 
@@ -59,7 +59,7 @@ export default function MatchedReqs({ navigation }) {
 
                 <FlatList
                     data={matchedReqsData}
-                    renderItem={({ item }) => <RequestItem {...item} status="matched"/>}
+                    renderItem={({ item }) => <RequestItem key={item.id} requester={item.requester} id={item.id} image={item.image} bookTitle={item.title} bookAuthor={item.author} owner={item.current_owner} status="matched"/>}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.itemContainer}
                 />

@@ -44,7 +44,6 @@ export default function AccountDetails({ navigation }) {
                 "email": email || user.email,
                 "password": user.password
             }
-            console.log(newData); //Change to logic to save data to the database
             Alert.alert("Changes Saved.", "Your changes have been saved successfully.");
         }
     }
