@@ -8,7 +8,6 @@ import SentReqs from '../screens/SentReqs';
 import ReceivedReqs from '../screens/ReceivedReqs';
 import MatchedReqs from '../screens/MatchedReqs';
 import RequestDetails from '../screens/RequestDetails';
-import RequestStatus from '../screens/RequestStatus';
 import Bookshelf from '../screens/BookShelf';
 import Test from '../screens/Test'; //--PLACEHOLDER
 import CancelRequest from '../screens/CancelRequest';

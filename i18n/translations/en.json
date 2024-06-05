@@ -44,13 +44,14 @@
             "submit": "Submit"
         },
         "bookDetails": {
-            "publisher": "Publisher",
-            "year": "Year",
+            "publisher": "출판사",
+            "year": "출판 연도",
             "isbn": "ISBN",
-            "ownedby": "Owned by",
-            "btnSendRequest": "Send Request",
-            "reqConfirmMsg": "Send exchange request for {{title}}?"
-        },
+            "ownedby": "소유자",
+            "btnSendRequest": "요청 보내기",
+            "reqConfirmMsg": "{{title}}에 대한 교환 요청을 보내시겠습니까?",
+            "review": "소유자 리뷰"
+        },        
         "bookshelf": {
             "yourBookshelf": "Your Bookshelf",
             "allBooks": "All Books",
@@ -86,6 +87,40 @@
             "labelConfirmPassword": "Confirm Password",
             "phConfirmPassword": "Confirm your new password",
             "btnChange": "Change Password"
+        },
+        "requestPage": {
+            "title": "Requests",
+            "received": "Received",
+            "sent": "Sent",
+            "matched": "Matched"
+        },
+        "signUp": {
+            "title": "Sign Up",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "password": "Password",
+            "haveAccount": "Already have an account?"
+        }, 
+        "logIn": {
+            "title": "Log In"
+        },
+        "requestDetails": {
+            "accept": "Accept",
+            "acceptDialogTitle": "Accept Exchange Request",
+            "acceptDialogDesc": "Do you want to accept this request? You cannot undo this action.",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "reject": "Reject",
+            "rejectDialogTitle": "Reject Exchange Request",
+            "rejectDialogDesc": "Do you want to reject this request? You cannot undo this action.",
+            "title": "Incoming request from",
+            "requestedBook": "Requested Book",
+            "bookTitle": "Title",
+            "bookAuthor": "Author",
+            "bookForExchange": "Book for Exchange",
+            "seeBookshelf": "See Bookshelf",
+            "noBook": "No book selected."
         }
     }
 }

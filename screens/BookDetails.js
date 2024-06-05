@@ -82,6 +82,11 @@ export default function BookDetails({ navigation, route }) {
     getUser(DATA.owner,context.token)
   },[])
 
+  const handleConfirm = () => {
+    setModalVisible(!modalVisible); 
+    navigation.navigate("ConfirmRequestStack", {screen: "ConfirmRequest"})
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Book Cover */}
@@ -125,8 +130,7 @@ export default function BookDetails({ navigation, route }) {
           <ConfirmBox
             confirmMsg={t("screen.bookDetails.reqConfirmMsg", { title: DATA.title })}
             toggleModal={toggleModal}
-            nextPage={()=>{navigation.navigate("ConfirmRequestStack", {screen: "ConfirmRequest"})}
-            }
+            nextPage={handleConfirm}
           />
         </View>
       </Modal>

@@ -83,6 +83,40 @@
             "labelConfirmPassword": "비밀번호 확인",
             "phConfirmPassword": "새 비밀번호를 다시 입력하세요.",
             "btnChange": "비밀번호 변경"
-        }
+        },
+        "requestPage": {
+            "title": "요청",
+            "received": "받은 요청",
+            "sent": "보낸 요청",
+            "matched": "매칭됨"
+        },
+        "signUp": {
+            "title": "가입하기",
+            "firstName": "명",
+            "lastName": "성",
+            "email": "이메일",
+            "password": "비밀번호",
+            "haveAccount": "이미 계정이 있으신가요?"
+        },
+        "logIn": {
+            "title": "로그인"
+        },
+        "requestDetails": {
+            "accept": "수락하기",
+            "acceptDialogTitle": "교환 요청을 수락하시겠습니까?",
+            "acceptDialogDesc": "이 요청을 수락하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+            "cancel": "취소하기",
+            "confirm": "확인하기",
+            "reject": "거절하기",
+            "rejectDialogTitle": "교환 요청을 거절하시겠습니까?",
+            "rejectDialogDesc": "이 요청을 거절하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+            "title": "요청자:",
+            "requestedBook": "요청된 도서",
+            "bookTitle": "제목",
+            "bookAuthor": "저자",
+            "bookForExchange": "교환할 도서",
+            "seeBookshelf": "책장 보기",
+            "noBook": "선택된 도서가 없습니다."
+        }                          
     }
 }

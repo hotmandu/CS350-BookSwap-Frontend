@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, View, Text, StyleSheet } from "react-native";
 import BookUnit from "../BookUnit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from "react-i18next";
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -21,6 +22,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Search({ navigation, route }) {
+  const { t } = useTranslation();
+  
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [recent, setRecent] = useState([]);

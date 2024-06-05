@@ -8,6 +8,7 @@ import {
   Linking,
   TouchableOpacity,
   Image,
+  Pressable
 } from "react-native";
 
 import MyButton from "../components/MyButton";

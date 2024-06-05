@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Pressable, Image} from 'react-native';
+import { useTranslation } from "react-i18next";
 
 import Filter from "../components/Filter";
 import RequestItem from '../components/RequestItem';
@@ -10,6 +11,8 @@ import MyButton from '../components/MyButton';
 const { colors } = Theme;
 
 export default function RequestDetails({ route, navigation }) {
+    const { t } = useTranslation();
+
     // TODO: handle the data passed
     // passed from the previous screen
     // current fields: bookAuthor, bookTitle, owner, status
@@ -55,16 +58,16 @@ export default function RequestDetails({ route, navigation }) {
 
     const AcceptDialog = () => (
         <View>
-            <MyButton title="Accept" onPress={showAcceptDialog} />
+            <MyButton title={t('screen.requestDetails.accept')} onPress={showAcceptDialog} />
             <Dialog.Container visible={visibleAccept}>
-                <Dialog.Title>Accept Exchange Request</Dialog.Title>
+                <Dialog.Title>{t('screen.requestDetails.acceptDialogTitle')}</Dialog.Title>
                 <Dialog.Description>
-                    Do you want to accept this request? You cannot undo this action.
+                    {t('screen.requestDetails.acceptDialogDesc')}
                 </Dialog.Description>
-                <Dialog.Button label="Cancel" onPress={hideAcceptDialog} />
-                <Dialog.Button label="Confirm" onPress={() => {
+                <Dialog.Button label={t('screen.requestDetails.cancel')} onPress={hideAcceptDialog} />
+                <Dialog.Button label={t('screen.requestDetails.confirm')} onPress={() => {
                     //TODO: mark this request as accepted
-                    console.log("Accept"); // ---PLACEHOLDER---
+                    console.log(t('screen.requestDetails.accept')); // ---PLACEHOLDER---
                     hideAcceptDialog();
                     navigation.navigate("Matched");
                 }} />
@@ -74,17 +77,17 @@ export default function RequestDetails({ route, navigation }) {
 
     const RejectDialog = () => (
         <View>
-            <MyButton title="Reject" onPress={showRejectDialog} />
+            <MyButton title={t('screen.requestDetails.reject')} onPress={showRejectDialog} />
             <Dialog.Container visible={visibleReject}>
-                <Dialog.Title>Reject Exchange Request</Dialog.Title>
+                <Dialog.Title>{t('screen.requestDetails.rejectDialogTitle')}</Dialog.Title>
                 <Dialog.Description>
-                    Do you want to reject this request? You cannot undo this action.
+                    {t('screen.requestDetails.rejectDialogDesc')}
                 </Dialog.Description>
-                <Dialog.Button label="Cancel" onPress={hideRejectDialog} />
-                <Dialog.Button label="Confirm" onPress={() => {
+                <Dialog.Button label={t('screen.requestDetails.cancel')} onPress={hideRejectDialog} />
+                <Dialog.Button label={t('screen.requestDetails.confirm')} onPress={() => {
                     //TODO: mark this request as REJECTED
                     // ---PLACEHOLDER---
-                    console.log("Reject");
+                    console.log(t('screen.requestDetails.reject'));
                     hideRejectDialog();
                     navigation.navigate("Received");
                 }} />
@@ -102,7 +105,7 @@ export default function RequestDetails({ route, navigation }) {
                         fontSize: 18,
                         fontWeight: "400",
                     }]}>
-                        Incoming request from
+                        {t('screen.requestDetails.title')}
                     </Text>
                     <Text style={styles.pageHeader}>
                         {data.owner}
@@ -113,21 +116,21 @@ export default function RequestDetails({ route, navigation }) {
                 {/* Requested Book Details Section */}
                 <View style={styles.sectionContainer}>
                     <View style={styles.sectionHeader}>
-                        <Text style={[styles.text, styles.sectionHeaderText]}>Requested Book</Text>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.requestDetails.requestedBook')}</Text>
                     </View>
 
                     <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue}} />
 
-                    <ProfileItem title="Title" value={data.bookTitle} />
-                    <ProfileItem title="Author" value={data.bookAuthor} />
+                    <ProfileItem title={t('screen.requestDetails.bookTitle')} value={data.bookTitle} />
+                    <ProfileItem title={t('screen.requestDetails.bookAuthor')} value={data.bookAuthor} />
                 </View>
 
                 {/* Selected Book for Exchange Section */}
                 <View style={styles.sectionContainer}>
                     <View style={styles.sectionHeader}>
-                        <Text style={[styles.text, styles.sectionHeaderText]}>Book for Exchange</Text>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.requestDetails.bookForExchange')}</Text>
                         <Pressable onPress={handleSeeBookshelf}>
-                            <Text style={{fontFamily: Typeface.font, color: colors.PrimaryBlue, fontWeight: "500"}}>See Bookshelf</Text>
+                            <Text style={{fontFamily: Typeface.font, color: colors.PrimaryBlue, fontWeight: "500"}}>{t('screen.requestDetails.seeBookshelf')}</Text>
                         </Pressable>
                     </View>
 
@@ -135,7 +138,7 @@ export default function RequestDetails({ route, navigation }) {
                     {
                         chosen ? 
                             BookPreview(requestedBook, requestingUser) : 
-                            <Text style={{color: "rgba(31, 31, 30, 0.5)"}}>No book selected.</Text>
+                            <Text style={{color: "rgba(31, 31, 30, 0.5)"}}>{t('screen.requestDetails.noBook')}</Text>
                     }
                 </View>
 
