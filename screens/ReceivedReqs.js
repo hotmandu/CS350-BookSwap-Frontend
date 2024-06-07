@@ -1,5 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, ScrollView, FlatList} from 'react-native';
+import { useTranslation } from "react-i18next";
 
 import Filter from "../components/Filter";
 import RequestItem from '../components/RequestItem';
@@ -10,6 +11,8 @@ import { useFocusEffect } from '@react-navigation/native';
 const { colors } = Theme;
 
 export default function ReceivedReqs({ navigation }) {
+    const { t } = useTranslation();
+
     // Change receivedReqs to incoming requests for this user
     const [sentReqsData, setSentReqsData] = useState()
     const context = useContext(AuthContext)
@@ -46,14 +49,14 @@ export default function ReceivedReqs({ navigation }) {
                 { /* Title */ }
                 <View style={styles.pageTitleContainer}>
                     <Text style={styles.pageHeader}>
-                        Requests
+                      {t('screen.requestPage.title')}
                     </Text>
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <Filter title="Received" variant="active" onPress={() => handleClick("Received")}/>
-                    <Filter title="Sent" variant="inactive" onPress={() => handleClick("Sent")}/>
-                    <Filter title="Matched" variant="inactive" onPress={() => handleClick("Matched")}/>
+                    <Filter title={t('screen.requestPage.received')} variant="active" onPress={() => handleClick("Received")}/>
+                    <Filter title={t('screen.requestPage.sent')} variant="inactive" onPress={() => handleClick("Sent")}/>
+                    <Filter title={t('screen.requestPage.matched')} variant="inactive" onPress={() => handleClick("Matched")}/>
                 </View>
 
                 <FlatList

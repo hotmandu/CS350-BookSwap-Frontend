@@ -17,7 +17,6 @@ export const Theme = {
 };
 
 export const Typeface = {
-  font: "Geist",
   defaultColor: Theme.Black,
 }
 

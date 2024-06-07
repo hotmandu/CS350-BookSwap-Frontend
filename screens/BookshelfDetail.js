@@ -140,6 +140,7 @@ export default function BookshelfDetail({ navigation, route }) {
                 <MaterialIcons name="edit" size={14} color={colors.White} />
                 <Text style={styles.editText}>Edit</Text>
               </Pressable>
+
             </View>
 
             <Modal

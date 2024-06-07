@@ -29,9 +29,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     color: colors.White,
   },
-  text: {
-    fontFamily: "Geist",
-  },
 });
 
 const screens = {
@@ -58,7 +55,7 @@ const screens = {
   }  
 }
 
-function LoginStack() {
+function LoginPages() {
   return (
       <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Welcome" component={Landing} options={screens.Welcome.navigationOptions}/>
@@ -71,4 +68,4 @@ function LoginStack() {
 //const UserLoginStack = createStackNavigator(screens);
 
 //export default createAppContainer(UserLoginStack);
-export default LoginStack;
+export default LoginPages;

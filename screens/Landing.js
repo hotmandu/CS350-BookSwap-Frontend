@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Image } from 'react-native';
 
 import MyButton from '../components/MyButton';
@@ -14,7 +14,7 @@ export default function Landing({ navigation }) {
   const pressHandler = () => {
     navigation.push('LogIn');
   }
-  
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.topContainer}>
@@ -32,12 +32,12 @@ export default function Landing({ navigation }) {
         {/* Buttons */}
         <View style={styles.buttonContainer}>
           <MyButton 
-            title="Log In"
+            title="Login"
             variant="dark2"
             onPress={() => navigation.navigate("LoginPages", {screen: "LogIn"})}
           />
           <MyButton 
-            title="Sign Up" 
+            title="Signup"
             variant="dark" 
             onPress={() => navigation.navigate("LoginPages", {screen: "SignUp"})}
           />
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   text: {
-    fontFamily: "Geist",
     color: colors.White
   },
   welcomeTo: {

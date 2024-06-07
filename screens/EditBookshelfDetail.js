@@ -1,6 +1,6 @@
 // Edit the book details in the user's bookshelf.
 
-import { useContext, useState } from "react";
+import { useContext, useCallback, useState } from "react";
 import {
   Text,
   SafeAreaView,
@@ -17,9 +17,11 @@ import * as ImagePicker from "expo-image-picker";
 import MyButton from "../components/MyButton";
 import { Typeface, Theme } from "../utils/Theme";
 import { AuthContext } from "../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 const { colors } = Theme;
 
 export default function EditBookshelfDetail({ navigation, route }) {
+  const { t } = useTranslation();
   const context = useContext(AuthContext);
 
   const [title, setTitle] = useState(route.params.name);
@@ -38,7 +40,7 @@ export default function EditBookshelfDetail({ navigation, route }) {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
-      alert("You've refused to allow this app to access your photos!");
+      alert(t('screen.editBookshelfDetail.errorPhotoPerm'));
       return;
     }
 
@@ -92,10 +94,7 @@ export default function EditBookshelfDetail({ navigation, route }) {
       if (res.status != 200) {
         navigation.navigate("Error");
       } else {
-        Alert.alert(
-          "Changes Saved.",
-          "Your changes have been saved successfully."
-        );
+        Alert.alert(t('screen.editBookshelfDetail.alertTitle'), t('screen.editBookshelfDetail.alertMsg'));
         const id = route.params.id
         navigation.navigate("BookshelfDetailStack", {
           screen: "Book Details",
@@ -110,72 +109,49 @@ export default function EditBookshelfDetail({ navigation, route }) {
     { item: "Private", id: "Private" },
   ];
 
-  return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.topContainer}>
-        {/* Profile Section */}
-        <View style={styles.sectionContainer}>
-          {/* Upload or remove the current image */}
-          <Text style={[styles.text, styles.formItemText]}>Cover</Text>
-          <Pressable style={[styles.edit]} onPress={pickImage}>
-            <Text style={styles.editText}>{imageName || "Select Image"}</Text>
-          </Pressable>
+    return (
+        <View style={styles.container}>
+            <SafeAreaView style={styles.topContainer}>
+                {/* Profile Section */}
+                <View style={styles.sectionContainer}>
+                    {/* Upload or remove the current image */}
+                    <Text style={[styles.text, styles.formItemText]}>Cover</Text>
+                    <Pressable style={[styles.edit]} onPress={pickImage}>
+                        <Text style={styles.editText}>{imageName || t('screen.editBookshelfDetail.phSelImg')}</Text>
+                    </Pressable>
 
-          <FormItem
-            label="Book Title"
-            value={title}
-            onChangeText={setTitle}
-            error={errors.title}
-          />
-          <FormItem
-            label="Author"
-            value={author}
-            onChangeText={setAuthor}
-            error={errors.author}
-          />
-          <FormItem
-            label="ISBN"
-            value={isbn}
-            onChangeText={setIsbn}
-            error={errors.isbn}
-          />
-          <FormItem
-            label="Publication Date"
-            value={publicationDate}
-            onChangeText={setPublicationDate}
-            error={errors.publicationDate}
-          />
-          <FormItem
-            label="Publisher"
-            value={publisher}
-            onChangeText={setPublisher}
-            error={errors.publisher}
-          />
-          <SelectBox
-            label="Visibility"
-            inputPlaceholder="Public"
-            options={visibilityOptions}
-            value={visibility}
-            onChange={setVisibility}
-            hideInputFilter={true}
-            arrowIconColor={colors.PrimaryBlue}
-            optionsLabelStyle={{
-              font: Typeface.font,
-              color: colors.Grey,
-              fontsize: 14,
-            }}
-            selectedItemStyle={{
-              font: Typeface.font,
-              color: colors.Black,
-              fontsize: 14,
-            }}
-          />
+                    <FormItem label={t('screen.bookDetails.title')} value={title} onChangeText={setTitle} placeholder={title} error={errors.title} />
+                    <FormItem label={t('screen.bookDetails.author')} value={author} onChangeText={setAuthor} placeholder={author} error={errors.author} />
+                    <FormItem label={t('screen.bookDetails.isbn')} value={isbn} onChangeText={setIsbn} placeholder={isbn} error={errors.isbn} />
+                    <FormItem label={t('screen.bookDetails.pubdate')} value={publicationDate} onChangeText={setPublicationDate} placeholder={publicationDate} error={errors.publicationDate} />
+                    <FormItem label={t('screen.bookDetails.publisher')} value={publisher} onChangeText={setPublisher} placeholder={publisher} error={errors.publisher} />
+                    <SelectBox 
+                        label={t('term.bookVisibility')}
+                        inputPlaceholder={visibility}
+                        options={visibilityOptions}
+                        value={visibility}
+                        onChange={(e)=>{
+                          console.log(e.id)
+                          setVisibility(e.id)}}
+                        hideInputFilter={true}
+                        arrowIconColor={colors.PrimaryBlue}
+                        optionsLabelStyle={{
+                            font: Typeface.font,
+                            color: colors.Grey,
+                            fontsize: 14,
+                        }}
+                        selectedItemStyle={{
+                            font: Typeface.font,
+                            color: colors.Black,
+                            fontsize: 14,
+                        }}
+                    />
+                </View>
+
+                <MyButton title={t('screen.accountDetails.btnSave')} onPress={handleSave} />
+            </SafeAreaView>
         </View>
-
-        <MyButton title="Save Changes" onPress={handleSave} />
-      </SafeAreaView>
-    </View>
-  );
+    );
 }
 
 const FormItem = ({ label, value, onChangeText, placeholder, error }) => {

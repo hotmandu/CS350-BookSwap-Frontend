@@ -38,8 +38,8 @@
             "phAuthor": "Book author",
             "phGenre": "Book genre",
             "phIsbn": "ISBN",
-            "phPubdate": "Publication date (Optional, XXXX-YY-ZZ)",
-            "phPublisher": "Publisher (Optional)",
+            "phPubdate": "Publication date (Optional, YYYY-MM-DD)",
+            "phPublisher": "Publisher",
             "back": "Back",
             "submit": "Submit"
         },
@@ -47,10 +47,14 @@
             "publisher": "Publisher",
             "year": "Year",
             "isbn": "ISBN",
-            "ownedby": "Owned by",
+            "ownedby": "Owner",
             "btnSendRequest": "Send Request",
-            "reqConfirmMsg": "Send exchange request for {{title}}?"
-        },
+            "reqConfirmMsg": "Send exchange request for {{title}}?",
+            "review": "Owner's Review",
+            "title": "Book title",
+            "author": "Book author",
+            "pubdate": "Publication date"
+        },        
         "bookshelf": {
             "yourBookshelf": "Your Bookshelf",
             "allBooks": "All Books",
@@ -64,7 +68,6 @@
             "delboxCancel": "Cancel",
             "delete": "Delete",
             "edit": "Edit",
-            "ownerSynopsis": "Owner's Synopsis",
             "delConfirm": "Are you sure you want to delete {{title}}?"
         },
         "cancelRequest": {
@@ -86,6 +89,105 @@
             "labelConfirmPassword": "Confirm Password",
             "phConfirmPassword": "Confirm your new password",
             "btnChange": "Change Password"
+        },
+        "chat": {
+            "today": "Today",
+            "msg": "Message..."
+        },
+        "confirmRequest": {
+            "title": "Request Sent!",
+            "msg": "An exchange request for {{title}}. You can check your request status on Request tab.",
+            "back": "Back to Home",
+            "checkReq": "Check Requests"
+        },
+        "deleteConfirmBox": {
+            "alert": "You have deleted this item."
+        },
+        "discover": {
+            "phSearch": "Search title, genre, author...",
+            "hot": "Hot Searches",
+            "recent": "Recently Searched"
+        },
+        "editBookshelfDetail": {
+            "errorPhotoPerm": "You've refused to allow this app to access your photos!",
+            "phSelImg": "Select Image",
+            "alertTitle": "Changes Saved.",
+            "alertMsg": "Your changes have been saved successfully."
+        },
+        "error": {
+            "oops": "Oops!",
+            "msg": "Something went wrong...",
+            "back": "Back"
+        },
+        "landing": {
+            "logIn": "Log In",
+            "signUp": "Sign Up"
+        },
+        "logIn": {
+            "title": "Log In",
+            "logIn": "Log In",
+            "email": "E-mail",
+            "password": "Password",
+            "passwordPlaceholder": "> 8 characters",
+            "emailError": "This field is required.",
+            "passwordError": "The password should be more than 8 characters length.",
+            "accountAsk": "Don't have an account?",
+            "signUp": "Sign Up"
+        },
+        "profile": {
+            "profile": "Profile",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "Email",
+            "accountDetails": "Account Details",
+            "accountSettings": "Account Settings",
+            "applicationSettings": "Application Settings",
+            "language": "Language",
+            "logOut": "Log Out",
+            "edit": "Edit",
+            "languageValue": "English"
+        },
+        "networkError": {
+            "noInternet": "No Internet Connection.",
+            "tryAgain": "Please check your internet connection and try again.",
+            "retry": "Retry"
+        },
+        "matchedReqs": {
+            "requests": "Requests",
+            "received": "Received",
+            "sent": "Sent",
+            "matched": "Matched"
+        },
+        "requestPage": {
+            "title": "Requests",
+            "received": "Received",
+            "sent": "Sent",
+            "matched": "Matched"
+        },
+        "signUp": {
+            "title": "Sign Up",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "password": "Password",
+            "haveAccount": "Already have an account?"
+        },
+        "requestDetails": {
+            "accept": "Accept",
+            "acceptDialogTitle": "Accept Exchange Request",
+            "acceptDialogDesc": "Do you want to accept this request? You cannot undo this action.",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "reject": "Reject",
+            "rejectDialogTitle": "Reject Exchange Request",
+            "rejectDialogDesc": "Do you want to reject this request? You cannot undo this action.",
+            "title": "Incoming request from",
+            "requestedBook": "Requested Book",
+            "bookTitle": "Title",
+            "bookAuthor": "Author",
+            "bookForExchange": "Book for Exchange",
+            "seeBookshelf": "See Bookshelf",
+            "noBook": "No book selected."
         }
     }
 }

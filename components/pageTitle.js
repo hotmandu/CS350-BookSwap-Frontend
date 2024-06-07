@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     		fontSize: 16,
     		textTransform: "capitalize",
     		fontWeight: "600",
-    		fontFamily: "Geist",
     		color: colors.White,
     		textAlign: "center",
     		position: "absolute"

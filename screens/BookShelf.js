@@ -102,8 +102,8 @@ function Bookshelf({ navigation }) {
 
   useFocusEffect(
     useCallback(() => {
-      console.log("bookshelf page")
-      return getBooks("All Books", context.token);
+      getBooks("All Books", context.token);
+      return () => {}
     }, [select])
   );
 

@@ -33,9 +33,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     color: colors.White,
   },
-  text: {
-    fontFamily: "Geist",
-  },
 });
 
 function TheStack() {

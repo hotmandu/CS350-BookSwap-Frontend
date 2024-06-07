@@ -33,12 +33,12 @@
             "addBooks": "책 추가",
             "phTitle": "책 제목",
             "phAuthor": "작가",
-            "phGenre": "Book genre",
+            "phGenre": "장르",
             "phIsbn": "ISBN",
-            "phPubdate": "Publication date (Optional, XXXX-YY-ZZ)",
-            "phPublisher": "Publisher (Optional)",
-            "back": "Back",
-            "submit": "Submit"
+            "phPubdate": "출판일 (선택, YYYY-MM-DD)",
+            "phPublisher": "출판사",
+            "back": "돌아가기",
+            "submit": "제출하기"
         },
         "bookDetails": {
             "publisher": "출판사",
@@ -46,7 +46,11 @@
             "isbn": "ISBN",
             "ownedby": "소유자",
             "btnSendRequest": "교환 요청 보내기",
-            "reqConfirmMsg": "책 {{title}}와 교환 요청을 보내시겠습니까?"
+            "reqConfirmMsg": "책 {{title}}와 교환 요청을 보내시겠습니까?",
+            "review": "소유자 리뷰",
+            "title": "책 제목",
+            "author": "저자",
+            "pubdate": "출판일"
         },
         "bookshelf": {
             "yourBookshelf": "나의 책장",
@@ -61,7 +65,6 @@
             "delboxCancel": "취소",
             "delete": "제거",
             "edit": "편집",
-            "ownerSynopsis": "소유자의 시놉시스",
             "delConfirm": "정말로 책 {{title}}를 제거하시겠습니까?"
         },
         "cancelRequest": {
@@ -83,6 +86,105 @@
             "labelConfirmPassword": "비밀번호 확인",
             "phConfirmPassword": "새 비밀번호를 다시 입력하세요.",
             "btnChange": "비밀번호 변경"
+        },
+        "chat": {
+            "today": "오늘",
+            "msg": "메세지..."
+        },
+        "confirmRequest": {
+            "title": "요청 전송 완료!",
+            "msg": "책 {{title}}의 교환 요청이 전송되었습니다. 요청 탭에서 요청 진행 상황을 확인할 수 있습니다.",
+            "back": "돌아가기",
+            "checkReq": "요청 확인"
+        },
+        "deleteConfirmBox": {
+            "alert": "이 항목을 제거했습니다."
+        },
+        "discover": {
+            "phSearch": "제목, 장르, 작가 검색...",
+            "hot": "유행 검색어",
+            "recent": "최근 검색 목록"
+        },
+        "editBookshelfDetail": {
+            "errorPhotoPerm": "앱이 사진에 접근할 수 있도록 권한을 허용해주세요!",
+            "phSelImg": "사진 선택",
+            "alertTitle": "변경 저장됨",
+            "alertMsg": "변경 사항이 성공적으로 저장되었습니다."
+        },
+        "error": {
+            "oops": "이런!",
+            "msg": "무언가 잘못되었습니다...",
+            "back": "돌아가기"
+        },
+        "requestPage": {
+            "title": "요청",
+            "received": "받은 요청",
+            "sent": "보낸 요청",
+            "matched": "매칭됨"
+        },
+        "signUp": {
+            "title": "가입하기",
+            "firstName": "명",
+            "lastName": "성",
+            "email": "이메일",
+            "password": "비밀번호",
+            "haveAccount": "이미 계정이 있으신가요?"
+        },
+        "requestDetails": {
+            "accept": "수락하기",
+            "acceptDialogTitle": "교환 요청을 수락하시겠습니까?",
+            "acceptDialogDesc": "이 요청을 수락하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+            "cancel": "취소하기",
+            "confirm": "확인하기",
+            "reject": "거절하기",
+            "rejectDialogTitle": "교환 요청을 거절하시겠습니까?",
+            "rejectDialogDesc": "이 요청을 거절하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+            "title": "요청자:",
+            "requestedBook": "요청된 도서",
+            "bookTitle": "제목",
+            "bookAuthor": "저자",
+            "bookForExchange": "교환할 도서",
+            "seeBookshelf": "책장 보기",
+            "noBook": "선택된 도서가 없습니다."
+        },
+        "landing": {
+            "logIn": "로그인",
+            "signUp": "회원 가입"
+        },
+        "logIn": {
+            "title": "로그인",
+            "logIn": "로그인",
+            "email": "이메일",
+            "password": "비밀번호",
+            "passwordPlaceholder": "8 글자 이상",
+            "emailError": "이 항목은 필수 사항입니다.",
+            "passwordError": "비밀번호는 8글자 이상이어야 합니다.",
+            "accountAsk": "계정이 없으신가요?",
+            "signUp": "회원 가입"
+        },
+        "profile": {
+            "profile": "프로필",
+            "firstName": "이름",
+            "lastName": "성",
+            "email": "이메일",
+            "accountDetails": "계정 정보",
+            "accountSettings": "설정",
+            "applicationSettings": "어플리케이션 설정",
+            "language": "언어",
+            "logOut": "로그아웃",
+            "edit": "편집",
+            "languageValue": "한국어"
+        },
+        "networkError": {
+            "noInternet": "인터넷 연결 없음.",
+            "tryAgain": "연결 확인 후 재시도해주세요.",
+            "retry": "재시도"
+        },
+        "matchedReqs": {
+            "requests": "요청",
+            "received": "받은 요청",
+            "sent": "보낸 요청",
+            "matched": "수락된 요청"
         }
     }
 }

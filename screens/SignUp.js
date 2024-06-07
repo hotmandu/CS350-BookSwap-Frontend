@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TextInput, Linking, TouchableOpacity } from 'react-native';
+import { useTranslation } from "react-i18next";
 
 import MyButton from '../components/MyButton';
 
@@ -8,6 +9,8 @@ import Theme from "../utils/Theme";
 const { colors } = Theme;
 
 export default function SignUp({ navigation }) {
+  const { t } = useTranslation();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -81,13 +84,13 @@ export default function SignUp({ navigation }) {
       <SafeAreaView style={styles.topContainer}>
         {/* Page Title */}
         <View>
-          <Text style={[styles.pageHeader, styles.text]}> Sign Up </Text>
+          <Text style={[styles.pageHeader, styles.text]}>{t('screen.signUp.title')}</Text>
         </View>
 
         {/* Form */ }
         <View style={styles.form}>
           <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>First Name</Text>
+            <Text style={[styles.text, styles.formItemText]}>{t('screen.signUp.firstName')}</Text>
             {/* Input Validation */}
             {
               errors.firstName ? <Text style={[styles.formErr, styles.text]}>{errors.firstName}</Text> : null
@@ -102,7 +105,7 @@ export default function SignUp({ navigation }) {
           </View>
 
           <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>Last Name</Text>
+            <Text style={[styles.text, styles.formItemText]}>{t('screen.signUp.lastName')}</Text>
             {/* Input Validation */}
             {
               errors.lastName ? <Text style={[styles.formErr, styles.text]}>{errors.lastName}</Text> : null
@@ -118,7 +121,7 @@ export default function SignUp({ navigation }) {
           
 
           <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>E-mail</Text>
+            <Text style={[styles.text, styles.formItemText]}>{t('screen.signUp.email')}</Text>
             {/* Input Validation */}
             {
               errors.email ? <Text style={[styles.formErr, styles.text]}>{errors.email}</Text> : null
@@ -135,7 +138,7 @@ export default function SignUp({ navigation }) {
           
             
           <View style={styles.formItem}>
-            <Text style={[styles.text, styles.formItemText]}>Password</Text>
+            <Text style={[styles.text, styles.formItemText]}>{t('screen.signUp.password')}</Text>
             {/* Input Validation */}
             {
               errors.password ? <Text style={[styles.formErr, styles.text]}>{errors.password}</Text> : null
@@ -154,11 +157,11 @@ export default function SignUp({ navigation }) {
 
         {/* Submit Button */ }
         <View style={styles.submit}>
-          <MyButton title="Sign Up" onPress={handleSubmit} />
+          <MyButton title={t('screen.signUp.title')} onPress={handleSubmit} />
           <Text style={[styles.body, styles.text]}>
-            Already have an account?{' '}
+            {t('screen.signUp.haveAccount')}{' '}
             <TouchableOpacity onPress={() => navigation.navigate("LoginPages", {screen: "LogIn"})}>
-              <Text style={[styles.link, styles.text]}>Log In</Text>
+              <Text style={[styles.link, styles.text]}>{t('screen.logIn.title')}</Text>
             </TouchableOpacity>
           </Text>
         </View>
@@ -192,9 +195,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.PrimaryBlue,
     color: colors.Black,
-  },
-  text: {
-    fontFamily: "Geist",
   },
   formItemText: {
     fontSize: 20,

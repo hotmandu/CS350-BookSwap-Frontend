@@ -8,20 +8,16 @@ import Navigator from "./routes/logInStack";
 import ReqNavi from "./routes/requestStack";
 import Test from './screens/Test';
 import ProfilePages from './routes/profileStack';
-import Stack from "./routes/Stack";
+import TheStack from "./routes/Stack";
 import AuthProvider from './context/AuthContext';
 
 import RequestDetails from './screens/RequestDetails';
 import Bookshelf from './screens/BookShelf';
 
 function App() {
-  const [fontsLoaded] = useFonts({
-    'Geist': require('./assets/fonts/Geist.ttf'),
-  });
-
   return (
     <AuthProvider>
-      <Stack />
+      <TheStack />
     </AuthProvider>
   );
 }

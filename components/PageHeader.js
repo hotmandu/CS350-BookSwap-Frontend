@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   pageTitle: {
-    fontFamily: "Geist",
     flex: 1,
     textAlign: "center",
     color: colors.PrimaryBlue,

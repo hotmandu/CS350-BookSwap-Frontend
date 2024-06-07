@@ -7,6 +7,7 @@ import {
   Pressable,
   Image,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 
 import Filter from "../components/Filter";
 import RequestItem from "../components/RequestItem";
@@ -18,6 +19,8 @@ import { AuthContext } from "../context/AuthContext";
 const { colors } = Theme;
 
 export default function RequestDetails({ route, navigation }) {
+    const { t } = useTranslation();
+
   const data = route.params;
   const context = useContext(AuthContext);
   const [requesterName, setRequesterName] = useState("Loading");
@@ -74,165 +77,129 @@ export default function RequestDetails({ route, navigation }) {
   const showRejectDialog = () => setVisibleReject(true);
   const hideRejectDialog = () => setVisibleReject(false);
 
-  const AcceptDialog = () => (
-    <View>
-      <MyButton title="Accept" onPress={showAcceptDialog} />
-      <Dialog.Container visible={visibleAccept}>
-        <Dialog.Title>Accept Exchange Request</Dialog.Title>
-        <Dialog.Description>
-          Do you want to accept this request? You cannot undo this action.
-        </Dialog.Description>
-        <Dialog.Button label="Cancel" onPress={hideAcceptDialog} />
-        <Dialog.Button
-          label="Confirm"
-          onPress={() => {
-            fetch(
-              `https://cs350-bookswap-backend-production.up.railway.app/book_request/accept_book/${route.params.id}/`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                  Authorization: `Bearer ${context.token}`,
-                },
-              }
-            ).then((res) => {
-              if (res.status != 200) {
-                navigation.navigate("Error");
-              } else {
-                fetch(
-                    "https://cs350-bookswap-backend-production.up.railway.app/chat/create_chat/",
+    const AcceptDialog = () => (
+        <View>
+            <MyButton title={t('screen.requestDetails.accept')} onPress={showAcceptDialog} />
+            <Dialog.Container visible={visibleAccept}>
+                <Dialog.Title>{t('screen.requestDetails.acceptDialogTitle')}</Dialog.Title>
+                <Dialog.Description>
+                    {t('screen.requestDetails.acceptDialogDesc')}
+                </Dialog.Description>
+                <Dialog.Button label={t('screen.requestDetails.cancel')} onPress={hideAcceptDialog} />
+                <Dialog.Button label={t('screen.requestDetails.confirm')} onPress={() => {
+                    fetch(
+                      `https://cs350-bookswap-backend-production.up.railway.app/book_request/accept_book/${route.params.id}/`,
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-type": "application/json; charset=UTF-8",
+                          Authorization: `Bearer ${context.token}`,
+                        },
+                      }
+                    ).then((res) => {
+                      if (res.status != 200) {
+                        navigation.navigate("Error");
+                      } else {
+                        fetch(
+                            "https://cs350-bookswap-backend-production.up.railway.app/chat/create_chat/",
+                            {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json; charset=UTF-8",
+                                Authorization: `Bearer ${context.token}`,
+                              },
+                              body: JSON.stringify({
+                                chat_member_2: route.params.requester,
+                              }),
+                            }
+                          ).then((res) => {
+                          if (res.status != 201) {
+                            navigation.navigate("Error");
+                          } else {
+                            hideAcceptDialog();
+                            navigation.navigate("Matched");
+                          }
+                        });
+                      }
+                    });
+                  }}
+        />
+      </Dialog.Container>
+    </View>
+  );
+
+    const RejectDialog = () => (
+        <View>
+            <MyButton title="Reject" onPress={showRejectDialog} />
+            <Dialog.Container visible={visibleReject}>
+                <Dialog.Title>Reject Exchange Request</Dialog.Title>
+                <Dialog.Description>
+                    Do you want to reject this request? You cannot undo this action.
+                </Dialog.Description>
+                <Dialog.Button label="Cancel" onPress={hideRejectDialog} />
+                <Dialog.Button label="Confirm" onPress={() => {
+                    //TODO: mark this request as REJECTED
+                    // ---PLACEHOLDER---
+                    console.log("Reject");
+                    hideRejectDialog();
+                    navigation.navigate("Received");
+                }} />
+            </Dialog.Container>
+        </View>
+    );
+
+    return (
+        <View style={styles.container}>
+            <SafeAreaView style={styles.topContainer}>
+                { /* Title */ }
+                <View style={styles.pageTitleContainer}>
+                    <Text style={[styles.pageHeader, {
+                        color: colors.Black,
+                        fontSize: 18,
+                        fontWeight: "400",
+                    }]}>
+                        Incoming request from
+                    </Text>
+                    <Text style={styles.pageHeader}>
+                        {data.owner}
+                    </Text>
+                    
+                </View>
+
+                {/* Requested Book Details Section */}
+                <View style={styles.sectionContainer}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.requestDetails.requestedBook')}</Text>
+                    </View>
+
+          <View
+            style={{
+              width: "100%",
+              height: 0.3,
+              backgroundColor: colors.PrimaryBlue,
+            }}
+          />
+
+                    <ProfileItem title={t('screen.requestDetails.bookTitle')} value={data.bookTitle} />
+                    <ProfileItem title={t('screen.requestDetails.bookAuthor')} value={data.bookAuthor} />
+                </View>
+
+                {/* Selected Book for Exchange Section */}
+                <View style={styles.sectionContainer}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={[styles.text, styles.sectionHeaderText]}>{t('screen.requestDetails.bookForExchange')}</Text>
+                        <Pressable onPress={handleSeeBookshelf}>
+                            <Text style={{fontFamily: Typeface.font, color: colors.PrimaryBlue, fontWeight: "500"}}>{t('screen.requestDetails.seeBookshelf')}</Text>
+                        </Pressable>
+                    </View>
+
+                    <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue}} />
                     {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json; charset=UTF-8",
-                        Authorization: `Bearer ${context.token}`,
-                      },
-                      body: JSON.stringify({
-                        chat_member_2: route.params.requester,
-                      }),
+                        chosen ? 
+                            BookPreview(requestedBook, requestingUser) : 
+                            <Text style={{color: "rgba(31, 31, 30, 0.5)"}}>{t('screen.requestDetails.noBook')}</Text>
                     }
-                  ).then((res) => {
-                  if (res.status != 201) {
-                    navigation.navigate("Error");
-                  } else {
-                    hideAcceptDialog();
-                    navigation.navigate("Matched");
-                  }
-                });
-              }
-            });
-          }}
-        />
-      </Dialog.Container>
-    </View>
-  );
-
-  const RejectDialog = () => (
-    <View>
-      <MyButton title="Reject" onPress={showRejectDialog} />
-      <Dialog.Container visible={visibleReject}>
-        <Dialog.Title>Reject Exchange Request</Dialog.Title>
-        <Dialog.Description>
-          Do you want to reject this request? You cannot undo this action.
-        </Dialog.Description>
-        <Dialog.Button label="Cancel" onPress={hideRejectDialog} />
-        <Dialog.Button
-          label="Confirm"
-          onPress={() => {
-            fetch(
-              `https://cs350-bookswap-backend-production.up.railway.app/book_request/reject_book/${route.params.id}/`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                  Authorization: `Bearer ${context.token}`,
-                },
-              }
-            ).then((res) => {
-              if (res.status != 200) {
-                navigation.navigate("Error");
-              } else {
-                hideRejectDialog();
-                navigation.navigate("Received");
-              }
-            });
-          }}
-        />
-      </Dialog.Container>
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.topContainer}>
-        {/* Title */}
-        <View style={styles.pageTitleContainer}>
-          <Text
-            style={[
-              styles.pageHeader,
-              {
-                color: colors.Black,
-                fontSize: 18,
-                fontWeight: "400",
-              },
-            ]}
-          >
-            Incoming request from
-          </Text>
-          <Text style={styles.pageHeader}>{requesterName}</Text>
-        </View>
-
-        {/* Requested Book Details Section */}
-        <View style={styles.sectionContainer}>
-          <View style={styles.sectionHeader}>
-            <Text style={[styles.text, styles.sectionHeaderText]}>
-              Requested Book
-            </Text>
-          </View>
-
-          <View
-            style={{
-              width: "100%",
-              height: 0.3,
-              backgroundColor: colors.PrimaryBlue,
-            }}
-          />
-
-          <ProfileItem title="Title" value={data.bookTitle} />
-          <ProfileItem title="Author" value={data.bookAuthor} />
-        </View>
-
-        {/* Selected Book for Exchange Section */}
-        <View style={styles.sectionContainer}>
-          <View style={styles.sectionHeader}>
-            <Text style={[styles.text, styles.sectionHeaderText]}>
-              Book for Exchange
-            </Text>
-            <Pressable onPress={handleSeeBookshelf}>
-              <Text
-                style={{
-                  fontFamily: Typeface.font,
-                  color: colors.PrimaryBlue,
-                  fontWeight: "500",
-                }}
-              >
-                See Bookshelf
-              </Text>
-            </Pressable>
-          </View>
-
-          <View
-            style={{
-              width: "100%",
-              height: 0.3,
-              backgroundColor: colors.PrimaryBlue,
-            }}
-          />
-          <Text style={{ color: "rgba(31, 31, 30, 0.5)" }}>
-            Look at the Requester's bookshelf and check if there is something
-            for you.
-          </Text>
-        </View>
+                </View>
 
         {/* Buttons */}
         <View style={styles.buttonContainer}>

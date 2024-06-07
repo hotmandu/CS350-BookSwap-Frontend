@@ -31,9 +31,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     color: colors.PrimaryBlue,
   },
-  text: {
-    fontFamily: "Geist",
-  },
 });
 
 function BookshelfDetailStack() {

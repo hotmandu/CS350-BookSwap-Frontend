@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Text, SafeAreaView, StyleSheet, View, Animated, Image, Modal } from 'react-native';
+import { useTranslation } from "react-i18next";
 
 import {Theme, Typeface} from "../utils/Theme";
 import GenreItem from '../components/GenreItem';
@@ -10,6 +11,8 @@ import ConfirmBox from './ConfirmBox';
 const { colors } = Theme;
 
 export default function SendRequest() {
+    const { t } = useTranslation();
+
     const DATA = {
         cover: "none",
         title: "Book Title",
@@ -75,17 +78,17 @@ export default function SendRequest() {
 
                 {/* Book Details */}
                 <View style={styles.detailsContainer}>
-                  <TableData title="Publisher" content={DATA.publisher} />
-                  <TableData title="Year" content={DATA.year} />
-                  <TableData title="ISBN" content={DATA.ISBN} />
-                  <TableData title="Owned By" content={DATA.owner} />
+                  <TableData title={t('screen.bookDetails.publisher')} content={DATA.publisher} />
+                  <TableData title={t('screen.bookDetails.year')} content={DATA.year} />
+                  <TableData title={t('screen.bookDetails.isbn')} content={DATA.ISBN} />
+                  <TableData title={t('screen.bookDetails.ownedby')} content={DATA.owner} />
                 </View>
 
                 <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue }} />
 
                 {/* Owner's Review */}
                 <View style={styles.synopsisContainer}>
-                    <Text style={[styles.text, styles.sectionTitle]}>Owner's Synopsis</Text>
+                    <Text style={[styles.text, styles.sectionTitle]}>{t('screen.bookDetails.review')}</Text>
                     <Text style={[styles.text, styles.reviewText]}>{DATA.review}</Text>
                 </View>
 
@@ -93,7 +96,7 @@ export default function SendRequest() {
                 <View style={styles.footerContainer}>
                     {/* <View style={{ width: '100%', height: 0.3, backgroundColor: colors.PrimaryBlue }} /> */}
                     {/* Button */}
-                    <MyButton title="Send Request" onPress={toggleModal} />
+                    <MyButton title={t('screen.bookDetails.btnSendRequest')} onPress={toggleModal} />
                 </View>
 
                 {/* Modal */}
@@ -105,7 +108,7 @@ export default function SendRequest() {
                 >
                   <View style={styles.modalOverlay}>
                     <ConfirmBox 
-                      confirmMsg={"Send exchange request for " + DATA.title + "?"} 
+                      confirmMsg={t('screen.bookDetails.reqConfirmMsg')} 
                       toggleModal={toggleModal}
                       nextPage="../screens/Test.js"
                     />

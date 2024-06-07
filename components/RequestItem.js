@@ -22,12 +22,13 @@ const { colors } = Theme;
 export default function RequestItem(props) {
 
     const [ownerName, setOwnerName] = useState("Loading")
+    const [email,setEmail] = useState("Loading")
     const context = useContext(AuthContext)
 
     const { id, image, requester, bookTitle, bookAuthor, owner, status, navigation} = props;
     //Should be changed according to how to fetch the last chat
     if (status == "matched") {
-        lastText = "Click to open chat"
+        lastText = email
     }
 
     const handleClick = () => {
@@ -84,6 +85,7 @@ export default function RequestItem(props) {
           })
           .then((data) => {
             setOwnerName(`${data.first_name} ${data.last_name}`)
+            setEmail(data.email)
           });
       }
 

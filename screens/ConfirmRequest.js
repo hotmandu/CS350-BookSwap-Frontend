@@ -3,10 +3,12 @@ import { Text, SafeAreaView, StyleSheet, View, Image, TouchableOpacity } from 'r
 import MyButton from '../components/MyButton';
 
 import Theme from "../utils/Theme";
+import { useTranslation } from 'react-i18next';
 // Import all colors defined in defaultColors.js
 const { colors, Typeface } = Theme;
 
 export default function ConfirmRequest({ navigation }) {
+  const { t } = useTranslation();
     // TODO: Fetch book data from previous screen
     const book = {
         title: "Harry Potter and the Philosopher's Stone"
@@ -23,19 +25,19 @@ export default function ConfirmRequest({ navigation }) {
 
                 {/* Title */}
                 <View style={styles.textContainer}>
-                <Text style={[styles.text, styles.bookswap]}>Request Sent!</Text>
-                <Text style={[styles.text, styles.welcomeTo]}>An exchange request for {book.title}. You can check your request status on Request tab.</Text>
+                <Text style={[styles.text, styles.bookswap]}>{t('screen.confirmRequest.title')}</Text>
+                <Text style={[styles.text, styles.welcomeTo]}>{t('screen.confirmRequest.msg', {title: book.title})}</Text>
                 </View>
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
                 <MyButton 
-                    title="Back to Home"
+                    title={t('screen.confirmRequest.back')}
                     variant="dark2"
                     onPress={() => navigation.navigate("TabPages", {screen: "Discover_page"})}
                 />
                 <MyButton 
-                    title="Check Request" 
+                    title={t('screen.confirmRequest.checkReq')}
                     variant="dark" 
                     onPress={() => navigation.navigate("SentReqs", {screen: "SentReqs"})}
                 />
@@ -66,7 +68,6 @@ const styles = StyleSheet.create({
       gap: 15,
     },
     text: {
-      fontFamily: "Geist",
       color: colors.White
     },
     welcomeTo: {

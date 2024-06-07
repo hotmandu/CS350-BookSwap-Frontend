@@ -7,9 +7,11 @@ import { TimeStamp, SelfPOV, OppPOV } from "../components/ChatComponents";
 
 import { Theme, Typeface } from "../utils/Theme";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 const { colors } = Theme;
 
 export default function Chat({ msgData, bookData }) {
+    const { t } = useTranslation();
     const [msg, setMsg] = useState('');
     const [messages, setMessages] = useState(msgData); // Assuming msgData is your initial array of messages
     const scrollViewRef = useRef();
@@ -47,13 +49,13 @@ export default function Chat({ msgData, bookData }) {
     };
 
     // Format time for time stamps
-    const formatTime = (timestamp) => {
+    const formatTime = useCallback((timestamp) => {
         if (moment(timestamp).isSame(moment(), 'day')) { // if the date is today
-            return "Today"
+            return t('screen.chat.today');
         } else {
             return moment(timestamp).format("ddd, D MMM YYYY");
         }
-    };
+    }, [t]);
 
     // Render messages in the chat area
     function renderMsg(messages) {
@@ -128,7 +130,7 @@ export default function Chat({ msgData, bookData }) {
                             onSubmitEditing={handleSend}
                             returnKeyType="send"
                             value={msg}
-                            placeholder="Message..."
+                            placeholder={t('screen.chat.msg')}
                             placeholderTextColor="rgba(31, 30, 30, 0.4)"
                         />
                         <TouchableOpacity onPress={handleSend}>
