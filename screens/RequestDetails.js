@@ -161,7 +161,7 @@ export default function RequestDetails({ route, navigation }) {
                         Incoming request from
                     </Text>
                     <Text style={styles.pageHeader}>
-                        {data.owner}
+                        {requesterName}
                     </Text>
                     
                 </View>

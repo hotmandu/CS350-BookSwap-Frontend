@@ -1,33 +1,31 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Text, SafeAreaView, StyleSheet, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import { TimeStamp, SelfPOV, OppPOV } from "../components/ChatComponents";
-
-
 import { Theme, Typeface } from "../utils/Theme";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+
 const { colors } = Theme;
 
-export default function Chat({ msgData, bookData }) {
+export default function Chat({ route, navigation }) {
+    console.log(route.params)
+    const msgData = [];
     const { t } = useTranslation();
     const [msg, setMsg] = useState('');
     const [messages, setMessages] = useState(msgData); // Assuming msgData is your initial array of messages
+    const [keyboardVisible, setKeyboardVisible] = useState(false);
     const scrollViewRef = useRef();
     
     // Function to handle sending message
-    // NOTE: Edit this function to make messages in sync with the database
     const handleSend = () => {
         if (msg.trim()) {
-            //NOTE: Edit this structure to match the structure of the database
             const newMessage = {
                 text: msg,
                 time: new Date().getTime(), // Generate a timestamp for the message
                 user: { id: 1 } // Mock user ID for the sender
             };
 
-            // Simulate sending the message and receiving a successful response
             sendMessageToDatabase(newMessage)
                 .then(() => {
                     setMessages(prevMessages => [...prevMessages, newMessage]); // Add new message to state
@@ -41,16 +39,14 @@ export default function Chat({ msgData, bookData }) {
     };
 
     // Mock function to simulate sending a message to a database
-    // NOTE: Edit this function to integrate with backend
     const sendMessageToDatabase = async (message) => {
-        // Placeholder for backend integration
         console.log("Message to be sent to the database:", message);
         return new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async database operation
     };
 
     // Format time for time stamps
     const formatTime = useCallback((timestamp) => {
-        if (moment(timestamp).isSame(moment(), 'day')) { // if the date is today
+        if (moment(timestamp).isSame(moment(), 'day')) {
             return t('screen.chat.today');
         } else {
             return moment(timestamp).format("ddd, D MMM YYYY");
@@ -73,7 +69,7 @@ export default function Chat({ msgData, bookData }) {
 
             if (msg.user.id === 1) {
                 components.push(<SelfPOV key={msg.time + "-self"} msg={msg.text} />);
-            }  else {
+            } else {
                 components.push(<OppPOV key={msg.time + "-opp"} msg={msg.text} />);
             }
         });
@@ -83,37 +79,49 @@ export default function Chat({ msgData, bookData }) {
 
     useEffect(() => {
         scrollViewRef.current?.scrollToEnd({ animated: true });
-    }, [messages]); // Update to re-run when messages update
+    }, [messages]);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+            setKeyboardVisible(true);
+        });
+        const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+            setKeyboardVisible(false);
+        });
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
 
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : null}
             keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         >
             <View style={styles.container}>
                 <SafeAreaView style={styles.topContainer}>
                     {/* Book and Owner Info */}
                     <View style={styles.pageHeader}>
-                        <Image 
-                            source={require("../assets/no-book.png")}
-                            style={styles.image}
-                        />
+                    <Image source={{uri: `https://cs350-bookswap-backend-production.up.railway.app${route.params.image}`}} style={[styles.image]}/>
                         <View style={styles.bookInfoContainer}> 
-                            <Text style={[styles.text, styles.ownerText]}>{ bookData.owner }</Text>
-                            <Text style={[styles.text, styles.titleText]}>{ bookData.title }</Text>
-                            <Text style={[styles.text, styles.authorText]}>{ bookData.author }</Text>
+                            <Text style={[styles.text, styles.ownerText]}>{ route.params.owner }</Text>
+                            <Text style={[styles.text, styles.titleText]}>{route.params.bookTitle}</Text>
+                            <Text style={[styles.text, styles.authorText]}>{route.params.bookAuthor}</Text>
                         </View>
                     </View>
 
                     {/* Chat Area */}
                     <ScrollView 
                         ref={scrollViewRef}
-                        style={styles.chatArea} 
+                        style={styles.chatArea}
                         contentContainerStyle={{
-                            flexGrow: 1,
-                            justifyContent: "flex-end",
+                            paddingBottom: keyboardVisible ? 100 : 10,
+                            paddingTop: 10,
                         }}
+                        onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
                     >
                         <View style={styles.msgContainer}>
                             {renderMsg(messages)}
@@ -122,7 +130,7 @@ export default function Chat({ msgData, bookData }) {
                 </SafeAreaView>
 
                 {/* Chat Entry */}
-                <View style={[styles.msgInput, styles.layerShadowUp]}> 
+                <View style={[styles.msgInput, styles.layerShadowUp, { paddingBottom: keyboardVisible ? 20 : 10 }]}> 
                     <View style={styles.componentContainer}>
                         <TextInput
                             style={styles.msgBox}
@@ -142,7 +150,6 @@ export default function Chat({ msgData, bookData }) {
         </KeyboardAvoidingView>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -169,8 +176,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         shadowColor: "rgba(0, 0, 0, 0.15)",
         shadowOffset: {
-        width: 0,
-        height: 1
+            width: 0,
+            height: 1,
         },
         shadowRadius: 10,
         elevation: 10,
@@ -196,19 +203,15 @@ const styles = StyleSheet.create({
         fontWeight: "300",
     },
     msgInput: {
-        position: "absolute",
-        bottom: 0,
-        width: "100%",
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-        paddingBottom: "5%",
         backgroundColor: colors.White,
+        paddingHorizontal: 32,
+        paddingTop: 15,
     },
     componentContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingTop: 15,
-        paddingHorizontal: 32,
         alignItems: "center"
     },
     msgBox: {
@@ -223,21 +226,17 @@ const styles = StyleSheet.create({
         shadowColor: "rgba(0, 0, 0, 0.15)",
         shadowOffset: {
             width: 0,
-            height: 1
+            height: 1,
         },
         shadowRadius: 10,
         elevation: 10,
         shadowOpacity: 10,
     },
     chatArea: {
-        marginTop: 15,
-        marginBottom: 50,
         flex: 1,
     },
     msgContainer: {
         flexDirection: "column",
-        alignItems: "center",
         gap: 10,
     }
-})
-
+});

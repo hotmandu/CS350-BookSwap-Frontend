@@ -12,6 +12,7 @@ import Bookshelf from '../screens/BookShelf';
 import Test from '../screens/Test'; //--PLACEHOLDER
 import CancelRequest from '../screens/CancelRequest';
 import Discover from '../screens/Discover';
+import Chat from '../screens/Chat';
 
 const screens = {
     Received: {
@@ -63,6 +64,13 @@ const screens = {
             gestureEnabled: false,
         }
     },
+    Chat: {
+        screen: Chat,
+        navigationOptions: {
+            headerShown: true,
+            gestureEnabled: false,
+        }
+    },
     Test: {
         screen: Test,
         navigationOptions: {
@@ -82,6 +90,7 @@ function RequestStack () {
                 <Stack.Screen name="Sent Request" component={CancelRequest} options={screens.CancelRequest.navigationOptions}/>
                 <Stack.Screen name="Bookshelf" component={Bookshelf} options={screens.Bookshelf.navigationOptions}/>
                 <Stack.Screen name="checkBooks" component={Discover} options={screens.Discover.navigationOptions}/>
+                <Stack.Screen name="Chat" component={Chat} options={screens.Test.navigationOptions}/>
                 {/* --PLACEHOLDER-- */}
                 <Stack.Screen name="Test" component={Test} options={screens.Test.navigationOptions}/>
             </Stack.Navigator>

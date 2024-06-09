@@ -19,7 +19,7 @@ export default function Profile({ navigation }) {
     const { t } = useTranslation();
 
     const getUserAPI = (token) => {
-        fetch("https://cs350-bookswap-backend-production.up.railway.app/account_api/user/", {
+        fetch(`https://cs350-bookswap-backend-production.up.railway.app/account_api/user/`, {
           method: "GET",
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -40,11 +40,7 @@ export default function Profile({ navigation }) {
       
 
     useEffect(()=>{
-        if(context.user){
-            setUser(context.user)
-        }else{
-            getUserAPI(context.token)
-        }
+        getUserAPI(context.token)
     },[])
 
     return (

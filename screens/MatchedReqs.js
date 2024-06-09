@@ -63,7 +63,7 @@ export default function MatchedReqs({ navigation }) {
 
                 <FlatList
                     data={matchedReqsData}
-                    renderItem={({ item }) => <RequestItem key={item.id} requester={item.requester} id={item.id} image={item.image} bookTitle={item.title} bookAuthor={item.author} owner={item.current_owner} status="matched"/>}
+                    renderItem={({ item }) => <RequestItem key={item.id} requester={item.requester} id={item.id} image={item.image} bookTitle={item.title} bookAuthor={item.author} owner={item.current_owner} navigation={navigation} status="matched"/>}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.itemContainer}
                 />

@@ -18,7 +18,7 @@ import { Typeface, Theme } from "../utils/Theme";
 import { AuthContext } from "../context/AuthContext";
 // Import all colors defined in defaultColors.js
 const { colors } = Theme;
-
+import Chat from "../screens/Chat";
 export default function RequestItem(props) {
 
     const [ownerName, setOwnerName] = useState("Loading")
@@ -32,6 +32,7 @@ export default function RequestItem(props) {
     }
 
     const handleClick = () => {
+        
         let data = {
             id: id,
             requester: requester,
@@ -41,7 +42,7 @@ export default function RequestItem(props) {
             status: status,
             image: image
         };
-        
+                
         if (status === "sent") {
             navigation.navigate("RequestStack", {
                 screen: "Sent Request",
@@ -60,6 +61,11 @@ export default function RequestItem(props) {
             };
             navigation.navigate("RequestStack", {
                 screen: "Received Request",
+                params: data,
+              });
+        } else if(status == "matched"){
+            navigation.navigate("RequestStack", {
+                screen: "Chat",
                 params: data,
               });
         }
